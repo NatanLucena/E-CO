@@ -27,7 +27,10 @@ public class Deputado extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ") - Interesses: "
-				+ super.getInteresses() + " - " + this.dataDeInicio + " - " + this.leisAprovadas + " Leis";
-	}
+		if (super.getInteresses().equals("")) {
+			return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + " - "
+					+ this.dataDeInicio + " - " + this.leisAprovadas + " Leis";
+		} else
+			return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ") - Interesses: "
+					+ super.getInteresses() + " - " + this.dataDeInicio + " - " + this.leisAprovadas + " Leis"; }
 }

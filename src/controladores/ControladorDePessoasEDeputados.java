@@ -25,4 +25,17 @@ public class ControladorDePessoasEDeputados {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
 		}
 	}
+
+	public String exibirPessoa(String dni) {
+		if (dni == null || dni.equals(""))
+			throw new IllegalArgumentException("Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
+		else if (!ValidaDni.validaDni(dni))
+			throw new IllegalArgumentException("Erro ao exibir pessoa: dni invalido");
+		else {
+			if (this.pessoas.containsKey(dni))
+				return this.pessoas.get(dni).toString();
+			else
+				throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
+			} }
+
 }

@@ -46,11 +46,14 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		if (this.partido.equals("")) {
+		if (this.partido.equals("") && this.interesses.equals(""))
+			return this.nome + " - " + this.dni + " (" + this.estado + ")";
+		else if (this.interesses.equals(""))
+			return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.estado;			
+		else if (this.partido.equals("")) 
 			return this.nome + " - " + this.dni + " (" + this.estado + ") - Interesses: " + this.interesses;
-		} else {
+		else 
 			return this.nome + " - " + this.dni + " (" + this.estado + ") - " + this.partido + " - Interesses: "
-					+ this.interesses;
-		}
+					+ this.interesses; 
+		} 
 	}
-}
