@@ -16,13 +16,27 @@ class ControladorDePartidosTest {
 	}
 
 	@Test
-	void testControladorDePartidos() {
-		fail("Not yet implemented");
+	void testCadastraPartidoVazio() {
+		try {
+			controlador.cadastraPartido("");
+		}catch (IllegalArgumentException i) {
+			
+		}
 	}
-
+	
+	@Test
+	void testCadastraPartidoNulo() {
+		try {
+			controlador.cadastraPartido(null);
+		}catch (NullPointerException n) {
+			
+		}
+	}
+	
 	@Test
 	void testCadastraPartido() {
-		fail("Not yet implemented");
+		controlador.cadastraPartido("ABC");
+		assertTrue(controlador.verificaPartido("ABC"));
 	}
 
 	@Test

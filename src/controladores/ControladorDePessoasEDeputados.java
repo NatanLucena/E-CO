@@ -23,6 +23,26 @@ public class ControladorDePessoasEDeputados {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni invalido");
 		} else if (estado == null || estado.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		} else if (pessoas.containsKey(dni)){
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
+		} else {
+			this.pessoas.put(dni, new Pessoa(nome, dni, estado, interesses));
+		}
+	}
+	
+	public void cadastrarPessoaComPartido(String nome, String dni, String estado, String interesses, String partido) {
+		if (nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+		} else if (dni == null || dni.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+		} else if (!ValidaDni.validaDni(dni)) {
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni invalido");
+		} else if (estado == null || estado.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		} else if (pessoas.containsKey(dni)){
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
+		} else {
+			this.pessoas.put(dni, new Pessoa(nome, dni, estado, interesses, partido));
 		}
 	}
 
@@ -36,6 +56,6 @@ public class ControladorDePessoasEDeputados {
 				return this.pessoas.get(dni).toString();
 			else
 				throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
-			} }
-
+			}
+		}
 }
