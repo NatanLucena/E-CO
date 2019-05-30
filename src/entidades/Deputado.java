@@ -32,5 +32,6 @@ public class Deputado extends Pessoa {
 					+ this.dataDeInicio + " - " + this.leisAprovadas + " Leis";
 		} else
 			return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ") - Interesses: "
-					+ super.getInteresses() + " - " + this.dataDeInicio + " - " + this.leisAprovadas + " Leis"; }
+					+ super.getInteresses() + " - " + this.dataDeInicio + " - " + this.leisAprovadas + " Leis";
+	}
 }
