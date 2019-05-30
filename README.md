@@ -2,5 +2,8 @@
 
 # Trabalho final de lp2
 
-##Componentes:
+## Componentes:
 * Natan
+* Cayo
+* Lucas
+* Jackson
