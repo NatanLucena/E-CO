@@ -3,8 +3,9 @@ package metodosAuxiliares;
 public class ValidaDni {
 
 	public static boolean validaDni(String dni) {
-		if (dni.trim().length() != 11) {
-			return false;
+		dni = dni.trim();
+		if (dni.length() != 11) {
+		return false;
 		}
 
 		String[] dniFormatado = dni.split("-");

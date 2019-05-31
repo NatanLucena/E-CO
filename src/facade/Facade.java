@@ -26,6 +26,10 @@ public class Facade {
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
 		this.controladorDePessoasEDeputados.cadastrarPessoaComPartido(nome, dni, estado, interesses, partido);
 	}
+	
+	public void cadastrarDeputado(String DNI, String dataDeInicio) {
+		this.controladorDePessoasEDeputados.cadastrarDeputado(DNI, dataDeInicio);
+	}
 
 	public void cadastrarPartido(String partido) {
 		this.controladorDePartidos.cadastraPartido(partido);
@@ -35,4 +39,18 @@ public class Facade {
 		return this.controladorDePartidos.exibirBase();
 	}
 
+	public void limparSistema() {
+		
+	}
+	
+	
+	
+	public void carregarSistema() {
+		
+	}
+	
+	public void salvarSistema() {
+		
+	}
+	
 }
