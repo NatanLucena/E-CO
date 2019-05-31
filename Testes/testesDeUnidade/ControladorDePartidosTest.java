@@ -8,53 +8,26 @@ import org.junit.jupiter.api.Test;
 import controladores.ControladorDePartidos;
 
 class ControladorDePartidosTest {
-	ControladorDePartidos controlador;
-	
-	@BeforeEach
-	void setUp() {
-		controlador = new ControladorDePartidos();
-	}
+	private ControladorDePartidos controlador;
 
-	@Test
-	void testCadastraPartidoVazio() {
-		try {
-			controlador.cadastraPartido("");
-		}catch (IllegalArgumentException i) {
-			
-		}
-	}
-	
-	@Test
-	void testCadastraPartidoNulo() {
-		try {
-			controlador.cadastraPartido(null);
-		}catch (NullPointerException n) {
-			
-		}
+	@BeforeEach
+	public void preparaControle() {
+		this.controlador = new ControladorDePartidos();
 	}
 	
 	@Test
 	void testCadastraPartido() {
-		controlador.cadastraPartido("ABC");
-		assertTrue(controlador.verificaPartido("ABC"));
-	}
-
-	@Test
-	void testExibirBaseVazio() {
-		assertEquals(controlador.exibirBase(), "");
-	}
-	
-	@Test
-	void testExibirBaseUmPartido() {
-		controlador.cadastraPartido("ABC");
-		assertEquals(controlador.exibirBase(), "ABC");
+		//cadastrando partido valido
+		controlador.cadastraPartido("AAAAA");
+		assertTrue(controlador.containsPartido("AAAAA"));
+		//cadastrando partido nulo
+		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraPartido(null));
+		//cadastrando partido vazio
+		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraPartido(""));
 	}
 	
 	@Test
-	void testExibirBaseMultiplosPartidos() {
-		controlador.cadastraPartido("XYZ");
-		controlador.cadastraPartido("ABC");
-		assertEquals(controlador.exibirBase(), "ABC,XYZ");
+	void testExibirBase() {
+		
 	}
-
 }

@@ -14,9 +14,7 @@ public class ControladorDePartidos {
 	}
 
 	public void cadastraPartido(String partido) {
-		if (partido == null) {
-			throw new NullPointerException("Erro ao cadastrar partido: partido nao pode ser vazio ou nulo");
-		} else if (partido.equals("")) {
+		if (partido == null || partido.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar partido: partido nao pode ser vazio ou nulo");
 		} else if (partidos.containsKey(partido)) {
 			throw new IllegalArgumentException("Erro ao cadastrar partido: partido ja cadastrado");
@@ -34,4 +32,7 @@ public class ControladorDePartidos {
 		return partidos.containsKey(partido);
 	}
 
+	public boolean containsPartido(String partido) {
+		return partidos.containsKey(partido);
+	}
 }
