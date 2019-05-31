@@ -12,7 +12,7 @@ public class Facade {
 		this.controladorDePartidos = new ControladorDePartidos();
 		this.controladorDePessoasEDeputados = new ControladorDePessoasEDeputados();
 	}
-
+	
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
 		this.controladorDePessoasEDeputados.cadastrarPessoa(nome, dni, estado, interesses);
 	}
