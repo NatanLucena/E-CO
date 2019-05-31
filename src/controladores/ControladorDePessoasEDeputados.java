@@ -20,10 +20,10 @@ public class ControladorDePessoasEDeputados {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		} else if (dni == null || dni.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-		} else if (!ValidaDni.validaDni(dni)) {
-			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni invalido");
 		} else if (estado == null || estado.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		} else if (!ValidaDni.validaDni(dni)) {
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni invalido");
 		} else if (pessoas.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
 		} else {
@@ -36,10 +36,10 @@ public class ControladorDePessoasEDeputados {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		} else if (dni == null || dni.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-		} else if (!ValidaDni.validaDni(dni)) {
-			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni invalido");
 		} else if (estado == null || estado.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		} else if (!ValidaDni.validaDni(dni)) {
+			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni invalido");
 		} else if (pessoas.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
 		} else {
@@ -68,13 +68,13 @@ public class ControladorDePessoasEDeputados {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: dni invalido");
 		}
 		if (dataDeInicio == null || dataDeInicio.equals("")) {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: data de inicio nao pode ser vazia ou nula");
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
 		}
 		if (!ValidaDataDeInicio.validaDataDeInicio(dataDeInicio)) {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: data de inicio invalida");
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
 		}
 		if (!pessoas.containsKey(DNI)) {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: dni ja cadastrado");
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
 		}
 
 		else {

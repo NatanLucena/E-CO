@@ -68,7 +68,7 @@ public class Pessoa {
 	}
 
 	public boolean isDeputado() {
-		return funcao == null;
+		return funcao != null;
 	}
 
 	@Override
