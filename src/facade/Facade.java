@@ -18,9 +18,7 @@ public class Facade {
 	}
 
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
-		if (this.controladorDePartidos.verificaPartido(partido)) {
-			this.controladorDePessoasEDeputados.cadastrarPessoaComPartido(nome, dni, estado, interesses, partido);
-		}
+		this.controladorDePessoasEDeputados.cadastrarPessoaComPartido(nome, dni, estado, interesses, partido);
 	}
 
 	public void cadastrarPartido(String partido) {

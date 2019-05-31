@@ -3,16 +3,20 @@ package controladores;
 import java.util.HashMap;
 import java.util.Map;
 
+import entidades.Deputado;
 import entidades.Pessoa;
+import metodosAuxiliares.ValidaDataDeInicio;
 import metodosAuxiliares.ValidaDni;
 
 public class ControladorDePessoasEDeputados {
 
 	private Map<String, Pessoa> pessoas;
+	private Map<String, Deputado> deputados;
 
 	public ControladorDePessoasEDeputados() {
 		this.pessoas = new HashMap<>();
-	}
+		this.deputados = new HashMap<>();	
+		}
 
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
 		if (nome == null || nome.equals("")) {
@@ -58,4 +62,42 @@ public class ControladorDePessoasEDeputados {
 				throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
 		}
 	}
+	
+	public void cadastrarDeputado(String DNI, String dataDeInicio) {
+		if (DNI == null || DNI.equals("")) {
+		throw new IllegalArgumentException("Erro ao cadastrar deputado: dni nao pode ser vazio ou nulo");
+		}
+		
+		if (!ValidaDni.validaDni(DNI)) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: dni invalido");
+		}
+		
+		if (dataDeInicio == null || dataDeInicio.equals("")) {
+	    	throw new IllegalArgumentException("Erro ao cadastrar deputado: data de inicio nao pode ser vazia ou nula");
+	    }
+		
+		if (!ValidaDataDeInicio.validaDataDeInicio(dataDeInicio)) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data de inicio invalida");
+		}
+	
+		if (!pessoas.containsKey(DNI)){
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: dni ja cadastrado");
+		}
+		
+		else {
+			Pessoa pessoa = pessoas.get(DNI);
+
+			if (pessoa.getPartido().equals("")) {
+				throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
+			}
+			
+			else if (deputados.containsKey(DNI)) {
+				throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
+			}
+			else {
+				pessoas.remove(DNI);
+				this.pessoas.put(DNI, new Deputado(pessoa.getNome(), DNI, pessoa.getEstado(), pessoa.getInteresses(), pessoa.getPartido(), dataDeInicio));
+			}	
+		}
+	}		
 }

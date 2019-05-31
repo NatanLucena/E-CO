@@ -1,13 +1,13 @@
 package entidades;
 
-import java.time.LocalDate;
+
 
 public class Deputado extends Pessoa {
 
-	private LocalDate dataDeInicio;
+	private String dataDeInicio;
 	private int leisAprovadas;
 
-	public Deputado(String nome, String dni, String estado, String interesses, String partido, LocalDate data) {
+	public Deputado(String nome, String dni, String estado, String interesses, String partido, String data) {
 		super(nome, dni, estado, interesses, partido);
 		this.dataDeInicio = data;
 		this.leisAprovadas = 0;
@@ -21,7 +21,7 @@ public class Deputado extends Pessoa {
 		this.leisAprovadas = leisAprovadas;
 	}
 
-	public LocalDate getDataDeInicio() {
+	public String getDataDeInicio() {
 		return dataDeInicio;
 	}
 
