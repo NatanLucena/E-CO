@@ -1,5 +1,0 @@
-// rysdyrdyr
-
-public class dsafasd {
-
-}
