@@ -8,6 +8,12 @@ public class Facade {
 	ControladorDePartidos controladorDePartidos;
 	ControladorDePessoasEDeputados controladorDePessoasEDeputados;
 
+	public static void main(String[] args) {
+		args = new String[] { "facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
+				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt" };
+		EasyAccept.main(args);
+	}
+
 	public Facade() {
 		this.controladorDePartidos = new ControladorDePartidos();
 		this.controladorDePessoasEDeputados = new ControladorDePessoasEDeputados();
@@ -29,9 +35,4 @@ public class Facade {
 		return this.controladorDePartidos.exibirBase();
 	}
 
-	public static void main(String[] args) {
-		args = new String[] { "facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
-				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt" };
-		EasyAccept.main(args);
-	}
 }

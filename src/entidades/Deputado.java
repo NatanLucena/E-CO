@@ -1,14 +1,11 @@
 package entidades;
 
-
-
-public class Deputado extends Pessoa {
+public class Deputado implements Funcao {
 
 	private String dataDeInicio;
 	private int leisAprovadas;
 
-	public Deputado(String nome, String dni, String estado, String interesses, String partido, String data) {
-		super(nome, dni, estado, interesses, partido);
+	public Deputado(String data) {
 		this.dataDeInicio = data;
 		this.leisAprovadas = 0;
 	}
@@ -27,11 +24,6 @@ public class Deputado extends Pessoa {
 
 	@Override
 	public String toString() {
-		if (super.getInteresses().equals("")) {
-			return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + " - "
-					+ this.dataDeInicio + " - " + this.leisAprovadas + " Leis";
-		} else
-			return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ") - Interesses: "
-					+ super.getInteresses() + " - " + this.dataDeInicio + " - " + this.leisAprovadas + " Leis";
+		return "POL: ";
 	}
 }
