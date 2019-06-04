@@ -43,6 +43,9 @@ public class Facade {
 		
 	}
 	
+	public String exibirPessoa(String dni) {
+		return this.controladorDePessoasEDeputados.exibirPessoa(dni);
+	}
 	
 	
 	public void carregarSistema() {

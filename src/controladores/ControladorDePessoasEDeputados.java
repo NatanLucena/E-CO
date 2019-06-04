@@ -73,20 +73,17 @@ public class ControladorDePessoasEDeputados {
 		if (dataDeInicio == null || dataDeInicio.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
 		}
+		Pessoa pessoa = pessoas.get(DNI);
 
-		else {
-			Pessoa pessoa = pessoas.get(DNI);
-
-			if (pessoa.getPartido().equals("")) {
-				throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
-			}
-			if (pessoa.isDeputado()) {
-				throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
-			}
-			if (!ValidaDataDeInicio.validaDataDeInicio(dataDeInicio)) {
-				throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
-			}
-			pessoa.setFuncao(dataDeInicio);
+		if (pessoa.getPartido().equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 		}
+		if (pessoa.isDeputado()) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
+		}
+		ValidaDataDeInicio validador = new ValidaDataDeInicio();
+
+		validador.validaDataDeInicio(dataDeInicio);
+		pessoa.setFuncao(dataDeInicio);
 	}
 }
