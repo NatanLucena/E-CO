@@ -67,14 +67,11 @@ public class ControladorDePessoasEDeputados {
 		if (!ValidaDni.validaDni(DNI)) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: dni invalido");
 		}
-		if (dataDeInicio == null || dataDeInicio.equals("")) {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
-		}
-		if (!ValidaDataDeInicio.validaDataDeInicio(dataDeInicio)) {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
-		}
 		if (!pessoas.containsKey(DNI)) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
+		}
+		if (dataDeInicio == null || dataDeInicio.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
 		}
 
 		else {
@@ -83,12 +80,13 @@ public class ControladorDePessoasEDeputados {
 			if (pessoa.getPartido().equals("")) {
 				throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 			}
-
-			else if (pessoa.isDeputado()) {
+			if (pessoa.isDeputado()) {
 				throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
-			} else {
-				pessoa.setFuncao(dataDeInicio);
 			}
+			if (!ValidaDataDeInicio.validaDataDeInicio(dataDeInicio)) {
+				throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
+			}
+			pessoa.setFuncao(dataDeInicio);
 		}
 	}
 }

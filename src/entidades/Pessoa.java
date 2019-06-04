@@ -56,11 +56,21 @@ public class Pessoa {
 	}
 
 	public String getInteresses() {
-		return interesses;
+		if (this.interesses == null|| this.interesses.equals("")) {
+			return "";
+		}
+		else {
+			return " - Interesses: " + this.interesses;
+		}
 	}
 
 	public String getPartido() {
-		return partido;
+		if (partido == null || partido.equals("")) {
+			return "";
+		}
+		else {
+			return " - " + this.partido;
+		}
 	}
 
 	public void setFuncao(String dataDeInicio) {
@@ -74,11 +84,11 @@ public class Pessoa {
 	@Override
 	public String toString() {
 		if (funcao == null) {
-			return this.nome + " - " + this.dni + " (" + this.estado + ") - " + this.partido + " - Interesses: "
-					+ this.interesses;
-		} else {
-			return "POL: " + this.nome + " - " + this.dni + " (" + this.estado + ") - " + this.partido
-					+ " - Interesses: " + this.interesses + " - " + funcao.getDataDeInicio() + " - "
+			return this.nome + " - " + this.dni + " (" + this.estado + ")" + this.getPartido() + this.getInteresses();
+		}
+		else {
+			return "POL: " + this.nome + " - " + this.dni + " (" + this.estado + ")" + this.getPartido()
+					+ this.getInteresses() + " - " + funcao.getDataDeInicio() + " - "
 					+ funcao.getLeisAprovadas() + " leis";
 		}
 	}
