@@ -10,8 +10,10 @@ import metodosAuxiliares.ValidaDni;
 public class ControladorDePessoasEDeputados {
 
 	private Map<String, Pessoa> pessoas;
-
+	ValidaDataDeInicio validador;
+	
 	public ControladorDePessoasEDeputados() {
+		validador = new ValidaDataDeInicio();
 		this.pessoas = new HashMap<>();
 	}
 
@@ -75,15 +77,17 @@ public class ControladorDePessoasEDeputados {
 		}
 		Pessoa pessoa = pessoas.get(DNI);
 
+		validador.verificaExistenciaDeLetras(dataDeInicio);
+		validador.validaDataDeInicio(dataDeInicio);
+		validador.verificaDataFutura(dataDeInicio);
+
 		if (pessoa.getPartido().equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 		}
 		if (pessoa.isDeputado()) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
 		}
-		ValidaDataDeInicio validador = new ValidaDataDeInicio();
 
-		validador.validaDataDeInicio(dataDeInicio);
 		pessoa.setFuncao(dataDeInicio);
 	}
 }

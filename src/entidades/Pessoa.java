@@ -89,7 +89,7 @@ public class Pessoa {
 		else {
 			return "POL: " + this.nome + " - " + this.dni + " (" + this.estado + ")" + this.getPartido()
 					+ this.getInteresses() + " - " + funcao.getDataDeInicio() + " - "
-					+ funcao.getLeisAprovadas() + " leis";
+					+ funcao.getLeisAprovadas() + " Leis";
 		}
 	}
 }
