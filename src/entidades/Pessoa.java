@@ -1,5 +1,7 @@
 package entidades;
 
+import metodosAuxiliares.ValidadorGeral;
+
 public class Pessoa {
 
 	private String nome;
@@ -7,20 +9,26 @@ public class Pessoa {
 	private String estado;
 	private String interesses;
 	private String partido;
+	private Exibir exibir;
+	private ValidadorGeral validadorGeral;
 
 	public Pessoa(String nome, String dni, String estado, String interesses) {
+		validadorGeral.validaNullOuVazio(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+
 		this.nome = nome;
 		this.dni = dni;
 		this.estado = estado;
 		this.interesses = interesses;
 		this.partido = "";
+		this.exibir = new PessoaComum();
+		this.validadorGeral = new ValidadorGeral();
 	}
 
 	public Pessoa(String nome, String dni, String estado, String interesses, String partido) {
-		this.nome = nome;
-		this.dni = dni;
-		this.estado = estado;
-		this.interesses = interesses;
+		this(nome, dni, estado, interesses);
+
 		this.partido = partido;
 	}
 
@@ -37,20 +45,30 @@ public class Pessoa {
 	}
 
 	public String getInteresses() {
-		return interesses;
+		if (this.interesses == null || this.interesses.equals("")) {
+			return "";
+		} else {
+			return " - Interesses: " + this.interesses;
+		}
 	}
 
 	public String getPartido() {
-		return partido;
+		if (partido == null || partido.equals("")) {
+			return "";
+		} else {
+			return " - " + this.partido;
+		}
 	}
 
-	@Override
-	public String toString() {
-		if (this.partido.equals("")) {
-			return this.nome + " - " + this.dni + " (" + this.estado + ") - Interesses: " + this.interesses;
-		} else {
-			return this.nome + " - " + this.dni + " (" + this.estado + ") - " + this.partido + " - Interesses: "
-					+ this.interesses;
-		}
+	public void assumeFuncao(String dataDeInicio) {
+		this.exibir = new Deputado(dataDeInicio);
+	}
+
+	public boolean isDeputado() {
+		return exibir.getClass().equals(Deputado.class);
+	}
+
+	public String exibir() {
+		return exibir.exibir(nome, dni, estado, this.getPartido(), this.getInteresses());
 	}
 }

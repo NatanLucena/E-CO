@@ -1,15 +1,12 @@
 package entidades;
 
-import java.time.LocalDate;
+public class Deputado implements Exibir {
 
-public class Deputado extends Pessoa {
-
-	private LocalDate dataDeInicio;
+	private String dataDeInicio;
 	private int leisAprovadas;
 
-	public Deputado(String nome, String dni, String estado, String interesses, String partido, LocalDate data) {
-		super(nome, dni, estado, interesses, partido);
-		this.dataDeInicio = data;
+	public Deputado(String dataDeInicio) {
+		this.dataDeInicio = dataDeInicio;
 		this.leisAprovadas = 0;
 	}
 
@@ -21,13 +18,17 @@ public class Deputado extends Pessoa {
 		this.leisAprovadas = leisAprovadas;
 	}
 
-	public LocalDate getDataDeInicio() {
-		return dataDeInicio;
+	public String getDataDeInicio() {
+		String dia = dataDeInicio.substring(0, 2);
+		String mes = dataDeInicio.substring(2, 4);
+		String ano = dataDeInicio.substring(4, 8);
+
+		return dia + "/" + mes + "/" + ano;
 	}
 
 	@Override
-	public String toString() {
-		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ") - Interesses: "
-				+ super.getInteresses() + " - " + this.dataDeInicio + " - " + this.leisAprovadas + " Leis";
+	public String exibir(String nome, String dni, String estado, String partido, String interesses) {
+		return "POL: " + nome + " - " + dni + " (" + estado + ")" + partido + interesses + " - "
+				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " leis";
 	}
 }
