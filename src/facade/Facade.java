@@ -2,11 +2,11 @@ package facade;
 
 import controladores.ControladorDePartidos;
 import controladores.ControladorDePessoasEDeputados;
+import controladores.ControladorGeral;
 import easyaccept.EasyAccept;
 
 public class Facade {
-	ControladorDePartidos controladorDePartidos;
-	ControladorDePessoasEDeputados controladorDePessoasEDeputados;
+	ControladorGeral controlador;
 
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
@@ -15,42 +15,43 @@ public class Facade {
 	}
 
 	public Facade() {
-		this.controladorDePartidos = new ControladorDePartidos();
-		this.controladorDePessoasEDeputados = new ControladorDePessoasEDeputados();
+		this.controlador = new ControladorGeral();
 	}
-	
+
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
-		this.controladorDePessoasEDeputados.cadastrarPessoa(nome, dni, estado, interesses);
+		this.controlador.cadastrarPessoa(nome, dni, estado, interesses);
 	}
 
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
-		this.controladorDePessoasEDeputados.cadastrarPessoaComPartido(nome, dni, estado, interesses, partido);
+		this.controlador.cadastrarPessoaComPartido(nome, dni, estado, interesses, partido);
 	}
-	
+
 	public void cadastrarDeputado(String DNI, String dataDeInicio) {
-		this.controladorDePessoasEDeputados.cadastrarDeputado(DNI, dataDeInicio);
+		this.controlador.cadastrarDeputado(DNI, dataDeInicio);
 	}
 
 	public void cadastrarPartido(String partido) {
-		this.controladorDePartidos.cadastraPartido(partido);
+		this.controlador.cadastrarPartido(partido);
 	}
 
 	public String exibirBase() {
-		return this.controladorDePartidos.exibirBase();
+		return this.controlador.exibirBase();
 	}
 
 	public void limparSistema() {
-		
+
 	}
-	
-	
-	
+
+	public String exibirPessoa(String dni) {
+		return this.controlador.exibirPessoa(dni);
+	}
+
 	public void carregarSistema() {
-		
+
 	}
-	
+
 	public void salvarSistema() {
-		
+
 	}
-	
+
 }

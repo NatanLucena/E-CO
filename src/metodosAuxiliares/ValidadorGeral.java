@@ -1,9 +1,8 @@
 package metodosAuxiliares;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ValidadorGeral {
 
@@ -37,19 +36,40 @@ public class ValidadorGeral {
 		}
 	}
 
-	public static void validaData(String data, String mensagem) {
-		if (data.trim().length() != 8) {
-			throw new IllegalArgumentException(mensagem);
+	public void verificaExistenciaDeLetras(String dataDeInicio) {
+		try {
+			int valida = Integer.parseInt(dataDeInicio);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
 		}
 
-		String dateFormat = "dd/MM/uuuu";
+	}
 
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormat)
-				.withResolverStyle(ResolverStyle.STRICT);
+	public void verificaDataFutura(String dataDeInicio) {
 		try {
-			LocalDate date = LocalDate.parse(data, dateTimeFormatter);
-		} catch (DateTimeParseException e) {
-			throw new IllegalArgumentException(mensagem);
+			SimpleDateFormat k = new SimpleDateFormat("ddMMyyyy");
+			Date date = k.parse(dataDeInicio);
+			Date nowDate = new Date();
+
+			if (date.after(nowDate)) {
+				throw new IllegalArgumentException("Erro ao cadastrar deputado: data futura");
+			}
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data futura");
+		}
+	}
+
+	public void validaDataDeInicio(String dataDeInicio) {
+		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
+		formatter.setLenient(false);
+		Date formatedDate;
+
+		try {
+			formatedDate = formatter.parse(dataDeInicio);
+		}
+
+		catch (ParseException e) {
+			throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
 		}
 	}
 }
