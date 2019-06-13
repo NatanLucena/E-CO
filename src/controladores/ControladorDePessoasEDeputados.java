@@ -21,8 +21,8 @@ public class ControladorDePessoasEDeputados {
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
 		validadorGeral.validaNullOuVazio(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
 		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
 
 		if (pessoas.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
@@ -34,8 +34,8 @@ public class ControladorDePessoasEDeputados {
 	public void cadastrarPessoaComPartido(String nome, String dni, String estado, String interesses, String partido) {
 		validadorGeral.validaNullOuVazio(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
 		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
 
 		if (pessoas.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
@@ -45,13 +45,13 @@ public class ControladorDePessoasEDeputados {
 	}
 
 	public String exibirPessoa(String dni) {
-		validadorGeral.validaNullOuVazio(dni, "");
-		validadorGeral.validaDni(dni, "");
+		validadorGeral.validaNullOuVazio(dni, "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
+		validadorGeral.validaDni(dni, "Erro ao exibir pessoa: dni invalido");
 
 		if (!this.pessoas.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
 		} else {
-			return this.pessoas.get(dni).toString();
+			return this.pessoas.get(dni).exibir();
 		}
 	}
 

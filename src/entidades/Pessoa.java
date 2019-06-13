@@ -13,6 +13,8 @@ public class Pessoa {
 	private ValidadorGeral validadorGeral;
 
 	public Pessoa(String nome, String dni, String estado, String interesses) {
+		this.validadorGeral = new ValidadorGeral();
+		
 		validadorGeral.validaNullOuVazio(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
 		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
@@ -23,7 +25,6 @@ public class Pessoa {
 		this.interesses = interesses;
 		this.partido = "";
 		this.exibir = new PessoaComum();
-		this.validadorGeral = new ValidadorGeral();
 	}
 
 	public Pessoa(String nome, String dni, String estado, String interesses, String partido) {

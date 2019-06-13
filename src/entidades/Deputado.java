@@ -29,6 +29,6 @@ public class Deputado implements Exibir {
 	@Override
 	public String exibir(String nome, String dni, String estado, String partido, String interesses) {
 		return "POL: " + nome + " - " + dni + " (" + estado + ")" + partido + interesses + " - "
-				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " leis";
+				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " Leis";
 	}
 }
