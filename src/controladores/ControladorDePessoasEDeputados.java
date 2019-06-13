@@ -58,13 +58,13 @@ public class ControladorDePessoasEDeputados {
 	public void cadastrarDeputado(String dni, String dataDeInicio) {
 		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar deputado: dni nao pode ser vazio ou nulo");
 		validadorGeral.validaDni(dni, "Erro ao cadastrar deputado: dni invalido");
-		
+
 		if (!pessoas.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
 		}
-		
+
 		validadorGeral.validaNullOuVazio(dataDeInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
-		
+
 		Pessoa pessoa = pessoas.get(dni);
 
 		validadorGeral.verificaExistenciaDeLetras(dataDeInicio);

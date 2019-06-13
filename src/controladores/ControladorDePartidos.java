@@ -9,24 +9,27 @@ import metodosAuxiliares.ValidadorGeral;
 
 /**
  * Responsavel por representar todos os metodos envolvendo Partidos
+ * 
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *
  */
 public class ControladorDePartidos {
-	
+
 	/**
-	 * Armazena todos os partidos cadastrados no sistema, onde acontece o 
-	 * mapeameto do identificador do partido que é o nome do partido, com os dados que um partido tem
+	 * Armazena todos os partidos cadastrados no sistema, onde acontece o mapeameto
+	 * do identificador do partido que é o nome do partido, com os dados que um
+	 * partido tem
 	 */
 	private Map<String, Partido> partidos;
-	
+
 	/**
 	 * Validador de parametros, que lanca excecoes, caso necessario
 	 */
 	private ValidadorGeral validadorGeral;
 
 	/**
-	 * Constroi o controlador de partidos, inicializando o mapa de partidos. Tambem inicializa o Validador
+	 * Constroi o controlador de partidos, inicializando o mapa de partidos. Tambem
+	 * inicializa o Validador
 	 */
 	public ControladorDePartidos() {
 		this.partidos = new HashMap<>();
@@ -35,6 +38,7 @@ public class ControladorDePartidos {
 
 	/**
 	 * Cadastra partidos no sistema, a partir do nome do partido
+	 * 
 	 * @param partido String que representa o nome do partido
 	 */
 
@@ -50,6 +54,7 @@ public class ControladorDePartidos {
 
 	/**
 	 * Representacao textual com os nomes de todos os partidos da base politica
+	 * 
 	 * @return uma String com os nomes de todos os partidos da base politica
 	 */
 	public String exibirBase() {
@@ -59,10 +64,11 @@ public class ControladorDePartidos {
 
 	/**
 	 * Verifica se o partido esta cadastrado no sistema
-	 * @param partido que sera verificado 
-	 * @return um booleano,se o partido passado com parametro esta cadastrado no sistema retorna true, 
-	 * caso contrario retorna false
-	 *  
+	 * 
+	 * @param partido que sera verificado
+	 * @return um booleano,se o partido passado com parametro esta cadastrado no
+	 *         sistema retorna true, caso contrario retorna false
+	 * 
 	 */
 	public boolean verificaPartido(String partido) {
 		return partidos.containsKey(partido);
