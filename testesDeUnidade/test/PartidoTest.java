@@ -1,4 +1,4 @@
-package testesDeUnidade;
+package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,16 +9,16 @@ import entidades.Partido;
 
 class PartidoTest {
 	Partido partido;
-	
+
 	@BeforeEach
 	void IniciaPartido() {
-		partido=new Partido("ABC");
+		partido = new Partido("ABC");
 	}
 
 	@Test
 	void testPartido() {
-		Partido partido2=new Partido("ABC");
-		assertEquals(partido2.getPartido(),partido.getPartido());
+		Partido partido2 = new Partido("ABC");
+		assertEquals(partido2.getPartido(), partido.getPartido());
 	}
 
 	@Test

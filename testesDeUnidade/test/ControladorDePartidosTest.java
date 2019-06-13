@@ -1,4 +1,4 @@
-package testesDeUnidade;
+package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +19,7 @@ class ControladorDePartidosTest {
 	void testCadastraPartido() {
 		//cadastrando partido valido
 		controlador.cadastraPartido("AAAAA");
-		assertTrue(controlador.containsPartido("AAAAA"));
+		assertTrue(controlador.verificaPartido("AAAAA"));
 		//cadastrando partido nulo
 		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraPartido(null));
 		//cadastrando partido vazio
