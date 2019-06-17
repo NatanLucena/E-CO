@@ -41,8 +41,8 @@ public class Deputado implements Exibir {
 	 * @param leisAprovadas nova quantidade de leis aprovadas pelo deputado
 	 */
 
-	public void setLeisAprovadas(int leisAprovadas) {
-		this.leisAprovadas = leisAprovadas;
+	public void setLeisAprovadas() {
+		this.leisAprovadas += 1;
 	}
 
 	/**

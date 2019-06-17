@@ -174,6 +174,10 @@ public class Pessoa {
 	public boolean isDeputado() {
 		return exibir.getClass().equals(Deputado.class);
 	}
+	
+	public void setLeisAprovadas() {
+		this.
+	}
 
 	/**
 	 * Este metodo retorna a representacao textual da pessoa

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import entidades.Deputado;
 import entidades.Pessoa;
 import metodosAuxiliares.ValidadorGeral;
 
@@ -81,6 +82,10 @@ public class ControladorDePessoasEDeputados {
 		pessoa.assumeFuncao(dataDeInicio);
 		deputados.put(dni, pessoa);
 	}
+	
+	public void propostaAprovada(String dni) {
+		
+	}
 
 	public boolean containsDeputado(String dni) {
 		return this.deputados.containsKey(dni);
@@ -96,5 +101,9 @@ public class ControladorDePessoasEDeputados {
 	
 	public List<String> getListaDeInteresses(String dni) {
 		return deputados.get(dni).getListaDeInteresses();
+	}
+	
+	public int totalDeDeputados() {
+		return deputados.size();
 	}
 }

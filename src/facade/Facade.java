@@ -57,20 +57,28 @@ public class Facade {
 		this.controlador.cadastraComissao(tema, politicos);
 	}
 	
-	public void cadastrarPL (String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
-		this.controlador.cadastrarPL(autor, ano, ementa, interesses, url, conclusivo);
+	public String cadastrarPL (String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+		return this.controlador.cadastrarPL(autor, ano, ementa, interesses, url, conclusivo);
 	}
 	
-	public void cadastrarPLP (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
-		this.controlador.cadastrarPLP(autor, ano, ementa, interesses, url, artigos);
+	public String cadastrarPLP (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
+		return this.controlador.cadastrarPLP(autor, ano, ementa, interesses, url, artigos);
 	}
 	
-	public void cadastrarPEC (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
-		this.controlador.cadastrarPEC(autor, ano, ementa, interesses, url, artigos);
+	public String cadastrarPEC (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
+		return this.controlador.cadastrarPEC(autor, ano, ementa, interesses, url, artigos);
 	}
 	
 	public String exibirProjeto (String codigo) {
 		return this.controlador.exibirProjeto(codigo);
+	}
+	
+	public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) {
+		return this.controlador.votarComissao(codigo, statusGovernista, proximoLocal);
+	}
+	
+	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
+		return this.controlador.votarPlenario(codigo, statusGovernista, presentes);
 	}
 
 }

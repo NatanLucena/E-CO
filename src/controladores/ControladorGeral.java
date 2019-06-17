@@ -69,7 +69,7 @@ public class ControladorGeral {
 		this.controladorDeComissoes.cadastraComissao(tema, dnis);	
 	}
 	
-	public void cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+	public String cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
 		
@@ -88,10 +88,10 @@ public class ControladorGeral {
 		}else if (ano > 2019) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: ano posterior ao ano atual");
 		}
-		this.controladorDePropostasLegislativas.cadastrarPL(autor, ano, ementa, interesses, url, conclusivo);
+		return this.controladorDePropostasLegislativas.cadastrarPL(autor, ano, ementa, interesses, url, conclusivo);
 	}
 	
-	public void cadastrarPLP(String autor, int ano, String ementa, String interesses, String url, String artigos) {
+	public String cadastrarPLP(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
 
@@ -111,10 +111,10 @@ public class ControladorGeral {
 		}else if (ano > 2019) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: ano posterior ao ano atual");
 		}
-		this.controladorDePropostasLegislativas.cadastrarPLP(autor, ano, ementa, interesses, url, artigos);
+		return this.controladorDePropostasLegislativas.cadastrarPLP(autor, ano, ementa, interesses, url, artigos);
 	}
 	
-	public void cadastrarPEC(String autor, int ano, String ementa, String interesses, String url, String artigos) {
+	public String cadastrarPEC(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
 		
@@ -133,7 +133,7 @@ public class ControladorGeral {
 		}else if (ano > 2019) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: ano posterior ao ano atual");
 		}
-		this.controladorDePropostasLegislativas.cadastrarPEC(autor, ano, ementa, interesses, url, artigos);
+		return this.controladorDePropostasLegislativas.cadastrarPEC(autor, ano, ementa, interesses, url, artigos);
 	}
 	
 	public String exibirProjeto(String codigo) {
@@ -144,37 +144,23 @@ public class ControladorGeral {
 		validador.validaNullOuVazio(codigo, "Erro ao votar proposta: codigo vazio");
 		validador.validaNullOuVazio(statusGovernista, "Erro ao votar proposta: presentes vazio");
 		validador.validaNullOuVazio(proximoLocal, "Erro ao votar proposta: proximo local vazio");
-		if(!controladorDePropostasLegislativas.containsProposta(codigo)) {
-			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
-		}
-		if(!(statusGovernista.equals("GOVERNISTA") || (statusGovernista.equals("LIVRE") || (statusGovernista.equals("OPOSICAO"))))) {
+		if((!statusGovernista.equals("GOVERNISTA") && (!statusGovernista.equals("LIVRE") && (!statusGovernista.equals("OPOSICAO"))))) {
 			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
 		}
-		if(!controladorDeComissoes.containsComissao(controladorDePropostasLegislativas.getLocal(codigo))) {
-			throw new IllegalArgumentException("Erro ao votar proposta: " + controladorDePropostasLegislativas.getLocal(codigo) + " nao cadastrada");
+		if(!this.controladorDePropostasLegislativas.containsProposta(codigo)) {
+			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
+		}
+		if(this.controladorDePropostasLegislativas.getLocal(codigo).equals("-")) {
+			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
+		}
+		if(!this.controladorDeComissoes.containsComissao(this.controladorDePropostasLegislativas.getLocal(codigo))) {
+			throw new IllegalArgumentException("Erro ao votar proposta: " + this.controladorDePropostasLegislativas.getLocal(codigo) + " nao cadastrada");
 		}
 		
-	}
-	
-	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
-		validador.validaNullOuVazio(codigo, "Erro ao votar proposta: codigo vazio");
-		validador.validaNullOuVazio(statusGovernista, "Erro ao votar proposta: presentes vazio");
-		List<String> dnis = Arrays.asList(presentes.split(","));
-		dnis.stream().forEach( dni-> validador.validaDni(dni, "Erro ao votar proposta: dni invalido"));
-		if(!controladorDePropostasLegislativas.containsProposta(codigo)) {
-			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
-		}
-		if(!(statusGovernista.equals("GOVERNISTA") || (statusGovernista.equals("LIVRE") || (statusGovernista.equals("OPOSICAO"))))) {
-			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
-		}
-		if(!controladorDePropostasLegislativas.getLocal(codigo).equals("plenario")) {
-			throw new IllegalArgumentException("Erro ao votar proposta: proposta nao encaminhada ao plenario");
-		}
-		List<String> deputados = Arrays.asList(presentes.split(","));
-		deputados.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao votar proposta: pessoa nao eh deputado"));
+		List<String> deputados = this.controladorDeComissoes.getIntegrantes(this.controladorDePropostasLegislativas.getLocal(codigo));
 		
 		int votos = 0;
-		List<String> interessesDaProposta = controladorDePropostasLegislativas.getListaDeInteresses(codigo);
+		List<String> interessesDaProposta = this.controladorDePropostasLegislativas.getListaDeInteresses(codigo);
 		
 		for(int i = 0; i < deputados.size(); i++) {
 			if(statusGovernista.equals("GOVERNISTA")) {
@@ -185,16 +171,68 @@ public class ControladorGeral {
 				if(!this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
 					votos += 1;
 				}
-			}else if(statusGovernista.equals("LIVRE")) {
-				List<String> interessesDoDeputado = controladorDePessoasEDeputados.getListaDeInteresses(deputados.get(i));
+			}else {
+				List<String> interessesDoDeputado = this.controladorDePessoasEDeputados.getListaDeInteresses(deputados.get(i));
 				for(int j = 0; i < interessesDoDeputado.size(); j++) {
-					
-				}
+					if(interessesDaProposta.contains(interessesDoDeputado.get(j))) {
+						votos += 1;
+					}
+ 				}
 			}
-			
-			
 		}
+		this.controladorDePropostasLegislativas.setLocal(codigo, proximoLocal);
+		return votos >= deputados.size()/2 + 1;
 		
+	}
+	
+	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
+		validador.validaNullOuVazio(codigo, "Erro ao votar proposta: codigo vazio");
+		validador.validaNullOuVazio(statusGovernista, "Erro ao votar proposta: presentes vazio");
+		List<String> dnis = Arrays.asList(presentes.split(","));
+		dnis.stream().forEach( dni-> validador.validaDni(dni, "Erro ao votar proposta: dni invalido"));
+		if((!statusGovernista.equals("GOVERNISTA") && (!statusGovernista.equals("LIVRE") && (!statusGovernista.equals("OPOSICAO"))))) {
+			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
+		}
+		if(!this.controladorDePropostasLegislativas.containsProposta(codigo)) {
+			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
+		}
+		if(this.controladorDePropostasLegislativas.getLocal(codigo).equals("-")) {
+			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
+		}
+		if(!this.controladorDePropostasLegislativas.getLocal(codigo).equals("plenario")) {
+			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
+		}
+		List<String> deputados = Arrays.asList(presentes.split(","));
+		deputados.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao votar proposta: pessoa nao eh deputado"));
+		
+		int votos = 0;
+		List<String> interessesDaProposta = this.controladorDePropostasLegislativas.getListaDeInteresses(codigo);
+		
+		for(int i = 0; i < deputados.size(); i++) {
+			if(statusGovernista.equals("GOVERNISTA")) {
+				if(this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
+				votos += 1;
+				}	
+			}else if(statusGovernista.equals("OPOSICAO")) {
+				if(!this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
+					votos += 1;
+				}
+			}else {
+				List<String> interessesDoDeputado = this.controladorDePessoasEDeputados.getListaDeInteresses(deputados.get(i));
+				for(int j = 0; i < interessesDoDeputado.size(); j++) {
+					if(interessesDaProposta.contains(interessesDoDeputado.get(j))) {
+						votos += 1;
+					}
+ 				}
+			}
+		}
+		if(this.controladorDePropostasLegislativas.isPL(codigo)) {
+			return votos >= (deputados.size()/2) +1;
+		} else if(this.controladorDePropostasLegislativas.isPLP(codigo)) {
+			return votos >= (this.controladorDePessoasEDeputados.totalDeDeputados()/2) +1;
+		} else {
+			return votos >= ((this.controladorDePessoasEDeputados.totalDeDeputados()*3)/5) + 1;
+		}
 	}
 	
 	public String exibirTramitacao(String codigo) {

@@ -22,22 +22,25 @@ public class ControladorDePropostasLegislativas {
 		this.validador = new ValidadorGeral();
 	}
 	
-	public void cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+	public String cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
 		this.PLsCadastradas += 1;
 		String codigo = "PL " + this.PLsCadastradas + "/" + ano;
 		this.propostas.put(codigo, new PL(autor, ano, codigo, ementa, interesses, url, conclusivo));
+		return codigo;
 	}
 	
-	public void cadastrarPLP(String autor, int ano, String ementa, String interesses, String url, String artigos) {
+	public String cadastrarPLP(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		this.PLPsCadastradas += 1;
 		String codigo = "PLP " + this.PLPsCadastradas + "/" + ano;
 		this.propostas.put(codigo, new PLP(autor, ano, codigo, ementa, interesses, url, artigos));
+		return codigo;
 	}
 	
-	public void cadastrarPEC(String autor, int ano, String ementa, String interesses, String url, String artigos) {
+	public String cadastrarPEC(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		this.PECsCadastradas += 1;
 		String codigo = "PEC " + this.PECsCadastradas + "/" + ano;
 		this.propostas.put(codigo, new PEC(autor, ano, codigo, ementa, interesses, url, artigos));
+		return codigo;
 	}
 	
 	public String exibirProjeto(String codigo) {
@@ -52,8 +55,25 @@ public class ControladorDePropostasLegislativas {
 		return propostas.get(codigo).getLocal();
 	}
 	
+	public void setLocal(String codigo, String local) {
+		this.propostas.get(codigo).setLocal(local);
+		this.propostas.get(codigo).setSituacao();
+	}
+	
 	public List<String> getListaDeInteresses(String codigo) {
 		return propostas.get(codigo).getListaDeInteresses();
+	}
+	
+	public boolean isPL(String codigo) {
+		return propostas.get(codigo).getClass().equals(PL.class);
+	}
+	
+	public boolean isPLP(String codigo) {
+		return propostas.get(codigo).getClass().equals(PLP.class);
+	}
+	
+	public boolean isPEC(String codigo) {
+		return propostas.get(codigo).getClass().equals(PEC.class);
 	}
 	
 }

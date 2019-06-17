@@ -28,4 +28,8 @@ public class ControladorDeComissoes {
 	public boolean containsComissao(String comissao) {
 		return comissoes.containsKey(comissao);
 	}
+	
+	public List<String> getIntegrantes(String comissao) {
+		return comissoes.get(comissao).getIntegrantes();
+	}
 }
