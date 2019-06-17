@@ -1,6 +1,7 @@
 package controladores;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import entidades.PEC;
@@ -41,6 +42,18 @@ public class ControladorDePropostasLegislativas {
 	
 	public String exibirProjeto(String codigo) {
 		return propostas.get(codigo).toString();
+	}
+	
+	public boolean containsProposta(String codigo) {
+		return propostas.containsKey(codigo);
+	}
+	
+	public String getLocal(String codigo) {
+		return propostas.get(codigo).getLocal();
+	}
+	
+	public List<String> getListaDeInteresses(String codigo) {
+		return propostas.get(codigo).getListaDeInteresses();
 	}
 	
 }

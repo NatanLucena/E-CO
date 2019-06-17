@@ -1,5 +1,9 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import metodosAuxiliares.ValidadorGeral;
 
 /**
@@ -128,6 +132,11 @@ public class Pessoa {
 			return " - Interesses: " + this.interesses;
 		}
 	}
+	
+	public List<String> getListaDeInteresses() {
+		List<String> interesses = Arrays.asList(this.interesses.split(","));
+		return interesses;
+	}
 
 	/**
 	 * Retorna o partido da pessoa;
@@ -140,6 +149,10 @@ public class Pessoa {
 		} else {
 			return " - " + this.partido;
 		}
+	}
+	
+	public String getPartido2() {
+		return this.partido;
 	}
 
 	/**

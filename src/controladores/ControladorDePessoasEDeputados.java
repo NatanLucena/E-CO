@@ -1,6 +1,7 @@
 package controladores;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import entidades.Pessoa;
@@ -87,5 +88,13 @@ public class ControladorDePessoasEDeputados {
 
 	public boolean containsPessoa(String dni) {
 		return this.pessoas.containsKey(dni);
+	}
+	
+	public String getPartido(String dni) {
+		return this.deputados.get(dni).getPartido2();
+	}
+	
+	public List<String> getListaDeInteresses(String dni) {
+		return deputados.get(dni).getListaDeInteresses();
 	}
 }

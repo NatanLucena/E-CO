@@ -1,7 +1,5 @@
 package facade;
 
-import controladores.ControladorDePartidos;
-import controladores.ControladorDePessoasEDeputados;
 import controladores.ControladorGeral;
 import easyaccept.EasyAccept;
 

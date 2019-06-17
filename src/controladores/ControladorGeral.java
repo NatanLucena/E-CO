@@ -5,16 +5,16 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
+import comparadores.ComparadorDeStrings;
 import metodosAuxiliares.ValidadorGeral;
 
 public class ControladorGeral {
-	ControladorDeComissoes controladorDeComissoes;
-	ControladorDePessoasEDeputados controladorDePessoasEDeputados;
-	ControladorDePropostasLegislativas controladorDePropostasLegislativas;
-	List<String> baseGovernista;
-	ValidadorGeral validador;
+	private ControladorDeComissoes controladorDeComissoes;
+	private ControladorDePessoasEDeputados controladorDePessoasEDeputados;
+	private ControladorDePropostasLegislativas controladorDePropostasLegislativas;
+	private List<String> baseGovernista;
+	private ValidadorGeral validador;
+	private ComparadorDeStrings comparaStrings;
 	
 	public ControladorGeral() {
 		this.controladorDeComissoes = new ControladorDeComissoes();
@@ -22,6 +22,7 @@ public class ControladorGeral {
 		this.controladorDePropostasLegislativas = new ControladorDePropostasLegislativas();
 		this.baseGovernista = new ArrayList<>();
 		this.validador = new ValidadorGeral();
+		this.comparaStrings = new ComparadorDeStrings();
 	}
 	
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
@@ -49,6 +50,7 @@ public class ControladorGeral {
 	}
 	
 	public String exibirBase() {
+		this.baseGovernista.sort(comparaStrings);
 		return String.join(",", this.baseGovernista);
 	}
 	
@@ -61,8 +63,8 @@ public class ControladorGeral {
 	
 		List<String> dnis = Arrays.asList(politicos.split(","));
 		dnis.stream().forEach( dni-> validador.validaDni(dni, "Erro ao cadastrar comissao: dni invalido"));
-		dnis.stream().forEach( dni-> this.validaDniPessoa(dni));
-		dnis.stream().forEach( dni-> this.validaDniDeputado(dni));
+		dnis.stream().forEach( dni-> this.validaDniPessoa(dni, "Erro ao cadastrar comissao: pessoa inexistente"));
+		dnis.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao cadastrar comissao: pessoa nao eh deputado"));
 		
 		this.controladorDeComissoes.cadastraComissao(tema, dnis);	
 	}
@@ -138,17 +140,76 @@ public class ControladorGeral {
 		return this.controladorDePropostasLegislativas.exibirProjeto(codigo);
 	}
 	
+	public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) {
+		validador.validaNullOuVazio(codigo, "Erro ao votar proposta: codigo vazio");
+		validador.validaNullOuVazio(statusGovernista, "Erro ao votar proposta: presentes vazio");
+		validador.validaNullOuVazio(proximoLocal, "Erro ao votar proposta: proximo local vazio");
+		if(!controladorDePropostasLegislativas.containsProposta(codigo)) {
+			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
+		}
+		if(!(statusGovernista.equals("GOVERNISTA") || (statusGovernista.equals("LIVRE") || (statusGovernista.equals("OPOSICAO"))))) {
+			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
+		}
+		if(!controladorDeComissoes.containsComissao(controladorDePropostasLegislativas.getLocal(codigo))) {
+			throw new IllegalArgumentException("Erro ao votar proposta: " + controladorDePropostasLegislativas.getLocal(codigo) + " nao cadastrada");
+		}
+		
+	}
 	
+	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
+		validador.validaNullOuVazio(codigo, "Erro ao votar proposta: codigo vazio");
+		validador.validaNullOuVazio(statusGovernista, "Erro ao votar proposta: presentes vazio");
+		List<String> dnis = Arrays.asList(presentes.split(","));
+		dnis.stream().forEach( dni-> validador.validaDni(dni, "Erro ao votar proposta: dni invalido"));
+		if(!controladorDePropostasLegislativas.containsProposta(codigo)) {
+			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
+		}
+		if(!(statusGovernista.equals("GOVERNISTA") || (statusGovernista.equals("LIVRE") || (statusGovernista.equals("OPOSICAO"))))) {
+			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
+		}
+		if(!controladorDePropostasLegislativas.getLocal(codigo).equals("plenario")) {
+			throw new IllegalArgumentException("Erro ao votar proposta: proposta nao encaminhada ao plenario");
+		}
+		List<String> deputados = Arrays.asList(presentes.split(","));
+		deputados.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao votar proposta: pessoa nao eh deputado"));
+		
+		int votos = 0;
+		List<String> interessesDaProposta = controladorDePropostasLegislativas.getListaDeInteresses(codigo);
+		
+		for(int i = 0; i < deputados.size(); i++) {
+			if(statusGovernista.equals("GOVERNISTA")) {
+				if(this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
+				votos += 1;
+				}	
+			}else if(statusGovernista.equals("OPOSICAO")) {
+				if(!this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
+					votos += 1;
+				}
+			}else if(statusGovernista.equals("LIVRE")) {
+				List<String> interessesDoDeputado = controladorDePessoasEDeputados.getListaDeInteresses(deputados.get(i));
+				for(int j = 0; i < interessesDoDeputado.size(); j++) {
+					
+				}
+			}
+			
+			
+		}
+		
+	}
 	
-	private void validaDniPessoa(String dni) {
+	public String exibirTramitacao(String codigo) {
+		
+	}
+	
+	private void validaDniPessoa(String dni, String mensagem) {
 		if(!controladorDePessoasEDeputados.containsPessoa(dni)) {
-			throw new IllegalArgumentException("Erro ao cadastrar comissao: pessoa inexistente");
+			throw new IllegalArgumentException(mensagem);
 		}
 	}
 	
-	private void validaDniDeputado(String dni) {
+	private void validaDniDeputado(String dni, String mensagem) {
 		if(!controladorDePessoasEDeputados.containsDeputado(dni)) {
-			throw new IllegalArgumentException("Erro ao cadastrar comissao: pessoa nao eh deputado");
+			throw new IllegalArgumentException(mensagem);
 		}
 	}
 

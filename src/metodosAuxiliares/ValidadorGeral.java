@@ -13,8 +13,6 @@ public class ValidadorGeral {
 	}
 
 	public void validaDni(String dni, String mensagem) {
-
-		dni = dni.trim();
 		if (dni.length() != 11) {
 			throw new IllegalArgumentException(mensagem);
 		}

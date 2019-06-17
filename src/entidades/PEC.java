@@ -9,11 +9,12 @@ public class PEC extends PropostaLegislativa {
 	}
 	
 	public String getArtigos() {
-		return this.artigosAlterados;
+		String[] artigos = this.artigosAlterados.split(",");
+		return String.join(", ", artigos);
 	}
 	
 	public String toString() {
-		return "Projeto de Emenda Constitucional - " + super.codigo + " - " + super.autor + " - " + super.ementa + " - " + this.artigosAlterados + " - " + super.situacao;
+		return "Projeto de Emenda Constitucional - " + super.codigo + " - " + super.autor + " - " + super.ementa + " - " + this.getArtigos() + " - " + super.situacao;
 	}
 
 }
