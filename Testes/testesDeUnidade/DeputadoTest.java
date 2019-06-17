@@ -9,12 +9,13 @@ import entidades.Deputado;
 
 class DeputadoTest {
 	Deputado deputado;
-	
+
 	@BeforeEach
 	void iniciaDeputado() {
 		deputado = new Deputado("30/11/2010");
-		
+
 	}
+
 	@Test
 	void testDeputado() {
 		Deputado deputado2 = new Deputado("30/11/2010");
