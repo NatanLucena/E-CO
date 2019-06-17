@@ -10,13 +10,13 @@ public class PL extends PropostaLegislativa {
 	
 	public String getConclusiva() {
 		if(this.conclusiva) {
-			return "Conclusiva";
+			return " - Conclusiva";
 		}
-		return "Inconclusiva";
+		return "";
 	}
 	
 	public String toString() {
-		return "Projeto de Lei -" + super.codigo + " - " + super.autor + " - " + super.ementa + " - " + this.getConclusiva() + " - " + super.situacao;
+		return "Projeto de Lei - " + super.codigo + " - " + super.autor + " - " + super.ementa + this.getConclusiva() + " - " + super.situacao;
 	}
 
 }

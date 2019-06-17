@@ -78,6 +78,7 @@ public class ControladorDePessoasEDeputados {
 		}
 		
 		pessoa.assumeFuncao(dataDeInicio);
+		deputados.put(dni, pessoa);
 	}
 
 	public boolean containsDeputado(String dni) {

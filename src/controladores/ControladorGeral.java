@@ -54,13 +54,13 @@ public class ControladorGeral {
 	
 	public void cadastraComissao(String tema, String politicos) {
 		validador.validaNullOuVazio(tema, "Erro ao cadastrar comissao: tema nao pode ser vazio ou nulo");
+		validador.validaNullOuVazio(politicos, "Erro ao cadastrar comissao: lista de politicos nao pode ser vazio ou nulo");
 		if(controladorDeComissoes.containsComissao(tema)) {
 			throw new IllegalArgumentException("Erro ao cadastrar comissao: tema existente");
 		}
-		validador.validaNullOuVazio(politicos, "Erro ao cadastrar comissao: lista de politicos nao pode ser vazio ou nulo");
 	
 		List<String> dnis = Arrays.asList(politicos.split(","));
-		dnis.stream().forEach( dni-> validador.validaDni(dni, ""));
+		dnis.stream().forEach( dni-> validador.validaDni(dni, "Erro ao cadastrar comissao: dni invalido"));
 		dnis.stream().forEach( dni-> this.validaDniPessoa(dni));
 		dnis.stream().forEach( dni-> this.validaDniDeputado(dni));
 		
@@ -70,14 +70,17 @@ public class ControladorGeral {
 	public void cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
+		
 		if(!controladorDePessoasEDeputados.containsPessoa(autor)) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa inexistente");
 		}else if(!controladorDePessoasEDeputados.containsDeputado(autor)) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
 		}
+		
 		validador.validaNullOuVazio(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
 		validador.validaNullOuVazio(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validador.validaNullOuVazio(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+		
 		if (ano < 1988) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
 		}else if (ano > 2019) {
@@ -89,15 +92,18 @@ public class ControladorGeral {
 	public void cadastrarPLP(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
+
 		if(!controladorDePessoasEDeputados.containsPessoa(autor)) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa inexistente");
 		}else if(!controladorDePessoasEDeputados.containsDeputado(autor)) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
 		}
+		
 		validador.validaNullOuVazio(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
 		validador.validaNullOuVazio(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validador.validaNullOuVazio(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 		validador.validaNullOuVazio(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
+		
 		if (ano < 1988) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
 		}else if (ano > 2019) {
@@ -109,11 +115,13 @@ public class ControladorGeral {
 	public void cadastrarPEC(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
+		
 		if(!controladorDePessoasEDeputados.containsPessoa(autor)) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa inexistente");
 		}else if(!controladorDePessoasEDeputados.containsDeputado(autor)) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
 		}
+		
 		validador.validaNullOuVazio(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
 		validador.validaNullOuVazio(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validador.validaNullOuVazio(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");

@@ -10,7 +10,8 @@ public class Facade {
 
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
-				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt" };
+				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
+				"acceptance_tests/use_case_6.txt", "acceptance_tests/use_case_7.txt"};
 		EasyAccept.main(args);
 	}
 
@@ -52,6 +53,26 @@ public class Facade {
 
 	public void salvarSistema() {
 
+	}
+	
+	public void cadastrarComissao(String tema, String politicos) {
+		this.controlador.cadastraComissao(tema, politicos);
+	}
+	
+	public void cadastrarPL (String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+		this.controlador.cadastrarPL(autor, ano, ementa, interesses, url, conclusivo);
+	}
+	
+	public void cadastrarPLP (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
+		this.controlador.cadastrarPLP(autor, ano, ementa, interesses, url, artigos);
+	}
+	
+	public void cadastrarPEC (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
+		this.controlador.cadastrarPEC(autor, ano, ementa, interesses, url, artigos);
+	}
+	
+	public String exibirProjeto (String codigo) {
+		return this.controlador.exibirProjeto(codigo);
 	}
 
 }
