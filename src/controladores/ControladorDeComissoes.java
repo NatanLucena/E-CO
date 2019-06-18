@@ -25,7 +25,7 @@ public class ControladorDeComissoes {
 		}
 	}
 	
-	public boolean containsComissao(String comissao) {
+	public boolean (String comissao) {
 		return comissoes.containsKey(comissao);
 	}
 	
