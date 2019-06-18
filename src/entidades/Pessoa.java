@@ -1,9 +1,13 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import metodosAuxiliares.ValidadorGeral;
 
 /**
- * É responsavel por representar uma pessoa
+ * Ã‰ responsavel por representar uma pessoa
  * 
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *
@@ -79,7 +83,7 @@ public class Pessoa {
 	 *                   Identificacao da pessoa
 	 * @param estado     uma String que representa o estado de origem da pessoa
 	 * @param interesses uma String que representa os interesses da pessoa
-	 * @param partido    uma String que representa o partido ao qual a pessoa é
+	 * @param partido    uma String que representa o partido ao qual a pessoa Ã©
 	 *                   filiada
 	 */
 	public Pessoa(String nome, String dni, String estado, String interesses, String partido) {
@@ -128,6 +132,11 @@ public class Pessoa {
 			return " - Interesses: " + this.interesses;
 		}
 	}
+	
+	public List<String> getListaDeInteresses() {
+		List<String> interesses = Arrays.asList(this.interesses.split(","));
+		return interesses;
+	}
 
 	/**
 	 * Retorna o partido da pessoa;
@@ -140,6 +149,10 @@ public class Pessoa {
 		} else {
 			return " - " + this.partido;
 		}
+	}
+	
+	public String getPartido2() {
+		return this.partido;
 	}
 
 	/**
@@ -160,6 +173,10 @@ public class Pessoa {
 	 */
 	public boolean isDeputado() {
 		return exibir.getClass().equals(Deputado.class);
+	}
+	
+	public void setLeisAprovadas() {
+		this.
 	}
 
 	/**

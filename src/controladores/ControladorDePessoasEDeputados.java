@@ -1,8 +1,10 @@
 package controladores;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import entidades.Deputado;
 import entidades.Pessoa;
 import metodosAuxiliares.ValidadorGeral;
 
@@ -23,7 +25,6 @@ public class ControladorDePessoasEDeputados {
 		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
 		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
 		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
-
 		if (pessoas.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
 		} else {
@@ -77,8 +78,13 @@ public class ControladorDePessoasEDeputados {
 		if (pessoa.isDeputado()) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
 		}
-
+		
 		pessoa.assumeFuncao(dataDeInicio);
+		deputados.put(dni, pessoa);
+	}
+	
+	public void propostaAprovada(String dni) {
+		
 	}
 
 	public boolean containsDeputado(String dni) {
@@ -87,5 +93,17 @@ public class ControladorDePessoasEDeputados {
 
 	public boolean containsPessoa(String dni) {
 		return this.pessoas.containsKey(dni);
+	}
+	
+	public String getPartido(String dni) {
+		return this.deputados.get(dni).getPartido2();
+	}
+	
+	public List<String> getListaDeInteresses(String dni) {
+		return deputados.get(dni).getListaDeInteresses();
+	}
+	
+	public int totalDeDeputados() {
+		return deputados.size();
 	}
 }

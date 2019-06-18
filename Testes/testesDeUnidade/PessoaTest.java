@@ -1,4 +1,4 @@
-package test;
+package testesDeUnidade;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +37,7 @@ class PessoaTest {
 
 	@Test
 	void testToString() {
-		assertEquals("Jay - 011111111-0 (MG) - ABC - Interesses: interesses", pessoa2.exibir());
+		assertEquals("Jay - 011111111-0 (MG) - ABC - Interesses: interesses", pessoa2.toString());
 
 	}
 

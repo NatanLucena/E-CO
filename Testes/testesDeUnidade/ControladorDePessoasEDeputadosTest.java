@@ -1,4 +1,4 @@
-package test;
+package testesDeUnidade;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import controladores.ControladorDePessoasEDeputados;
 
-class ControladorPessoasDeputadosTest {
+class ControladorDePessoasEDeputadosTest {
 	private ControladorDePessoasEDeputados controladorPessoaDeputado;
 
 	@BeforeEach
@@ -36,7 +36,6 @@ class ControladorPessoasDeputadosTest {
 		controladorPessoaDeputado.cadastrarPessoa("Marina", "011111111-0", "PB", "educacao,seguranca publica,saude");
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.cadastrarPessoa("Jose",
 				"011111111-0", "PB", "educacao,seguranca publica,saude"));
-
 	}
 
 	@Test
@@ -70,8 +69,8 @@ class ControladorPessoasDeputadosTest {
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.exibirPessoa("1111111111-A"));
 		controladorPessoaDeputado.cadastrarPessoa("Maria", "011111111-0", "PB", "saude, educacao");
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.exibirPessoa("011111122-0"));
-		assertEquals("Maria - 011111111-0 (PB) - Interesses: saude, educacao", controladorPessoaDeputado.exibirPessoa("011111111-0"));
-
+		assertEquals("Maria - 011111111-0 (PB) - Interesses: saude, educacao",
+				controladorPessoaDeputado.exibirPessoa("011111111-0"));
 	}
 
 	@Test
@@ -97,7 +96,6 @@ class ControladorPessoasDeputadosTest {
 				() -> controladorPessoaDeputado.cadastrarDeputado("011111122-0", "29022016"));
 		assertThrows(IllegalArgumentException.class,
 				() -> controladorPessoaDeputado.cadastrarDeputado("011111151-0", "29022017"));
-
 	}
 
 	@Test
@@ -105,7 +103,7 @@ class ControladorPessoasDeputadosTest {
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Marina", "011111111-0", "PB",
 				"educacao,seguranca publica,saude", "PMD");
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "20042016");
-		
+
 		assertTrue(controladorPessoaDeputado.containsDeputado("011111111-0"));
 		assertFalse(controladorPessoaDeputado.containsDeputado("011111112-0"));
 
@@ -116,8 +114,5 @@ class ControladorPessoasDeputadosTest {
 		controladorPessoaDeputado.cadastrarPessoa("Marina", "011111111-0", "PB", "educacao,seguranca publica,saude");
 		assertTrue(controladorPessoaDeputado.containsPessoa("011111111-0"));
 		assertFalse(controladorPessoaDeputado.containsPessoa("011111118-0"));
-
 	}
 }
-
-	

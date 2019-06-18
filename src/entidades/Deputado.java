@@ -41,8 +41,8 @@ public class Deputado implements Exibir {
 	 * @param leisAprovadas nova quantidade de leis aprovadas pelo deputado
 	 */
 
-	public void setLeisAprovadas(int leisAprovadas) {
-		this.leisAprovadas = leisAprovadas;
+	public void setLeisAprovadas() {
+		this.leisAprovadas += 1;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Deputado implements Exibir {
 	 * @param dni        uma String que representa o Documento Nacional de
 	 *                   Identificacao do deputado
 	 * @param estado     uma String que representa o estado de origem do deputado
-	 * @param partido    uma String que representa o partido ao qual o deputado é
+	 * @param partido    uma String que representa o partido ao qual o deputado Ã©
 	 *                   filiado
 	 * @param interesses uma String que representa os interesses do deputado
 	 * @return Uma String contendo todas as informacoes disponiveis do deputado
