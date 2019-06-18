@@ -205,6 +205,7 @@ public class ControladorGeral {
 		List<String> deputados = Arrays.asList(presentes.split(","));
 		deputados.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao votar proposta: pessoa nao eh deputado"));
 		
+
 		int votos = 0;
 		List<String> interessesDaProposta = this.controladorDePropostasLegislativas.getListaDeInteresses(codigo);
 		
@@ -227,17 +228,29 @@ public class ControladorGeral {
 			}
 		}
 		if(this.controladorDePropostasLegislativas.isPL(codigo)) {
-			return votos >= (deputados.size()/2) +1;
+			if(votos >= (deputados.size()/2) +1) {
+				this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
+				return true;
+			}
+			return false;
 		} else if(this.controladorDePropostasLegislativas.isPLP(codigo)) {
-			return votos >= (this.controladorDePessoasEDeputados.totalDeDeputados()/2) +1;
+			if(votos >= (this.controladorDePessoasEDeputados.totalDeDeputados()/2) +1) {
+				this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
+				return true;
+			}
+			return false;
 		} else {
-			return votos >= ((this.controladorDePessoasEDeputados.totalDeDeputados()*3)/5) + 1;
+			if(votos >= ((this.controladorDePessoasEDeputados.totalDeDeputados()*3)/5) + 1) {
+				this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
+				return true;
+			}
+			return false;
 		}
 	}
 	
-	public String exibirTramitacao(String codigo) {
-		
-	}
+//	public String exibirTramitacao(String codigo) {
+//		
+//	}
 	
 	private void validaDniPessoa(String dni, String mensagem) {
 		if(!controladorDePessoasEDeputados.containsPessoa(dni)) {

@@ -12,33 +12,38 @@ import metodosAuxiliares.ValidadorGeral;
 
 public class ControladorDePropostasLegislativas {
 	private Map<String, PropostaLegislativa> propostas;
-	private int PLsCadastradas;
-	private int PLPsCadastradas;
-	private int PECsCadastradas;
-	private ValidadorGeral validador;
 	
 	public ControladorDePropostasLegislativas() {
 		this.propostas = new HashMap<>();
-		this.validador = new ValidadorGeral();
+		
 	}
 	
 	public String cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
-		this.PLsCadastradas += 1;
-		String codigo = "PL " + this.PLsCadastradas + "/" + ano;
+		int posicaoPL = (int)propostas.values().stream().
+				filter(p -> p.getCodigo().contains("PL ")).
+				filter(p -> p.getAno() == ano).
+				count() + 1;
+    	String codigo = "PL " + posicaoPL  + "/" + ano;
 		this.propostas.put(codigo, new PL(autor, ano, codigo, ementa, interesses, url, conclusivo));
 		return codigo;
 	}
 	
 	public String cadastrarPLP(String autor, int ano, String ementa, String interesses, String url, String artigos) {
-		this.PLPsCadastradas += 1;
-		String codigo = "PLP " + this.PLPsCadastradas + "/" + ano;
+		int posicaoPLP = (int)propostas.values().stream().
+				filter(p->p.getCodigo().contains("PLP ")).
+				filter(p -> p.getAno() == ano).
+				count() + 1;
+		String codigo = "PLP " + posicaoPLP + "/" + ano;
 		this.propostas.put(codigo, new PLP(autor, ano, codigo, ementa, interesses, url, artigos));
 		return codigo;
 	}
 	
 	public String cadastrarPEC(String autor, int ano, String ementa, String interesses, String url, String artigos) {
-		this.PECsCadastradas += 1;
-		String codigo = "PEC " + this.PECsCadastradas + "/" + ano;
+		int posicaoPEC = (int)propostas.values().stream().
+				filter(p->p.getCodigo().contains("PEC ")).
+				filter(p -> p.getAno() == ano).
+				count() + 1;
+		String codigo = "PEC " + posicaoPEC + "/" + ano;
 		this.propostas.put(codigo, new PEC(autor, ano, codigo, ementa, interesses, url, artigos));
 		return codigo;
 	}
@@ -60,6 +65,10 @@ public class ControladorDePropostasLegislativas {
 		this.propostas.get(codigo).setSituacao();
 	}
 	
+	public String getAutor(String codigo) {
+		return this.propostas.get(codigo).getAutor();
+	}
+	
 	public List<String> getListaDeInteresses(String codigo) {
 		return propostas.get(codigo).getListaDeInteresses();
 	}
@@ -74,6 +83,11 @@ public class ControladorDePropostasLegislativas {
 	
 	public boolean isPEC(String codigo) {
 		return propostas.get(codigo).getClass().equals(PEC.class);
+	}
+	
+	public boolean isConclusivo(String codigo) {
+		if()
+		return ((PL)this.propostas.get(codigo)).isConclusivo();
 	}
 	
 }

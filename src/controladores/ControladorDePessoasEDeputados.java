@@ -11,7 +11,7 @@ import metodosAuxiliares.ValidadorGeral;
 public class ControladorDePessoasEDeputados {
 
 	private Map<String, Pessoa> pessoas;
-	private Map<String, Pessoa> deputados;
+	private Map<String, Deputado> deputados;
 	private ValidadorGeral validadorGeral;
 
 	public ControladorDePessoasEDeputados() {
@@ -49,10 +49,12 @@ public class ControladorDePessoasEDeputados {
 		validadorGeral.validaNullOuVazio(dni, "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
 		validadorGeral.validaDni(dni, "Erro ao exibir pessoa: dni invalido");
 
-		if (!this.pessoas.containsKey(dni)) {
-			throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
-		} else {
+		if (this.deputados.containsKey(dni)) {
+			return this.deputados.get(dni).exibir();
+		} else if (this.pessoas.containsKey(dni)) {
 			return this.pessoas.get(dni).exibir();
+		} else {
+			throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
 		}
 	}
 
@@ -75,16 +77,17 @@ public class ControladorDePessoasEDeputados {
 		if (pessoa.getPartido().equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 		}
-		if (pessoa.isDeputado()) {
+		if (this.deputados.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
 		}
-		
-		pessoa.assumeFuncao(dataDeInicio);
-		deputados.put(dni, pessoa);
+
+		Deputado novoDeputado = new Deputado(pessoa.getNome(), pessoa.getDni(), pessoa.getEstado(),
+				pessoa.getInteresses2(), pessoa.getPartido2(), dataDeInicio);
+		this.deputados.put(dni, novoDeputado);
 	}
-	
+
 	public void propostaAprovada(String dni) {
-		
+		this.deputados.get(dni).setLeisAprovadas();
 	}
 
 	public boolean containsDeputado(String dni) {
@@ -94,15 +97,15 @@ public class ControladorDePessoasEDeputados {
 	public boolean containsPessoa(String dni) {
 		return this.pessoas.containsKey(dni);
 	}
-	
+
 	public String getPartido(String dni) {
 		return this.deputados.get(dni).getPartido2();
 	}
-	
+
 	public List<String> getListaDeInteresses(String dni) {
 		return deputados.get(dni).getListaDeInteresses();
 	}
-	
+
 	public int totalDeDeputados() {
 		return deputados.size();
 	}

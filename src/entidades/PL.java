@@ -15,6 +15,10 @@ public class PL extends PropostaLegislativa {
 		return "";
 	}
 	
+	public boolean isConclusivo() {
+		return this.conclusiva;
+	}
+	
 	public String toString() {
 		return "Projeto de Lei - " + super.codigo + " - " + super.autor + " - " + super.ementa + this.getConclusiva() + " - " + super.situacao;
 	}

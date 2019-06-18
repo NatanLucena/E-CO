@@ -1,6 +1,5 @@
 package entidades;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,11 +39,6 @@ public class Pessoa {
 	private String partido;
 
 	/**
-	 * Muda a forma de exibicao entre Pessoa ou Deputado
-	 */
-	private Exibir exibir;
-
-	/**
 	 * Validador de parametros, que lanca excecoes, caso necessario
 	 */
 	private ValidadorGeral validadorGeral;
@@ -71,7 +65,6 @@ public class Pessoa {
 		this.estado = estado;
 		this.interesses = interesses;
 		this.partido = "";
-		this.exibir = new PessoaComum();
 	}
 
 	/**
@@ -133,6 +126,10 @@ public class Pessoa {
 		}
 	}
 	
+	public String getInteresses2() {
+		return this.interesses;
+	}
+	
 	public List<String> getListaDeInteresses() {
 		List<String> interesses = Arrays.asList(this.interesses.split(","));
 		return interesses;
@@ -155,29 +152,6 @@ public class Pessoa {
 		return this.partido;
 	}
 
-	/**
-	 * Altera a funcao de uma pessoa
-	 * 
-	 * @param dataDeInicio uma String que representa a data de inicio da pessoa na
-	 *                     nova funcao
-	 */
-	public void assumeFuncao(String dataDeInicio) {
-		this.exibir = new Deputado(dataDeInicio);
-	}
-
-	/**
-	 * Verifica se a pessoa exerce a funcao de deputado
-	 * 
-	 * @return Um booleano,se a pessoa exerce a funcao de deputado retorna true,
-	 *         caso contrario retorna falso
-	 */
-	public boolean isDeputado() {
-		return exibir.getClass().equals(Deputado.class);
-	}
-	
-	public void setLeisAprovadas() {
-		this.
-	}
 
 	/**
 	 * Este metodo retorna a representacao textual da pessoa
@@ -185,6 +159,7 @@ public class Pessoa {
 	 * @return uma String contendo todas as informacoes disponiveis da pessoa
 	 */
 	public String exibir() {
-		return exibir.exibir(nome, dni, estado, this.getPartido(), this.getInteresses());
-	}
+		return this.getNome() + " - " + this.getDni() + " (" + this.getEstado() + ")" + this.getPartido() + this.getInteresses();
+}
+	
 }
