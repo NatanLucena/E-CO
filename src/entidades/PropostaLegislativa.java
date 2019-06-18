@@ -12,6 +12,7 @@ public class PropostaLegislativa {
 	protected String situacao;
 	private String URL;
 	private String local;
+	private String tramitacao;
 	
 	public PropostaLegislativa(String autor,int ano, String codigo, String ementa, String interesses, String URL) {
 		this.autor = autor;
@@ -22,14 +23,24 @@ public class PropostaLegislativa {
 		this.situacao = "EM VOTACAO (CCJC)";
 		this.URL = URL;
 		this.local = "CCJC";
+		this.tramitacao = "";
 	}
 
 	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao() {
+	public void setSituacao(String situacao) {
+		if(situacao.equals("APROVADO")) {
+			this.situacao = "APROVADO";
+		}else if(situacao.equals("ARQUIVADO")) {
+			this.situacao = "ARQUIVADO";
+		}
 		this.situacao = "EM VOTACAO (" + this.local + ")";
+	}
+	
+	public void setTramitacao(String tramitacao) {
+		this.tramitacao += tramitacao;
 	}
 
 	public String getAutor() {

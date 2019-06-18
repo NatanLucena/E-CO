@@ -180,8 +180,23 @@ public class ControladorGeral {
  				}
 			}
 		}
-		this.controladorDePropostasLegislativas.setLocal(codigo, proximoLocal);
-		return votos >= deputados.size()/2 + 1;
+		if(votos >= deputados.size()/2 + 1) {
+			if(this.controladorDePropostasLegislativas.isPL(codigo) && this.controladorDePropostasLegislativas.isConclusivo(codigo) && (!this.controladorDePropostasLegislativas.getLocal(codigo).equals("CCJC"))) {
+				this.controladorDePropostasLegislativas.setLocal(codigo, "-", "APROVADO");
+				this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
+			}
+			return true;
+		}else {
+			if(this.controladorDePropostasLegislativas.getLocal(codigo).equals("CCJC")) {
+				this.controladorDePropostasLegislativas.setLocal(codigo, "-", "ARQUIVADO");
+			}else {
+				if(this.controladorDePropostasLegislativas.isPL(codigo) && this.controladorDePropostasLegislativas.isConclusivo(codigo)) {
+					this.controladorDePropostasLegislativas.setLocal(codigo, "-", "ARQUIVADO");
+				}
+			}
+			return false;
+		}
+		
 		
 	}
 	
@@ -202,7 +217,18 @@ public class ControladorGeral {
 		if(!this.controladorDePropostasLegislativas.getLocal(codigo).equals("plenario")) {
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
 		}
+		
 		List<String> deputados = Arrays.asList(presentes.split(","));
+		
+		if(deputados.size() <= 1) {
+			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+		}
+		if((this.controladorDePropostasLegislativas.isPLP(codigo) || this.controladorDePropostasLegislativas.isPL(codigo)) && deputados.size() < this.controladorDePessoasEDeputados.totalDeDeputados() + 1) {
+			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+		}
+		if(this.controladorDePropostasLegislativas.isPEC(codigo) && deputados.size() < ((this.controladorDePessoasEDeputados.totalDeDeputados()*3)/5) + 1) {
+			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+		}
 		deputados.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao votar proposta: pessoa nao eh deputado"));
 		
 

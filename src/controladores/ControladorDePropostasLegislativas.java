@@ -8,7 +8,6 @@ import entidades.PEC;
 import entidades.PL;
 import entidades.PLP;
 import entidades.PropostaLegislativa;
-import metodosAuxiliares.ValidadorGeral;
 
 public class ControladorDePropostasLegislativas {
 	private Map<String, PropostaLegislativa> propostas;
@@ -60,9 +59,8 @@ public class ControladorDePropostasLegislativas {
 		return propostas.get(codigo).getLocal();
 	}
 	
-	public void setLocal(String codigo, String local) {
+	public void setLocal(String codigo, String local, String situacao) {
 		this.propostas.get(codigo).setLocal(local);
-		this.propostas.get(codigo).setSituacao();
 	}
 	
 	public String getAutor(String codigo) {
@@ -85,8 +83,15 @@ public class ControladorDePropostasLegislativas {
 		return propostas.get(codigo).getClass().equals(PEC.class);
 	}
 	
+	public void adicionaTramitacao(String codigo,String local, String situacao) {
+		if(local.equals("CCJC")) {
+			this.propostas.get(codigo).setTramitacao(situacao + "(" + local + ")");
+		}else {
+			this.propostas.get(codigo).setTramitacao(", " + situacao + "(" + local + ")");
+		}
+	}
+	
 	public boolean isConclusivo(String codigo) {
-		if()
 		return ((PL)this.propostas.get(codigo)).isConclusivo();
 	}
 	
