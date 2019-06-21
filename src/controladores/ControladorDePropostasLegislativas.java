@@ -60,7 +60,14 @@ public class ControladorDePropostasLegislativas {
 	}
 	
 	public void setLocal(String codigo, String local, String situacao) {
-		this.propostas.get(codigo).setLocal(local);
+		if(local.equals("plenario")) {
+			if(this.propostas.get(codigo).getCodigo().contains("PL ")) {
+				this.propostas.get(codigo).setLocal(situacao + ": " + local);
+			}else {
+				this.propostas.get(codigo).setLocal(situacao + ": " + local + " - 2o turno");
+			}
+		}
+		this.propostas.get(codigo).setLocal(situacao + ": " + local);
 	}
 	
 	public String getAutor(String codigo) {
@@ -72,22 +79,29 @@ public class ControladorDePropostasLegislativas {
 	}
 	
 	public boolean isPL(String codigo) {
-		return propostas.get(codigo).getClass().equals(PL.class);
+		return propostas.get(codigo).getCodigo().contains("PL ");
 	}
 	
 	public boolean isPLP(String codigo) {
-		return propostas.get(codigo).getClass().equals(PLP.class);
+		return propostas.get(codigo).getCodigo().contains("PLP ");
 	}
 	
 	public boolean isPEC(String codigo) {
-		return propostas.get(codigo).getClass().equals(PEC.class);
+		return propostas.get(codigo).getCodigo().contains("PEC ");
 	}
 	
 	public void adicionaTramitacao(String codigo,String local, String situacao) {
-		if(local.equals("CCJC")) {
-			this.propostas.get(codigo).setTramitacao(situacao + "(" + local + ")");
+		List<String> tramitacao = this.propostas.get(codigo).getListaTramitacao();
+		if(!situacao.equals("EM VOTACAO")) {
+			tramitacao.remove(-1);
+			if(tramitacao.size() != 0) {
+				tramitacao.add(", " + situacao + " " + local);
+			}else {
+				tramitacao.add(situacao + " " + local);
+			}
+			this.propostas.get(codigo).setTramitacao(tramitacao);
 		}else {
-			this.propostas.get(codigo).setTramitacao(", " + situacao + "(" + local + ")");
+			tramitacao.add(situacao + " " + local);
 		}
 	}
 	

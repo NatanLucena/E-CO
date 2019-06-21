@@ -1,5 +1,6 @@
 package entidades;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class PropostaLegislativa {
 	protected String situacao;
 	private String URL;
 	private String local;
-	private String tramitacao;
+	private List<String> tramitacao;
 	
 	public PropostaLegislativa(String autor,int ano, String codigo, String ementa, String interesses, String URL) {
 		this.autor = autor;
@@ -23,7 +24,8 @@ public class PropostaLegislativa {
 		this.situacao = "EM VOTACAO (CCJC)";
 		this.URL = URL;
 		this.local = "CCJC";
-		this.tramitacao = "";
+		this.tramitacao = new ArrayList<>();
+		this.tramitacao.add("EM VOTACAO (CCJC)");
 	}
 
 	public String getSituacao() {
@@ -39,8 +41,21 @@ public class PropostaLegislativa {
 		this.situacao = "EM VOTACAO (" + this.local + ")";
 	}
 	
-	public void setTramitacao(String tramitacao) {
-		this.tramitacao += tramitacao;
+	public void setTramitacao(List<String> tramitacao) {
+		this.tramitacao.clear();
+		this.tramitacao.addAll(tramitacao);
+	}
+	
+	public String getTramitacao() {
+		String tramitacoes = "";
+		for (int i = 0; i < this.tramitacao.size(); i++) {
+			tramitacoes += this.tramitacao.get(i);
+		}
+		return tramitacoes;
+	}
+	
+	public List<String> getListaTramitacao() {
+		return this.tramitacao;
 	}
 
 	public String getAutor() {

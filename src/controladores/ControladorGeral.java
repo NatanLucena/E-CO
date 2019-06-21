@@ -182,17 +182,21 @@ public class ControladorGeral {
 		}
 		if(votos >= deputados.size()/2 + 1) {
 			if(this.controladorDePropostasLegislativas.isPL(codigo) && this.controladorDePropostasLegislativas.isConclusivo(codigo) && (!this.controladorDePropostasLegislativas.getLocal(codigo).equals("CCJC"))) {
-				this.controladorDePropostasLegislativas.setLocal(codigo, "-", "APROVADO");
+				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "APROVADO");
+				this.controladorDePropostasLegislativas.setLocal(codigo, "-", "ARQUIVADO");
 				this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
 			}
 			return true;
 		}else {
 			if(this.controladorDePropostasLegislativas.getLocal(codigo).equals("CCJC")) {
+				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "REJEITADO");
+				this.controladorDePropostasLegislativas.setLocal(codigo, "-", "ARQUIVADO");
+			}else if(this.controladorDePropostasLegislativas.isPL(codigo) && this.controladorDePropostasLegislativas.isConclusivo(codigo)){
+				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "REJEITADO");
 				this.controladorDePropostasLegislativas.setLocal(codigo, "-", "ARQUIVADO");
 			}else {
-				if(this.controladorDePropostasLegislativas.isPL(codigo) && this.controladorDePropostasLegislativas.isConclusivo(codigo)) {
-					this.controladorDePropostasLegislativas.setLocal(codigo, "-", "ARQUIVADO");
-				}
+				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "REJEITADO");
+				this.controladorDePropostasLegislativas.setLocal(codigo, proximoLocal, "EM VOTACAO");
 			}
 			return false;
 		}
@@ -203,8 +207,8 @@ public class ControladorGeral {
 	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
 		validador.validaNullOuVazio(codigo, "Erro ao votar proposta: codigo vazio");
 		validador.validaNullOuVazio(statusGovernista, "Erro ao votar proposta: presentes vazio");
-		List<String> dnis = Arrays.asList(presentes.split(","));
-		dnis.stream().forEach( dni-> validador.validaDni(dni, "Erro ao votar proposta: dni invalido"));
+		List<String> deputados = Arrays.asList(presentes.split(","));
+		deputados.stream().forEach( dni-> validador.validaDni(dni, "Erro ao votar proposta: dni invalido"));
 		if((!statusGovernista.equals("GOVERNISTA") && (!statusGovernista.equals("LIVRE") && (!statusGovernista.equals("OPOSICAO"))))) {
 			throw new IllegalArgumentException("Erro ao votar proposta: status invalido");
 		}
@@ -217,8 +221,6 @@ public class ControladorGeral {
 		if(!this.controladorDePropostasLegislativas.getLocal(codigo).equals("plenario")) {
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
 		}
-		
-		List<String> deputados = Arrays.asList(presentes.split(","));
 		
 		if(deputados.size() <= 1) {
 			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
