@@ -1,5 +1,6 @@
 package controladores;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +9,12 @@ import entidades.Deputado;
 import entidades.Pessoa;
 import metodosAuxiliares.ValidadorGeral;
 
-public class ControladorDePessoasEDeputados {
+public class ControladorDePessoasEDeputados implements Serializable {
 
+	/**
+	 * Armazena indentificador de versao de serializacao da classe ControladorDePessoaEDeputado.
+	 */
+	private static final long serialVersionUID = 2273665890759352701L;
 	private Map<String, Pessoa> pessoas;
 	private Map<String, Deputado> deputados;
 	private ValidadorGeral validadorGeral;

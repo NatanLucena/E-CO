@@ -1,9 +1,14 @@
 package entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Comissao {
+public class Comissao implements Serializable {
+	/**
+	 * Armazena indentificador de versao de serializacao da classe Comissao.
+	 */
+	private static final long serialVersionUID = -1190752484642864132L;
 	private String tema;
 	private List<String> integrantes;
 	

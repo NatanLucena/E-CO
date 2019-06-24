@@ -2,6 +2,7 @@ package facade;
 
 import controladores.ControladorGeral;
 import easyaccept.EasyAccept;
+import gerenciadordearquivos.SistemaController;
 
 public class Facade {
 	ControladorGeral controlador;
@@ -39,20 +40,8 @@ public class Facade {
 		return this.controlador.exibirBase();
 	}
 
-	public void limparSistema() {
-
-	}
-
 	public String exibirPessoa(String dni) {
 		return this.controlador.exibirPessoa(dni);
-	}
-
-	public void carregarSistema() {
-
-	}
-
-	public void salvarSistema() {
-
 	}
 	
 	public void cadastrarComissao(String tema, String politicos) {
@@ -81,6 +70,22 @@ public class Facade {
 	
 	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
 		return this.controlador.votarPlenario(codigo, statusGovernista, presentes);
+	}
+	
+	public String exibirTramitacao(String codigo) {
+		return this.controlador.exibirTramitacao(codigo);
+	}
+	
+	public void carregarSistema() {
+		controlador = SistemaController.carregaSistema();
+	}
+	
+	public void limparSistema() {
+		SistemaController.limpaSistema();
+	}
+	
+	public void salvarSistema() {
+		SistemaController.salvaSistema(controlador);
 	}
 
 }

@@ -1,5 +1,6 @@
 package controladores;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,11 @@ import entidades.PL;
 import entidades.PLP;
 import entidades.PropostaLegislativa;
 
-public class ControladorDePropostasLegislativas {
+public class ControladorDePropostasLegislativas implements Serializable {
+	/**
+	 * Armazena indentificador de versao de serializacao da classe ControladorDePropostasLegislativas.
+	 */
+	private static final long serialVersionUID = -2942187304776944035L;
 	private Map<String, PropostaLegislativa> propostas;
 	
 	public ControladorDePropostasLegislativas() {
@@ -59,15 +64,21 @@ public class ControladorDePropostasLegislativas {
 		return propostas.get(codigo).getLocal();
 	}
 	
-	public void setLocal(String codigo, String local, String situacao) {
-		if(local.equals("plenario")) {
-			if(this.propostas.get(codigo).getCodigo().contains("PL ")) {
-				this.propostas.get(codigo).setLocal(situacao + ": " + local);
+	public void setSituacao(String codigo, String local, String situacao) {
+		if(!this.propostas.get(codigo).getCodigo().contains("PL ")) {
+			if(local.equals("Plenario") && this.getLocal(codigo).contains("1o")) {
+				this.propostas.get(codigo).setSituacao(situacao + ": " + local + " - 2o turno");
+				this.propostas.get(codigo).setLocal(local);
 			}else {
-				this.propostas.get(codigo).setLocal(situacao + ": " + local + " - 2o turno");
+				this.propostas.get(codigo).setSituacao(situacao + ": " + local + " - 1o turno");
+				this.propostas.get(codigo).setLocal(local);
 			}
+		}else {
+			this.propostas.get(codigo).setSituacao(situacao + ": " + local);
+			this.propostas.get(codigo).setLocal(local);
 		}
-		this.propostas.get(codigo).setLocal(situacao + ": " + local);
+		
+		
 	}
 	
 	public String getAutor(String codigo) {
@@ -103,6 +114,13 @@ public class ControladorDePropostasLegislativas {
 		}else {
 			tramitacao.add(situacao + " " + local);
 		}
+	}
+	
+	public String exibeTramitacao(String codigo) {
+		if(!this.propostas.containsKey(codigo)) {
+			throw new IllegalArgumentException("Erro ao exibir tramitacao: projeto inexistente");
+		}
+		return this.propostas.get(codigo).getTramitacao();
 	}
 	
 	public boolean isConclusivo(String codigo) {

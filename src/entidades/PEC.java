@@ -1,6 +1,11 @@
 package entidades;
 
 public class PEC extends PropostaLegislativa {
+	/**
+	 * Armazena indentificador de versao de serializacao da classe PEC.
+	 */
+	private static final long serialVersionUID = 5247444466850372223L;
+
 	private String artigosAlterados;
 	
 	public PEC(String autor, int ano, String codigo, String ementa, String interesses, String URL, String artigos) {

@@ -1,10 +1,15 @@
 package entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PropostaLegislativa {
+public class PropostaLegislativa implements Serializable {
+	/**
+	 * Armazena indentificador de versao de serializacao da classe PropostaLegislativa.
+	 */
+	private static final long serialVersionUID = 237001536563632409L;
 	protected String autor;
 	protected int ano;
 	protected String codigo;
@@ -33,12 +38,7 @@ public class PropostaLegislativa {
 	}
 
 	public void setSituacao(String situacao) {
-		if(situacao.equals("APROVADO")) {
-			this.situacao = "APROVADO";
-		}else if(situacao.equals("ARQUIVADO")) {
-			this.situacao = "ARQUIVADO";
-		}
-		this.situacao = "EM VOTACAO (" + this.local + ")";
+		this.situacao = situacao;
 	}
 	
 	public void setTramitacao(List<String> tramitacao) {

@@ -1,5 +1,6 @@
 package entidades;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +12,12 @@ import metodosAuxiliares.ValidadorGeral;
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *
  */
-public class Pessoa {
+public class Pessoa implements Serializable {
+
+	/**
+	 * Armazena indentificador de versao de serializacao da classe Pessoa.
+	 */
+	private static final long serialVersionUID = 4930726363577103229L;
 
 	/**
 	 * Armazena nome da pessoa

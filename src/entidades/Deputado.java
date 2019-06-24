@@ -1,12 +1,19 @@
 package entidades;
 
+import java.io.Serializable;
+
 /**
  * Responsavel por representar um Deputado
  * 
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *
  */
-public class Deputado extends Pessoa {
+public class Deputado extends Pessoa implements Serializable {
+
+	/**
+	 * Armazena indentificador de versao de serializacao da classe Deputado.
+	 */
+	private static final long serialVersionUID = -1040910723373503836L;
 
 	/**
 	 * Data de inicio que a pessoa exerceu a funcao de deputado
