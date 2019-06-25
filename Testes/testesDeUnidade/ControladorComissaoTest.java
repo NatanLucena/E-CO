@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-
+import org.junit.jupiter.api.Test;
 
 import controladores.ControladorDeComissoes;
 
@@ -18,35 +17,34 @@ public class ControladorComissaoTest {
 	private ControladorDeComissoes controladorComissao;
 	private List<String> politicos;
 
-
 	@BeforeEach
-	void iniciaControladorComissao() {
+	public void iniciaControladorComissao() {
 		controladorComissao = new ControladorDeComissoes();
-		politicos=new ArrayList<>();
+		politicos = new ArrayList<>();
 	}
 
 	@Test
-	void testCadastraComissao() {
-		politicos.add("Deputado1");
-		politicos.add("Deputado2");		
-		assertThrows(IllegalArgumentException.class, () -> controladorComissao.cadastraComissao("", politicos));
-		
+	public void testCadastraComissao() {
+		this.politicos.add("Deputado1");
+		this.politicos.add("Deputado2");
+		assertThrows(IllegalArgumentException.class, () -> this.controladorComissao.cadastraComissao("", politicos));
+
 	}
 
 	@Test
-	void testContainsComissao() {
-		politicos.add("Deputado1");
-		politicos.add("Deputado2");	
+	public void testContainsComissao() {
+		this.politicos.add("Deputado1");
+		this.politicos.add("Deputado2");
 		controladorComissao.cadastraComissao("Tema", politicos);
 		assertTrue(controladorComissao.containsComissao("Tema"));
-		assertFalse(controladorComissao.containsComissao("NaoTema")); }
+		assertFalse(controladorComissao.containsComissao("NaoTema"));
+	}
 
 	@Test
-	void testGetIntegrantes() {
+	public void testGetIntegrantes() {
 		politicos.add("Deputado1");
 		politicos.add("Deputado2");
 		controladorComissao.cadastraComissao("Tema", politicos);
-		assertEquals(controladorComissao.getIntegrantes("Tema"),politicos); }
-	
-
+		assertEquals(controladorComissao.getIntegrantes("Tema"), politicos);
+	}
 }
