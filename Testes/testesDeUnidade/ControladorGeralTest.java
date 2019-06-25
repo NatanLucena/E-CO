@@ -11,30 +11,30 @@ public class ControladorGeralTest {
 	private ControladorGeral controlador;
 
 	@BeforeEach
-	void iniciaControladorGeral() {
+	public void iniciaControladorGeral() {
 		controlador = new ControladorGeral();
 	}
 	
 	@Test
-	void testCadastrarPessoa() {
+	public void testCadastrarPessoa() {
 		controlador.cadastrarPessoa("Jackson", "011111111-0", "PB", "saude, educacao");
 		assertEquals("", controlador.exibirPessoa("011111111-0")); 
 		}
 
 	@Test
-	void testCadastrarPessoaComPartido() {
+	public void testCadastrarPessoaComPartido() {
 		controlador.cadastrarPessoaComPartido("Jackson", "011111111-0", "PB", "saude, educacao", "DEM");
 		assertEquals("", controlador.exibirPessoa("011111111-0")); }
 
 	
 	@Test
-	void testCadastrarDeputado() {
+	public void testCadastrarDeputado() {
 		controlador.cadastrarPessoaComPartido("Jose", "011111112-0", "PB", "esporte, educacao", "DEM");
 		controlador.cadastrarDeputado("011111112-0", "29022016");
 		assertEquals("", controlador.exibirPessoa("011111111-0"));  }
 	
 	@Test
-	void testExibirPessoa() {
+	public void testExibirPessoa() {
 		controlador.cadastrarPessoa("Jackson", "011111111-0", "PB", "saude, educacao");
 		assertEquals("", controlador.exibirPessoa("011111111-0")); 
 		controlador.cadastrarPessoaComPartido("Jose", "011111112-0", "PB", "esporte, educacao", "DEM");
