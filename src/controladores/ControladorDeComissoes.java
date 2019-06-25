@@ -55,6 +55,10 @@ public class ControladorDeComissoes {
 		return comissoes.containsKey(comissao);
 	}
 	
+	public Comissao getComissao(String comissao) {
+		return this.comissoes.get(comissao);
+	}
+	
 	public void cadastraIntegrante(String tema, Deputado deputado) {
 		this.comissoes.get(tema).cadastraIntegrante(deputado);
 	}

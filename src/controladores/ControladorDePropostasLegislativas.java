@@ -60,26 +60,28 @@ public class ControladorDePropostasLegislativas implements Serializable {
 		return propostas.containsKey(codigo);
 	}
 	
+	public PropostaLegislativa getProposta(String codigo) {
+		return this.propostas.get(codigo);
+	}
+	
 	public String getLocal(String codigo) {
 		return propostas.get(codigo).getLocal();
 	}
 	
-	public void setSituacao(String codigo, String local, String situacao) {
-		if(!this.propostas.get(codigo).getCodigo().contains("PL ")) {
-			if(local.equals("Plenario") && this.getLocal(codigo).contains("1o")) {
-				this.propostas.get(codigo).setSituacao(situacao + ": " + local + " - 2o turno");
-				this.propostas.get(codigo).setLocal(local);
-			}else {
-				this.propostas.get(codigo).setSituacao(situacao + ": " + local + " - 1o turno");
-				this.propostas.get(codigo).setLocal(local);
-			}
-		}else {
-			this.propostas.get(codigo).setSituacao(situacao + ": " + local);
-			this.propostas.get(codigo).setLocal(local);
-		}
-		
-		
-	}
+//	public void setSituacao(String codigo, String local, String situacao) {
+//		if(!this.propostas.get(codigo).getCodigo().contains("PL ")) {
+//			if(local.equals("Plenario") && this.getLocal(codigo).contains("1o")) {
+//				this.propostas.get(codigo).setSituacao(situacao + ": " + local + " - 2o turno");
+//				this.propostas.get(codigo).setLocal(local);
+//			}else {
+//				this.propostas.get(codigo).setSituacao(situacao + ": " + local + " - 1o turno");
+//				this.propostas.get(codigo).setLocal(local);
+//			}
+//		}else {
+//			this.propostas.get(codigo).setSituacao(situacao + ": " + local);
+//			this.propostas.get(codigo).setLocal(local);
+//		}	
+//	}
 	
 	public String getAutor(String codigo) {
 		return this.propostas.get(codigo).getAutor();
@@ -89,42 +91,11 @@ public class ControladorDePropostasLegislativas implements Serializable {
 		return propostas.get(codigo).getListaDeInteresses();
 	}
 	
-	public boolean isPL(String codigo) {
-		return propostas.get(codigo).getCodigo().contains("PL ");
-	}
-	
-	public boolean isPLP(String codigo) {
-		return propostas.get(codigo).getCodigo().contains("PLP ");
-	}
-	
-	public boolean isPEC(String codigo) {
-		return propostas.get(codigo).getCodigo().contains("PEC ");
-	}
-	
-	public void adicionaTramitacao(String codigo,String local, String situacao) {
-		List<String> tramitacao = this.propostas.get(codigo).getListaTramitacao();
-		if(!situacao.equals("EM VOTACAO")) {
-			tramitacao.remove(-1);
-			if(tramitacao.size() != 0) {
-				tramitacao.add(", " + situacao + " " + local);
-			}else {
-				tramitacao.add(situacao + " " + local);
-			}
-			this.propostas.get(codigo).setTramitacao(tramitacao);
-		}else {
-			tramitacao.add(situacao + " " + local);
-		}
-	}
-	
 	public String exibeTramitacao(String codigo) {
 		if(!this.propostas.containsKey(codigo)) {
 			throw new IllegalArgumentException("Erro ao exibir tramitacao: projeto inexistente");
 		}
 		return this.propostas.get(codigo).getTramitacao();
-	}
-	
-	public boolean isConclusivo(String codigo) {
-		return ((PL)this.propostas.get(codigo)).isConclusivo();
 	}
 	
 }

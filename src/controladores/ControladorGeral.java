@@ -167,52 +167,7 @@ public class ControladorGeral implements Serializable {
 			throw new IllegalArgumentException("Erro ao votar proposta: " + this.controladorDePropostasLegislativas.getLocal(codigo) + " nao cadastrada");
 		}
 		
-		List<String> deputados = this.controladorDeComissoes.getIntegrantes(this.controladorDePropostasLegislativas.getLocal(codigo));
-		
-		int votos = 0;
-		List<String> interessesDaProposta = this.controladorDePropostasLegislativas.getListaDeInteresses(codigo);
-		
-		for(int i = 0; i < deputados.size(); i++) {
-			if(statusGovernista.equals("GOVERNISTA")) {
-				if(this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
-				votos += 1;
-				}	
-			}else if(statusGovernista.equals("OPOSICAO")) {
-				if(!this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
-					votos += 1;
-				}
-			}else {
-				List<String> interessesDoDeputado = this.controladorDePessoasEDeputados.getListaDeInteresses(deputados.get(i));
-				for(int j = 0; j < interessesDoDeputado.size(); j++) {
-					if(interessesDaProposta.contains(interessesDoDeputado.get(j))) {
-						votos += 1;
-					}
- 				}
-			}
-		}
-		if(votos >= deputados.size()/2 + 1) {
-			if(this.controladorDePropostasLegislativas.isPL(codigo) && this.controladorDePropostasLegislativas.isConclusivo(codigo) && (!this.controladorDePropostasLegislativas.getLocal(codigo).equals("CCJC"))) {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "APROVADO");
-				this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-				this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
-			}else {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "APROVADO");
-				this.controladorDePropostasLegislativas.setSituacao(codigo, proximoLocal, "APROVADO");
-			}
-			return true;
-		}else {
-			if(this.controladorDePropostasLegislativas.getLocal(codigo).equals("CCJC")) {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "REJEITADO");
-				this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-			}else if(this.controladorDePropostasLegislativas.isPL(codigo) && this.controladorDePropostasLegislativas.isConclusivo(codigo)){
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "REJEITADO");
-				this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-			}else {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, this.controladorDePropostasLegislativas.getLocal(codigo), "REJEITADO");
-				this.controladorDePropostasLegislativas.setSituacao(codigo, proximoLocal, "EM VOTACAO");
-			}
-			return false;
-		}
+		return this.votacao.votaComissao(this.controladorDePropostasLegislativas.getProposta(codigo), this.controladorDeComissoes.getComissao(this.controladorDePropostasLegislativas.getLocal(codigo)), statusGovernista, proximoLocal, this.controladorDePessoasEDeputados.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)));
 		
 		
 	}
@@ -237,85 +192,15 @@ public class ControladorGeral implements Serializable {
 		if(deputados.size() <= 1) {
 			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
 		}
-		if((this.controladorDePropostasLegislativas.isPLP(codigo) || this.controladorDePropostasLegislativas.isPL(codigo)) && deputados.size() < this.controladorDePessoasEDeputados.totalDeDeputados() + 1) {
+		if((codigo.contains("PLP") && deputados.size() < ((this.controladorDePessoasEDeputados.totalDeDeputados()/2) + 1))) {
 			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
 		}
-		if(this.controladorDePropostasLegislativas.isPEC(codigo) && deputados.size() < ((this.controladorDePessoasEDeputados.totalDeDeputados()*3)/5) + 1) {
+		if(codigo.contains("PEC") && deputados.size() < ((this.controladorDePessoasEDeputados.totalDeDeputados()*3)/5) + 1) {
 			throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
 		}
 		deputados.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao votar proposta: pessoa nao eh deputado"));
 		
-
-		int votos = 0;
-		List<String> interessesDaProposta = this.controladorDePropostasLegislativas.getListaDeInteresses(codigo);
-		
-		for(int i = 0; i < deputados.size(); i++) {
-			if(statusGovernista.equals("GOVERNISTA")) {
-				if(this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
-				votos += 1;
-				}	
-			}else if(statusGovernista.equals("OPOSICAO")) {
-				if(!this.baseGovernista.contains(this.controladorDePessoasEDeputados.getPartido(deputados.get(i)))) {
-					votos += 1;
-				}
-			}else {
-				List<String> interessesDoDeputado = this.controladorDePessoasEDeputados.getListaDeInteresses(deputados.get(i));
-				for(int j = 0; i < interessesDoDeputado.size(); j++) {
-					if(interessesDaProposta.contains(interessesDoDeputado.get(j))) {
-						votos += 1;
-					}
- 				}
-			}
-		}
-		if(this.controladorDePropostasLegislativas.isPL(codigo)) {
-			if(votos >= (deputados.size()/2) +1) {
-				this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario", "APROVADO");
-				this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-				return true;
-			}
-			this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario", "REJEITADO");
-			this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-			return false;
-		} else if(this.controladorDePropostasLegislativas.isPLP(codigo)) {
-			if(votos >= ((this.controladorDePessoasEDeputados.totalDeDeputados()/2) +1)) {
-				if(this.controladorDePropostasLegislativas.getLocal(codigo).contains("1o turno")) {
-					this.controladorDePropostasLegislativas.setSituacao(codigo, "Plenario", "EM VOTACAO");
-					this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 1o turno", "APROVADO");
-				}else {
-					this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
-					this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-					this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 2o turno", "APROVADO");
-				}
-				return true;
-			}
-			this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-			if (this.controladorDePropostasLegislativas.getLocal(codigo).contains("1o turno")) {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 1o turno", "REJEITADO");
-			}else {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 2o turno", "REJEITADO");
-			}
-			return false;
-		} else {
-			if(votos >= ((this.controladorDePessoasEDeputados.totalDeDeputados()*3)/5) + 1) {
-				if(this.controladorDePropostasLegislativas.getLocal(codigo).contains("1o turno")) {
-					this.controladorDePropostasLegislativas.setSituacao(codigo, "Plenario", "EM VOTACAO");
-					this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 1o turno", "APROVADO");
-				}else {
-					this.controladorDePessoasEDeputados.propostaAprovada(this.controladorDePropostasLegislativas.getAutor(codigo));
-					this.controladorDePropostasLegislativas.setSituacao(codigo, "-", "ARQUIVADO");
-					this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 2o turno", "APROVADO");
-				}
-				return true;
-			}
-			this.controladorDePropostasLegislativas.setSituacao(codigo , "-", "ARQUIVADO");
-			if (this.controladorDePropostasLegislativas.getLocal(codigo).contains("1o turno")) {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 1o turno", "REJEITADO");
-			}else {
-				this.controladorDePropostasLegislativas.adicionaTramitacao(codigo, "Plenario - 2o turno", "REJEITADO");
-			}
-			return false;
-		}
+		return this.votacao.votaPlenario(this.controladorDePropostasLegislativas.getProposta(codigo), this.controladorDePessoasEDeputados.getPresentes(deputados), this.controladorDePessoasEDeputados.totalDeDeputados(), statusGovernista, this.controladorDePessoasEDeputados.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)));
 	}
 	
 	public String exibirTramitacao(String codigo) {

@@ -2,7 +2,9 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Responsavel por representar uma comissao no sistema
@@ -22,7 +24,7 @@ public class Comissao implements Serializable {
 	/**
 	 * Armazena todos os integrantes que fazem parte da comissao
 	 */
-	private List<Deputado> integrantes;
+	private Map<String, Deputado> integrantes;
 	/**
 	 * Inicia a comissao a partir do tema, e com uma lista com os integrantes da comissao
 	 * @param tema da comissao
@@ -30,8 +32,7 @@ public class Comissao implements Serializable {
 	 */
 	public Comissao(String tema) {
 		this.tema = tema;
-		this.integrantes = new ArrayList<>();
-		this.integrantes = new ArrayList<>();
+		this.integrantes = new HashMap<>();
 	}
 	
 	/**
@@ -43,7 +44,7 @@ public class Comissao implements Serializable {
 	}
 	
 	public void cadastraIntegrante(Deputado deputado) {
-		this.integrantes.add(deputado);
+		this.integrantes.put(deputado.getDni(), deputado);
 	}
 	
 	/**
@@ -51,6 +52,8 @@ public class Comissao implements Serializable {
 	 * @return uma lista, com todos os integrantes da comissao
 	 */
 	public List<Deputado> getIntegrantes() {
+		List<Deputado> integrantes = new ArrayList<>();
+		integrantes.addAll(this.integrantes.values());
 		return integrantes;
 	}
 	

@@ -41,17 +41,17 @@ public class PropostaLegislativa implements Serializable {
 		this.situacao = situacao;
 	}
 	
-	public void setTramitacao(List<String> tramitacao) {
-		this.tramitacao.clear();
-		this.tramitacao.addAll(tramitacao);
+	public void setTramitacao(String tramitacao) {
+		this.tramitacao.remove(-1);
+		this.tramitacao.add(tramitacao);
+	}
+	
+	public void adicionaTramitacao(String tramitacao) {
+		this.tramitacao.add(tramitacao);
 	}
 	
 	public String getTramitacao() {
-		String tramitacoes = "";
-		for (int i = 0; i < this.tramitacao.size(); i++) {
-			tramitacoes += this.tramitacao.get(i);
-		}
-		return tramitacoes;
+		return String.join(",", this.tramitacao);
 	}
 	
 	public List<String> getListaTramitacao() {

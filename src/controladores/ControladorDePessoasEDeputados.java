@@ -1,6 +1,7 @@
 package controladores;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,9 +96,9 @@ public class ControladorDePessoasEDeputados implements Serializable {
 		this.deputados.put(dni, novoDeputado);
 	}
 
-	public void propostaAprovada(String dni) {
-		this.deputados.get(dni).setLeisAprovadas();
-	}
+//	public void propostaAprovada(String dni) {
+//		this.deputados.get(dni).setLeisAprovadas();
+//	}
 
 	public boolean containsDeputado(String dni) {
 		return this.deputados.containsKey(dni);
@@ -109,6 +110,14 @@ public class ControladorDePessoasEDeputados implements Serializable {
 
 	public String getPartido(String dni) {
 		return this.deputados.get(dni).getPartido2();
+	}
+	
+	public List<Deputado> getPresentes(List<String> deputados) {
+		List<Deputado> presentes = new ArrayList<>();
+		for(int i = 0; i < deputados.size(); i++) {
+			presentes.add(this.deputados.get(deputados.get(i)));
+		}
+		return presentes;
 	}
 
 	public List<String> getListaDeInteresses(String dni) {
