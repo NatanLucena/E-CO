@@ -9,31 +9,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import entidades.Comissao;
+import entidades.Deputado;
 
 class ComissaoTest {
 	private Comissao comissao;
-	private List<String> integrantes;
 	
 	@BeforeEach
 	void iniciaComissao() {
-		this.integrantes = new ArrayList<>();
-		this.integrantes.add("Aaaaa");
-		this.integrantes.add("Bbbbb");
-		this.integrantes.add("Ccccc");
-		this.integrantes.add("Ddddd");
-		this.comissao = new Comissao("Tema", this.integrantes);
+		this.comissao = new Comissao("Tema");
 	}
 
 	@Test
 	void testComissao() {
-		List<String> integrantes2 = new ArrayList<>();
-		integrantes2.add("Aaaaa");
-		integrantes2.add("Bbbbb");
-		integrantes2.add("Ccccc");
-		integrantes2.add("Ddddd");
-		Comissao comissao2 = new Comissao("Tema", integrantes2);
+		Comissao comissao2 = new Comissao("Tema");
 		assertEquals(comissao2.getTema(), "Tema");
-		assertEquals(comissao.getIntegrantes(), comissao2.getIntegrantes());
 	}
 
 	@Test
@@ -41,16 +30,28 @@ class ComissaoTest {
 		assertEquals(comissao.getTema(), "Tema");
 	
 	}
+	
+	@Test 
+	void testCadastraIntegrante() {
+		List<Deputado> integrantes = new ArrayList<>();
+		Deputado deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
+		integrantes.add(deputado);
+		this.comissao.cadastraIntegrante(deputado);
+		
+		assertEquals(integrantes, this.comissao.getIntegrantes());
+		
+	}
 
 	@Test
 	void testGetIntegrantes() {
-		List<String> integrantes2 = new ArrayList<>();
-		integrantes2.add("Aaaaa");
-		integrantes2.add("Bbbbb");
-		integrantes2.add("Ccccc");
-		integrantes2.add("Ddddd");
-		Comissao comissao2 = new Comissao("Tema", integrantes2);
-		assertEquals(comissao.getIntegrantes(), comissao2.getIntegrantes());
+		List<Deputado> integrantes = new ArrayList<>();
+		Deputado deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
+		integrantes.add(deputado);
+		this.comissao.cadastraIntegrante(deputado);
+		
+		assertEquals(integrantes, this.comissao.getIntegrantes());
+		
+
 	}
 
 }

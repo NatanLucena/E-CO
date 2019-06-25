@@ -12,39 +12,50 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controladores.ControladorDeComissoes;
+import entidades.Comissao;
+import entidades.Deputado;
 
 public class ControladorComissaoTest {
 	private ControladorDeComissoes controladorComissao;
-	private List<String> politicos;
 
 	@BeforeEach
 	public void iniciaControladorComissao() {
 		controladorComissao = new ControladorDeComissoes();
-		politicos = new ArrayList<>();
 	}
 
 	@Test
 	public void testCadastraComissao() {
-		this.politicos.add("Deputado1");
-		this.politicos.add("Deputado2");
-		assertThrows(IllegalArgumentException.class, () -> this.controladorComissao.cadastraComissao("", politicos));
-
-	}
+		assertThrows(IllegalArgumentException.class, () -> this.controladorComissao.cadastraComissao(""));
+		this.controladorComissao.cadastraComissao("Tema");
+		assertThrows(IllegalArgumentException.class, () -> this.controladorComissao.cadastraComissao("Tema"));
+		
+		this.controladorComissao.cadastraComissao("Tema2");
+		assertTrue(this.controladorComissao.containsComissao("Tema2"));
+		assertFalse(this.controladorComissao.containsComissao("Tema3")); }
 
 	@Test
 	public void testContainsComissao() {
-		this.politicos.add("Deputado1");
-		this.politicos.add("Deputado2");
-		controladorComissao.cadastraComissao("Tema", politicos);
+		controladorComissao.cadastraComissao("Tema");
 		assertTrue(controladorComissao.containsComissao("Tema"));
 		assertFalse(controladorComissao.containsComissao("NaoTema"));
 	}
+	@Test
+	public void getComissao() {
+		controladorComissao.cadastraComissao("Tema");
+		ControladorDeComissoes controladorComissao2 = new ControladorDeComissoes();
+		controladorComissao2.cadastraComissao("Tema");
+		assertEquals(controladorComissao.getComissao("Tema"), controladorComissao.getComissao("Tema")); 
+		}
 
 	@Test
-	public void testGetIntegrantes() {
-		politicos.add("Deputado1");
-		politicos.add("Deputado2");
-		controladorComissao.cadastraComissao("Tema", politicos);
-		assertEquals(controladorComissao.getIntegrantes("Tema"), politicos);
+	public void testCadastraIntegrante() {
+		controladorComissao.cadastraComissao("Tema");
+		Deputado deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
+		controladorComissao.cadastraIntegrante("Tema", deputado);
+		List<Deputado> deputados = new ArrayList<>();
+		deputados.add(deputado);
+		
+		assertEquals(deputados,this.controladorComissao.getComissao("Tema").getIntegrantes());
+		
 	}
 }
