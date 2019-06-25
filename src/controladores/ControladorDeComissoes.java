@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import entidades.Comissao;
+import entidades.Deputado;
 import metodosAuxiliares.ValidadorGeral;
 /**
  * Responsavel por representar todos os metodos envolvendo comissao
@@ -41,7 +42,7 @@ public class ControladorDeComissoes {
 		if(this.comissoes.containsKey(tema)) {
 			throw new IllegalArgumentException("");
 		}else {
-			this.comissoes.put(tema, new Comissao(tema, politicos));
+			this.comissoes.put(tema, new Comissao(tema));
 		}
 	}
 	/**
@@ -54,13 +55,17 @@ public class ControladorDeComissoes {
 		return comissoes.containsKey(comissao);
 	}
 	
-	/**
-	 * Retorna os politicos que fazem parte da comissao, a partir do nome da comissao, 
-	 * passada como parametro
-	 * @param comissao sera retornado os politicos dessa comissao
-	 * @return uma lista, com os politicos dessa comissao
-	 */
-	public List<String> getIntegrantes(String comissao) {
-		return comissoes.get(comissao).getIntegrantes();
+	public void cadastraIntegrante(String tema, Deputado deputado) {
+		this.comissoes.get(tema).cadastraIntegrante(deputado);
 	}
+	
+//	/**
+//	 * Retorna os politicos que fazem parte da comissao, a partir do nome da comissao, 
+//	 * passada como parametro
+//	 * @param comissao sera retornado os politicos dessa comissao
+//	 * @return uma lista, com os politicos dessa comissao
+//	 */
+//	public List<String> getIntegrantes(String comissao) {
+//		return comissoes.get(comissao).getIntegrantes();
+//	}
 }

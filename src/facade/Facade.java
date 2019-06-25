@@ -77,15 +77,15 @@ public class Facade {
 	}
 	
 	public void carregarSistema() {
-		controlador = SistemaController.carregaSistema();
+//		controlador = SistemaController.carregaSistema();
 	}
 	
 	public void limparSistema() {
-		SistemaController.limpaSistema();
+//		SistemaController.limpaSistema();
 	}
 	
 	public void salvarSistema() {
-		SistemaController.salvaSistema(controlador);
+//		SistemaController.salvaSistema(controlador);
 	}
 
 }

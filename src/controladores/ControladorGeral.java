@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-import comparadores.ComparadorDeStrings;
+import entidades.Votacao;
 import metodosAuxiliares.ValidadorGeral;
 
 public class ControladorGeral implements Serializable {
@@ -17,17 +18,17 @@ public class ControladorGeral implements Serializable {
 	private ControladorDeComissoes controladorDeComissoes;
 	private ControladorDePessoasEDeputados controladorDePessoasEDeputados;
 	private ControladorDePropostasLegislativas controladorDePropostasLegislativas;
+	private Votacao votacao;
 	private List<String> baseGovernista;
 	private ValidadorGeral validador;
-	private ComparadorDeStrings comparaStrings;
 	
 	public ControladorGeral() {
 		this.controladorDeComissoes = new ControladorDeComissoes();
 		this.controladorDePessoasEDeputados = new ControladorDePessoasEDeputados();
 		this.controladorDePropostasLegislativas = new ControladorDePropostasLegislativas();
-		this.baseGovernista = new ArrayList<>();
+		this.votacao = new Votacao();
 		this.validador = new ValidadorGeral();
-		this.comparaStrings = new ComparadorDeStrings();
+		this.baseGovernista = new ArrayList<>();
 	}
 	
 	public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
@@ -52,10 +53,12 @@ public class ControladorGeral implements Serializable {
 			throw new IllegalArgumentException("Erro ao cadastrar partido: partido ja cadastrado");
 		}
 		baseGovernista.add(partido);
+		this.votacao.cadastraPartido(partido);
+		
 	}
 	
 	public String exibirBase() {
-		this.baseGovernista.sort(comparaStrings);
+		Collections.sort(this.baseGovernista);
 		return String.join(",", this.baseGovernista);
 	}
 	
@@ -72,6 +75,8 @@ public class ControladorGeral implements Serializable {
 		dnis.stream().forEach( dni-> this.validaDniDeputado(dni, "Erro ao cadastrar comissao: pessoa nao eh deputado"));
 		
 		this.controladorDeComissoes.cadastraComissao(tema, dnis);	
+		
+		dnis.stream().forEach(p -> controladorDeComissoes.cadastraIntegrante(tema, controladorDePessoasEDeputados.getDeputado(p)));
 	}
 	
 	public String cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
@@ -178,7 +183,7 @@ public class ControladorGeral implements Serializable {
 				}
 			}else {
 				List<String> interessesDoDeputado = this.controladorDePessoasEDeputados.getListaDeInteresses(deputados.get(i));
-				for(int j = 0; i < interessesDoDeputado.size(); j++) {
+				for(int j = 0; j < interessesDoDeputado.size(); j++) {
 					if(interessesDaProposta.contains(interessesDoDeputado.get(j))) {
 						votos += 1;
 					}

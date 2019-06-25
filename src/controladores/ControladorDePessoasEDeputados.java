@@ -62,6 +62,10 @@ public class ControladorDePessoasEDeputados implements Serializable {
 			throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
 		}
 	}
+	
+	public Deputado getDeputado(String dni) {
+		return this.deputados.get(dni);
+	}
 
 	public void cadastrarDeputado(String dni, String dataDeInicio) {
 		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar deputado: dni nao pode ser vazio ou nulo");

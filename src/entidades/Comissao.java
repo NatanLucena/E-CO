@@ -22,16 +22,16 @@ public class Comissao implements Serializable {
 	/**
 	 * Armazena todos os integrantes que fazem parte da comissao
 	 */
-	private List<String> integrantes;
+	private List<Deputado> integrantes;
 	/**
 	 * Inicia a comissao a partir do tema, e com uma lista com os integrantes da comissao
 	 * @param tema da comissao
 	 * @param integrantes da comissao
 	 */
-	public Comissao(String tema, List<String> integrantes) {
+	public Comissao(String tema) {
 		this.tema = tema;
 		this.integrantes = new ArrayList<>();
-		this.integrantes.addAll(integrantes);
+		this.integrantes = new ArrayList<>();
 	}
 	
 	/**
@@ -41,11 +41,16 @@ public class Comissao implements Serializable {
 	public String getTema() {
 		return tema;
 	}
+	
+	public void cadastraIntegrante(Deputado deputado) {
+		this.integrantes.add(deputado);
+	}
+	
 	/**
 	 * Retorna os integrantes da comissao
 	 * @return uma lista, com todos os integrantes da comissao
 	 */
-	public List<String> getIntegrantes() {
+	public List<Deputado> getIntegrantes() {
 		return integrantes;
 	}
 	

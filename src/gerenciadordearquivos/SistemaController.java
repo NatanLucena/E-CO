@@ -99,7 +99,6 @@ public class SistemaController {
 		try {
 			fos = new FileOutputStream(new File("arquivos_sistema/sistema.txt"));
 			oos = new ObjectOutputStream(fos);
-			oos.reset();
 			
 		} catch (FileNotFoundException fnf) {
 			System.out.println("Arquivo nao encontrado!");
