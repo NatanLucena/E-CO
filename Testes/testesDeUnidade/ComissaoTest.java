@@ -26,25 +26,31 @@ class ComissaoTest {
 
 	@Test
 	void testComissao() {
-		List<String> integrantes1 = new ArrayList<>();
-		integrantes1.add("Aaaaa");
-		integrantes1.add("Bbbbb");
-		integrantes1.add("Ccccc");
-		integrantes1.add("Ddddd");
-		Comissao comissao1 = new Comissao("Tema", integrantes1);
-		
-		assertEquals(comissao1.getTema(), "Tema");
-		assertEquals(comissao1.getIntegrantes());
+		List<String> integrantes2 = new ArrayList<>();
+		integrantes2.add("Aaaaa");
+		integrantes2.add("Bbbbb");
+		integrantes2.add("Ccccc");
+		integrantes2.add("Ddddd");
+		Comissao comissao2 = new Comissao("Tema", integrantes2);
+		assertEquals(comissao2.getTema(), "Tema");
+		assertEquals(comissao.getIntegrantes(), comissao2.getIntegrantes());
 	}
 
 	@Test
 	void testGetTema() {
-		fail("Not yet implemented");
+		assertEquals(comissao.getTema(), "Tema");
+	
 	}
 
 	@Test
 	void testGetIntegrantes() {
-		fail("Not yet implemented");
+		List<String> integrantes2 = new ArrayList<>();
+		integrantes2.add("Aaaaa");
+		integrantes2.add("Bbbbb");
+		integrantes2.add("Ccccc");
+		integrantes2.add("Ddddd");
+		Comissao comissao2 = new Comissao("Tema", integrantes2);
+		assertEquals(comissao.getIntegrantes(), comissao2.getIntegrantes());
 	}
 
 }
