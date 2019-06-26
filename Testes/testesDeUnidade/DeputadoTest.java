@@ -24,7 +24,7 @@ class DeputadoTest {
 		assertEquals(deputado.getEstado(),deputado2.getEstado());
 		assertEquals(deputado.getInteresses(),deputado2.getInteresses());
 		assertEquals(deputado.getNome(),deputado2.getNome());		
-		assertEquals(deputado.getPartido(),deputado2.getPartido());
+		assertEquals(deputado.getPartido2(),deputado2.getPartido2());
 		assertEquals(deputado.getLeisAprovadas(),deputado2.getLeisAprovadas()); }
 
 	@Test

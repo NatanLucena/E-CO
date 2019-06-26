@@ -32,7 +32,7 @@ class PessoaTest {
 		assertEquals(this.pessoa2.getDni(), pessoa3.getDni());
 		assertEquals(this.pessoa2.getEstado(), pessoa3.getEstado());
 		assertEquals(this.pessoa2.getInteresses(), pessoa3.getInteresses());
-		assertEquals(this.pessoa2.getPartido(), pessoa3.getPartido());
+		assertEquals(this.pessoa2.getPartido2(), pessoa3.getPartido2());
 	}
 
 	@Test
