@@ -419,5 +419,43 @@ public class ControladorGeral implements Serializable {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param dni
+	 * 
+	 * @param estrategia
+	 * 
+	 * @throws 
+	 */
+	public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
+		validador.validaNullOuVazio(dni, "");
+		validador.validaDni(dni, "");
+		validador.validaNullOuVazio(estrategia, "");
+		
+		if(controladorDePessoasEDeputados.containsDeputado(dni)) {
+			this.controladorDePessoasEDeputados.cadastrarEstrategia(dni, estrategia);
+		}	
+	}
+
+	
+	/**
+	 * 
+	 * 
+	 * @param dni
+	 * 
+	 * @return
+	 * 
+	 */
+	public String pegarPropostaRelacionada(String dni) {
+		validador.validaNullOuVazio(dni, "");
+		validador.validaDni(dni, "");
+		
+		controladorDePessoasEDeputados.recuperaEstrategia(dni);
+		
+		return null;
+	}
+
+	
 
 }
