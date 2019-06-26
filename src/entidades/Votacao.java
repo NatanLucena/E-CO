@@ -68,13 +68,16 @@ public class Votacao {
 		}
 
 		if (votos >= ((comissao.getIntegrantes().size() / 2) + 1)) {
-			if (proposta.getCodigo().contains("PL ") && proposta.toString().contains("Conclusiva")
+			if (proposta.getCodigo().contains("PL ") 
+					&& proposta.toString().contains("Conclusiva")
 					&& !proposta.getLocal().equals("CCJC")) {
+				
 				autor.setLeisAprovadas();
 				proposta.setTramitacao("APROVADO (" + proposta.getLocal() + ")");
 				proposta.setLocal("-");
 				proposta.setSituacao("ARQUIVADO");
 			} else {
+				
 				proposta.setTramitacao("APROVADO (" + proposta.getLocal() + ")");
 				if (proximoLocal.equals("plenario")) {
 					if (proposta.getCodigo().contains("PL ")) {
@@ -122,7 +125,7 @@ public class Votacao {
 			}
 			return false;
 		}
-
+		
 	}
 
 	/**

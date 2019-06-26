@@ -144,7 +144,7 @@ public class ControladorDePessoasEDeputados implements Serializable {
 		validadorGeral.validaDataDeInicio(dataDeInicio);
 		validadorGeral.verificaDataFutura(dataDeInicio);
 
-		if (pessoa.getPartido().equals("")) {
+		if (pessoa.getPartido2().equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 		}
 		if (this.deputados.containsKey(dni)) {

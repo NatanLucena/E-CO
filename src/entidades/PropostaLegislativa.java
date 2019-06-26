@@ -42,7 +42,7 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	public void setTramitacao(String tramitacao) {
-		this.tramitacao.remove(-1);
+		this.tramitacao.remove(this.tramitacao.size() -1);
 		this.tramitacao.add(tramitacao);
 	}
 	
