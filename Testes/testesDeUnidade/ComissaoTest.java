@@ -52,5 +52,4 @@ class ComissaoTest {
 		assertEquals(integrantes, this.comissao.getIntegrantes());
 
 	}
-
 }
