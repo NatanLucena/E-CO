@@ -88,5 +88,13 @@ public class Facade {
 	public void salvarSistema() {
 //		SistemaController.salvaSistema(controlador);
 	}
+	
+	public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
+		this.controlador.configurarEstrategiaPropostaRelacionada(dni, estrategia);
+	}
+	
+	public String pegarPropostaRelacionada(String dni) {
+		return this.controlador.pegarPropostaRelacionada(dni);
+	}
 
 }

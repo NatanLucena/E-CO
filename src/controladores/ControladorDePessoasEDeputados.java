@@ -232,4 +232,32 @@ public class ControladorDePessoasEDeputados implements Serializable {
 	public int totalDeDeputados() {
 		return deputados.size();
 	}
+
+	/**
+	 * 
+	 * @param dni
+	 * 
+	 * @param estrategia
+	 * 
+	 */
+	public void cadastrarEstrategia(String dni, String estrategia) {
+		validadorGeral.validaNullOuVazio(dni, "");
+		validadorGeral.validaDni(dni, "");
+		validadorGeral.validaNullOuVazio(estrategia, "");
+		deputados.get(dni).setEstrategia(estrategia);
+	}
+	
+	/**
+	 * 
+	 * @param dni
+	 * 
+	 * @return
+	 * 
+	 */
+	public String recuperaEstrategia(String dni) {
+		validadorGeral.validaNullOuVazio(dni, "");
+		validadorGeral.validaDni(dni, "");
+		
+		return deputados.get(dni).getEstrategia();
+	}
 }

@@ -24,6 +24,11 @@ public class Deputado extends Pessoa implements Serializable {
 	 * Quantidade de leis que o deputado aprovou
 	 */
 	private int leisAprovadas;
+	
+	/**
+	 * Estratégia para o deputado pegar a proposta mais relacionada.
+	 */
+	private String estrategia;
 
 	/**
 	 * Inicia o deputado a partir da data de inicio da pessoa na funcao de deputado
@@ -34,7 +39,7 @@ public class Deputado extends Pessoa implements Serializable {
 		super(nome, dni, estado, interesses, partido);
 		this.dataDeInicio=dataDeInicio;
 		this.leisAprovadas = 0;
-
+		this.estrategia = null;
 }
 
 	/**
@@ -81,5 +86,21 @@ public class Deputado extends Pessoa implements Serializable {
 	public String exibir() {
 		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + super.getPartido() + super.getInteresses() + " - "
 				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " Leis";
-}
+	}
+
+	/**
+	 * 
+	 * @param estrategia
+	 */
+	public void setEstrategia(String estrategia) {
+		this.estrategia = estrategia;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getEstrategia() {
+		return this.estrategia;
+	}
 }
