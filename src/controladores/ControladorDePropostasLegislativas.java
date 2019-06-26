@@ -10,6 +10,11 @@ import entidades.PL;
 import entidades.PLP;
 import entidades.PropostaLegislativa;
 
+/**
+ * Responsavel por todos os metodos envolvendo a proposta legislativa
+ * @author jacksonmca
+ *
+ */
 public class ControladorDePropostasLegislativas implements Serializable {
 	/**
 	 * Armazena indentificador de versao de serializacao da classe

@@ -10,6 +10,11 @@ import java.util.List;
 import entidades.Votacao;
 import metodosAuxiliares.ValidadorGeral;
 
+/**
+ * Responsavel por ser o controlador geral do sistema
+ * @author JacksonMateus
+ *
+ */
 public class ControladorGeral implements Serializable {
 	/**
 	 * Armazena indentificador de versao de serializacao da classe ControladorGeral.
