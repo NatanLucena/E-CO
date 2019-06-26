@@ -124,7 +124,7 @@ public class PropostaLegislativa implements Serializable {
 	 * @return uma String que representa as tramitacoes da proposta legislativa
 	 */
 	public String getTramitacao() {
-		return String.join(",", this.tramitacao);
+		return String.join(", ", this.tramitacao);
 	}
 	
 	/**
