@@ -7,7 +7,7 @@ import java.util.List;
 import metodosAuxiliares.ValidadorGeral;
 
 /**
- * É responsavel por representar uma pessoa
+ * Responsavel por representar uma pessoa
  * 
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *

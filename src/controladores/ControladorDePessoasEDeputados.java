@@ -10,6 +10,11 @@ import entidades.Deputado;
 import entidades.Pessoa;
 import metodosAuxiliares.ValidadorGeral;
 
+/**
+ * Responsavel por todos os metodos envolvendo pessoa normal e deputado
+ * @author JacksonMateus
+ *
+ */
 public class ControladorDePessoasEDeputados implements Serializable {
 
 	/**
