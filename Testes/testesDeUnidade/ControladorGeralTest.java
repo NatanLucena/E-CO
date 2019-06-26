@@ -62,16 +62,18 @@ public class ControladorGeralTest {
 		
 	}
 	
-	/**
+	
 	@Test
 	void testCadastraComissao() {
-		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao("", "Politico1,Politico2"));
-		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao(null, "Politico1,Politico2"));
+		this.controlador.cadastrarPessoaComPartido("Jose", "051444444-0", "PB", "esporte, educacao", "DEM");
+		this.controlador.cadastrarDeputado("051444444-0", "30112000");		
+		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao("", "051444444-0"));		
+		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao(null, "051444444-0"));
 		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao("Tema1", ""));
 		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao("Tema2", null));	
-		this.controlador.cadastraComissao("Tema1", "Politico1,Politico2");
-		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao("Tema1", "Politico1,Politico2")); }
-	*/
+		this.controlador.cadastraComissao("Tema", "051444444-0");
+		assertThrows(IllegalArgumentException.class, () -> controlador.cadastraComissao("Tema", "051444445-0")); }
+	
 
 	@Test
 	void testCadastrarPL() {
