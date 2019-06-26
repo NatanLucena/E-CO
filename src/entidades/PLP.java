@@ -1,7 +1,8 @@
 package entidades;
 
 /**
- * Representa um projeto de lei complementar no sistema
+ * Representa um projeto de lei complementar no sistema.
+ * 
  * @author JacksonMateus
  *
  */
@@ -17,7 +18,8 @@ public class PLP extends PropostaLegislativa {
 	private String artigosAlterados;
 
 	/**
-	 * Inicia a PLP a partir do autor do projeto de lei, ano de inicio do projeto, codigo, ementa, interesses, URL e artigos desse projeto de lei
+	 * Inicia a PLP a partir do autor do projeto de lei, ano de inicio do projeto, codigo, ementa, interesses, URL e artigos desse projeto de lei.
+	 * 
 	 * @param autor da PLP
 	 * @param ano de inicio da PLP
 	 * @param codigo da PLP
@@ -32,7 +34,8 @@ public class PLP extends PropostaLegislativa {
 	}
 	
 	/**
-	 * Retorna os artigos da PLP
+	 * Retorna os artigos da PLP.
+	 * 
 	 * @return uma String que representa todos os artigos da PLP
 	 */
 	public String getArtigos() {
@@ -41,7 +44,7 @@ public class PLP extends PropostaLegislativa {
 	
 
 	/**
-	 * Representacao textual da PLP
+	 * Retorna uma representacao textual da PLP.
 	 */
 	public String toString() {
 		return "Projeto de Lei Complementar - " + super.codigo +  " - " + super.autor + " - " + super.ementa + " - " + this.artigosAlterados + " - " + super.situacao;

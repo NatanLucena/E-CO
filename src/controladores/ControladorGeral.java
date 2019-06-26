@@ -11,7 +11,8 @@ import entidades.Votacao;
 import metodosAuxiliares.ValidadorGeral;
 
 /**
- * Responsavel por ser o controlador geral do sistema
+ * Responsavel por ser o controlador geral do sistema.
+ * 
  * @author JacksonMateus
  *
  */

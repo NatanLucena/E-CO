@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 /**
- * Responsavel por representar uma proposta legislativa 
+ * Responsavel por representar uma proposta legislativa.
+ *  
  * @author JacksonMateus
  *
  */
@@ -63,7 +64,8 @@ public class PropostaLegislativa implements Serializable {
 	
 	
 	/**
-	 * Inicia a proposta legislativa a partir do autor do projeto de lei, ano, codigo, ementa, interesses e URL da proposta conclusiva
+	 * Inicia a proposta legislativa a partir do autor do projeto de lei, ano, codigo, ementa, interesses e URL da proposta conclusiva.
+	 * 
 	 * @param autor da proposta legislativa
 	 * @param ano de inicio da proposta legislativa
 	 * @param codigo da proposta legislativa
@@ -85,7 +87,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Retorna a situacao da proposta legislativa
+	 * Retorna a situacao da proposta legislativa.
+	 * 
 	 * @return uma String que representa a situacao da proposta legislativa
 	 */
 	public String getSituacao() {
@@ -93,7 +96,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Altera a situacao da proposta legislativa
+	 * Altera a situacao da proposta legislativa.
+	 * 
 	 * @param situacao que sera atualizado como situacao da proposta legislativa
 	 */
 	public void setSituacao(String situacao) {
@@ -103,7 +107,8 @@ public class PropostaLegislativa implements Serializable {
 
 	/**
 	 * Adiciona uma tramitacao na lista de tramitacoes da proposta legislativa 
-	 * tambem removendo a tramitacao que esta na ultima posicao da lista
+	 * tambem removendo a tramitacao que esta na ultima posicao da lista.
+	 * 
 	 * @param tramitacao que sera adicionada na lista de tramitacoes da proposta legislativa
 	 */
 	public void setTramitacao(String tramitacao) {
@@ -112,7 +117,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Adiciona uma tramitacao na lista de tramitacoes da proposta legislativa 
+	 * Adiciona uma tramitacao na lista de tramitacoes da proposta legislativa.
+	 *  
 	 * @param tramitacao que sera adicionada na lista de tramitacoes da proposta legislativa
 	 */
 	public void adicionaTramitacao(String tramitacao) {
@@ -120,7 +126,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 
 	/**
-	 * Retorna as tramitacoes da proposta legislativa
+	 * Retorna as tramitacoes da proposta legislativa.
+	 * 
 	 * @return uma String que representa as tramitacoes da proposta legislativa
 	 */
 	public String getTramitacao() {
@@ -128,7 +135,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Retorna as tramitacoes da proposta legislativa
+	 * Retorna as tramitacoes da proposta legislativa.
+	 * 
 	 * @return uma Lista com todas as tramitacoes da proposta legislativa 
 	 */
 	public List<String> getListaTramitacao() {
@@ -136,14 +144,16 @@ public class PropostaLegislativa implements Serializable {
 	}
 
 	/**
-	 * Retorna o autor da proposta legislativa
+	 * Retorna o autor da proposta legislativa.
+	 * 
 	 * @return Uma String que representa o autor da proposta legislativa 
 	 */
 	public String getAutor() {
 		return autor;
 	}
 	/**
-	 * Retorna o ano de inicio da proposta legislativa 
+	 * Retorna o ano de inicio da proposta legislativa.
+	 * 
 	 * @return um inteiro que representa o ano de inicio da proposta legislativa 
 	 */
 	public int getAno() {
@@ -151,7 +161,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Retorna o codigo da proposta legislativa 
+	 * Retorna o codigo da proposta legislativa.
+	 * 
 	 * @return uma String que representa o codigo da proposta legislativa 
 	 */
 	public String getCodigo() {
@@ -159,14 +170,16 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Retorna a ementa da proposta legislativa 
+	 * Retorna a ementa da proposta legislativa.
+	 *  
 	 * @return uma String que representa a ementa da proposta legislativa 
 	 */
 	public String getEmenta() {
 		return ementa;
 	}
 	/**
-	 * Retorna os intereses da proposta legislativa 
+	 * Retorna os intereses da proposta legislativa.
+	 * 
 	 * @return uma String que representa os interesses da proposta legislativa 
 	 */
 	public String getInteresses() {
@@ -174,7 +187,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Retorna os interesses da proposta legislativa
+	 * Retorna os interesses da proposta legislativa.
+	 * 
 	 * @return uma Lista com todos os interesses da proposta legislativa 
 	 */
 	public List<String> getListaDeInteresses() {
@@ -183,7 +197,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 
 	/**
-	 * Retorna a URL da proposta legislativa 
+	 * Retorna a URL da proposta legislativa.
+	 *  
 	 * @return uma String que representa a URL da proposta legislativa 
 	 */
 	public String getURL() {
@@ -191,7 +206,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Retorna o local da proposta legislativa
+	 * Retorna o local da proposta legislativa.
+	 * 
 	 * @return uma String que representa o local da proposta legislativa 
 	 */
 	public String getLocal() {
@@ -199,7 +215,8 @@ public class PropostaLegislativa implements Serializable {
 	}
 	
 	/**
-	 * Altera o local da proposta legislativa
+	 * Altera o local da proposta legislativa.
+	 * 
 	 * @param local novo local da proposta legislativa 
 	 */
 	public void setLocal(String local) {

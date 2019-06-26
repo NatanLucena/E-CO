@@ -1,6 +1,7 @@
 package entidades;
 /**
- * Representa um projeto de lei no sistema
+ * Representa um projeto de lei no sistema.
+ * 
  * @author JacksonMateus
  *
  */
@@ -17,7 +18,8 @@ public class PL extends PropostaLegislativa {
 	
 	/**
 	 * Inicia a PL a partir do autor do projeto de lei, ano, codigo, ementa, interesses, url, e se a proposta é 
-	 * conclusiva ou nao;
+	 * conclusiva ou nao.
+	 * 
 	 * @param autor da PL
 	 * @param ano de inicio da PL foi iniciada
 	 * @param codigo da PL
@@ -32,7 +34,8 @@ public class PL extends PropostaLegislativa {
 	}
 	
 	/**
-	 * Retorna se o projeto de lei é conclusivo ou nao
+	 * Retorna se o projeto de lei é conclusivo ou nao.
+	 * 
 	 * @return uma String, que mostra se o projeto de lei é conclusivo ou nao
 	 */
 	public String getConclusiva() {
@@ -43,7 +46,8 @@ public class PL extends PropostaLegislativa {
 	}
 	
 	/**
-	 * Retorna se o projeto de lei é conclusivo ou nao
+	 * Retorna se o projeto de lei é conclusivo ou nao.
+	 * 
 	 * @return uma booleano, que mostra se o projeto de lei é conclusivo ou nao
 	 */
 	public boolean isConclusivo() {
@@ -51,7 +55,7 @@ public class PL extends PropostaLegislativa {
 	}
 	
 	/**
-	 * Representacao textual da PL
+	 * Retorna uma representacao textual da PL
 	 */
 	public String toString() {
 		return "Projeto de Lei - " + super.codigo + " - " + super.autor + " - " + super.ementa + this.getConclusiva() + " - " + super.situacao;
