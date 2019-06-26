@@ -304,6 +304,9 @@ public class ControladorGeral implements Serializable {
 		if (!this.controladorDePropostasLegislativas.containsProposta(codigo)) {
 			throw new IllegalArgumentException("Erro ao votar proposta: projeto inexistente");
 		}
+		if(this.controladorDePropostasLegislativas.getLocal(codigo).equalsIgnoreCase("plenario")) {
+			throw new IllegalArgumentException("Erro ao votar proposta: proposta encaminhada ao plenario");
+		}
 		if (this.controladorDePropostasLegislativas.getLocal(codigo).equals("-")) {
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
 		}
@@ -344,7 +347,7 @@ public class ControladorGeral implements Serializable {
 		if (this.controladorDePropostasLegislativas.getLocal(codigo).equals("-")) {
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
 		}
-		if (!this.controladorDePropostasLegislativas.getLocal(codigo).contains("Plenario")) {
+		if (!this.controladorDePropostasLegislativas.getProposta(codigo).getSituacao().contains("EM VOTACAO (Plenario")){
 			throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
 		}
 		if (deputados.size() <= 1) {
