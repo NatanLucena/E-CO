@@ -20,7 +20,7 @@ class ControladorDePessoasEDeputadosTest {
 	}
 
 	@Test
-	void testCadastrarPessoa() { 
+	void testCadastrarPessoa() {
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.cadastrarPessoa("", "011111111-0",
 				"PB", "educacao,seguranca publica,saude"));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.cadastrarPessoa(null,
@@ -72,19 +72,21 @@ class ControladorDePessoasEDeputadosTest {
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.exibirPessoa(null));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.exibirPessoa("1111111111-A"));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.exibirPessoa("011111122-0"));
-		
+
 		controladorPessoaDeputado.cadastrarPessoa("Maria", "011111111-0", "PB", "saude, educacao");
 		assertEquals("Maria - 011111111-0 (PB) - Interesses: saude, educacao",
 				controladorPessoaDeputado.exibirPessoa("011111111-0"));
-		
+
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111113-0", "PB", "saude, educacao", "PPP");
-		assertEquals("Maria - 011111113-0 (PB) - PPP - Interesses: saude, educacao", controladorPessoaDeputado.exibirPessoa("011111113-0"));
+		assertEquals("Maria - 011111113-0 (PB) - PPP - Interesses: saude, educacao",
+				controladorPessoaDeputado.exibirPessoa("011111113-0"));
 
 		controladorPessoaDeputado.cadastrarDeputado("011111113-0", "30012012");
-		assertEquals("POL: Maria - 011111113-0 (PB) - PPP - Interesses: saude, educacao - 30/01/2012 - 0 Leis", controladorPessoaDeputado.exibirPessoa("011111113-0"));
-		
+		assertEquals("POL: Maria - 011111113-0 (PB) - PPP - Interesses: saude, educacao - 30/01/2012 - 0 Leis",
+				controladorPessoaDeputado.exibirPessoa("011111113-0"));
+
 	}
-	
+
 	@Test
 	void getDeputadpTest() {
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111111-0", "PB", "saude, educacao", "PPP");
@@ -105,8 +107,9 @@ class ControladorDePessoasEDeputadosTest {
 		assertThrows(IllegalArgumentException.class,
 				() -> controladorPessoaDeputado.cadastrarDeputado("1111111111-A", "29022016"));
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111112-0", "PB", "saude, educacao", "");
-		assertThrows(IllegalArgumentException.class,  () -> controladorPessoaDeputado.cadastrarDeputado("011111112-0", "01012001"));
-		
+		assertThrows(IllegalArgumentException.class,
+				() -> controladorPessoaDeputado.cadastrarDeputado("011111112-0", "01012001"));
+
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Marina", "011111111-0", "PB",
 				"educacao,seguranca publica,saude", "PMD");
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "29022016");
@@ -137,63 +140,68 @@ class ControladorDePessoasEDeputadosTest {
 		assertTrue(controladorPessoaDeputado.containsPessoa("011111111-0"));
 		assertFalse(controladorPessoaDeputado.containsPessoa("011111118-0"));
 	}
-	
+
 	@Test
 	void getPartidoTest() {
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111111-0", "PB", "saude, educacao", "PPP");
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "30012012");
 		assertEquals(controladorPessoaDeputado.getPartido("011111111-0"), "PPP");
-	
+
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido(""));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido("01111111A-0"));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido("011111111-A"));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido("01111111-0"));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido("011111111-"));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido("-0"));
-		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido("0111111110"));		
+		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getPartido("0111111110"));
 	}
-	
+
 	@Test
 	void getPresentesTest() {
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111111-0", "PB", "saude, educacao", "PPP");
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "30012012");
-		
+
 		List<String> deputados = new ArrayList<>();
 		deputados.add("011111111-0");
 
 		List<Deputado> objetosDeputado = new ArrayList<>();
 		objetosDeputado.add(controladorPessoaDeputado.getDeputado("011111111-0"));
-		
+
 		assertEquals(controladorPessoaDeputado.getPresentes(deputados), objetosDeputado);
 	}
-	
+
 	@Test
 	void getListaDeInteressesTest() {
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getListaDeInteresses(""));
-		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getListaDeInteresses("01111111A-0"));
-		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getListaDeInteresses("011111111-A"));
-		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getListaDeInteresses("01111111-0"));
-		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getListaDeInteresses("011111111-"));
+		assertThrows(IllegalArgumentException.class,
+				() -> controladorPessoaDeputado.getListaDeInteresses("01111111A-0"));
+		assertThrows(IllegalArgumentException.class,
+				() -> controladorPessoaDeputado.getListaDeInteresses("011111111-A"));
+		assertThrows(IllegalArgumentException.class,
+				() -> controladorPessoaDeputado.getListaDeInteresses("01111111-0"));
+		assertThrows(IllegalArgumentException.class,
+				() -> controladorPessoaDeputado.getListaDeInteresses("011111111-"));
 		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getListaDeInteresses("-0"));
-		assertThrows(IllegalArgumentException.class, () -> controladorPessoaDeputado.getListaDeInteresses("0111111110"));
-		
+		assertThrows(IllegalArgumentException.class,
+				() -> controladorPessoaDeputado.getListaDeInteresses("0111111110"));
+
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111111-0", "PB", "saude,educacao", "PPP");
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "30012012");
-		
+
 		List<String> interesses = new ArrayList<>();
 		interesses.add("saude");
 		interesses.add("educacao");
-		
+
 		assertEquals(interesses, controladorPessoaDeputado.getListaDeInteresses("011111111-0"));
 	}
-	
+
 	@Test
 	void totalDeDeputadosTest() {
 		assertEquals(0, controladorPessoaDeputado.totalDeDeputados());
-		
+
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111111-0", "PB", "saude, educacao", "PPP");
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "30012012");
-		
+
 		assertEquals(1, controladorPessoaDeputado.totalDeDeputados());
 	}
 }
