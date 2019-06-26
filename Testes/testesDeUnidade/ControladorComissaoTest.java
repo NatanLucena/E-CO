@@ -28,10 +28,11 @@ public class ControladorComissaoTest {
 		assertThrows(IllegalArgumentException.class, () -> this.controladorComissao.cadastraComissao(""));
 		this.controladorComissao.cadastraComissao("Tema");
 		assertThrows(IllegalArgumentException.class, () -> this.controladorComissao.cadastraComissao("Tema"));
-		
+
 		this.controladorComissao.cadastraComissao("Tema2");
 		assertTrue(this.controladorComissao.containsComissao("Tema2"));
-		assertFalse(this.controladorComissao.containsComissao("Tema3")); }
+		assertFalse(this.controladorComissao.containsComissao("Tema3"));
+	}
 
 	@Test
 	public void testContainsComissao() {
@@ -39,13 +40,14 @@ public class ControladorComissaoTest {
 		assertTrue(controladorComissao.containsComissao("Tema"));
 		assertFalse(controladorComissao.containsComissao("NaoTema"));
 	}
+
 	@Test
 	public void getComissao() {
 		controladorComissao.cadastraComissao("Tema");
 		ControladorDeComissoes controladorComissao2 = new ControladorDeComissoes();
 		controladorComissao2.cadastraComissao("Tema");
-		assertEquals(controladorComissao.getComissao("Tema"), controladorComissao.getComissao("Tema")); 
-		}
+		assertEquals(controladorComissao.getComissao("Tema"), controladorComissao.getComissao("Tema"));
+	}
 
 	@Test
 	public void testCadastraIntegrante() {
@@ -54,8 +56,8 @@ public class ControladorComissaoTest {
 		controladorComissao.cadastraIntegrante("Tema", deputado);
 		List<Deputado> deputados = new ArrayList<>();
 		deputados.add(deputado);
-		
-		assertEquals(deputados,this.controladorComissao.getComissao("Tema").getIntegrantes());
-		
+
+		assertEquals(deputados, this.controladorComissao.getComissao("Tema").getIntegrantes());
+
 	}
 }

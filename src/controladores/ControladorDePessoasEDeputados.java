@@ -10,6 +10,11 @@ import entidades.Deputado;
 import entidades.Pessoa;
 import metodosAuxiliares.ValidadorGeral;
 
+/**
+ * Responsavel por todos os metodos envolvendo pessoa normal e deputado
+ * @author JacksonMateus
+ *
+ */
 public class ControladorDePessoasEDeputados implements Serializable {
 
 	/**
@@ -17,16 +22,19 @@ public class ControladorDePessoasEDeputados implements Serializable {
 	 * ControladorDePessoaEDeputado.
 	 */
 	private static final long serialVersionUID = 2273665890759352701L;
+	
 	/**
 	 * Armazena um mapa de pessoas cadastradas no sistema que possuem o seu dni como
 	 * identificador.
 	 */
 	private Map<String, Pessoa> pessoas;
+	
 	/**
 	 * Armazena um mapa de deputados cadastrados no sistema que possuem o seus dni
 	 * como identificador.
 	 */
 	private Map<String, Deputado> deputados;
+	
 	/**
 	 * Armazena um validador que verifica e lanca excecoes comuns.
 	 */
@@ -102,9 +110,11 @@ public class ControladorDePessoasEDeputados implements Serializable {
 
 		if (this.deputados.containsKey(dni)) {
 			return this.deputados.get(dni).exibir();
-		} else if (this.pessoas.containsKey(dni)) {
+		} 
+		else if (this.pessoas.containsKey(dni)) {
 			return this.pessoas.get(dni).exibir();
-		} else {
+		} 
+		else {
 			throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
 		}
 	}
@@ -186,6 +196,8 @@ public class ControladorDePessoasEDeputados implements Serializable {
 	 * @return o partido do deputado
 	 */
 	public String getPartido(String dni) {
+		validadorGeral.validaNullOuVazio(dni, "Erro ao recuperar partido: dni nao pode ser vazia ou nula");
+		validadorGeral.validaDni(dni, "Erro ao recuperar partido: dni invalida");
 		return this.deputados.get(dni).getPartido2();
 	}
 
@@ -212,6 +224,8 @@ public class ControladorDePessoasEDeputados implements Serializable {
 	 * @return uma lista de interesses de um deputado
 	 */
 	public List<String> getListaDeInteresses(String dni) {
+		validadorGeral.validaNullOuVazio(dni, "Erro ao recuperar lista de interesses de um deputado: dni nao pode ser vazio ou nulo.");
+		validadorGeral.validaDni(dni, "Erro ao recuperar lista de interesses de um deputado: dni inavlido.");
 		return deputados.get(dni).getListaDeInteresses();
 	}
 

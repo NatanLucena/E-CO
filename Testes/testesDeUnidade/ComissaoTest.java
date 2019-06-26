@@ -13,7 +13,7 @@ import entidades.Deputado;
 
 class ComissaoTest {
 	private Comissao comissao;
-	
+
 	@BeforeEach
 	void iniciaComissao() {
 		this.comissao = new Comissao("Tema");
@@ -28,18 +28,18 @@ class ComissaoTest {
 	@Test
 	void testGetTema() {
 		assertEquals(comissao.getTema(), "Tema");
-	
+
 	}
-	
-	@Test 
+
+	@Test
 	void testCadastraIntegrante() {
 		List<Deputado> integrantes = new ArrayList<>();
 		Deputado deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
 		integrantes.add(deputado);
 		this.comissao.cadastraIntegrante(deputado);
-		
+
 		assertEquals(integrantes, this.comissao.getIntegrantes());
-		
+
 	}
 
 	@Test
@@ -48,10 +48,8 @@ class ComissaoTest {
 		Deputado deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
 		integrantes.add(deputado);
 		this.comissao.cadastraIntegrante(deputado);
-		
+
 		assertEquals(integrantes, this.comissao.getIntegrantes());
-		
 
 	}
-
 }

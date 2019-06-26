@@ -105,22 +105,25 @@ class ControladorDePropostasLegislativasTest {
 	}
 
 	@Test
-	void testSetSituacao() {
-
-	}
-
-	@Test
 	void testGetAutor() {
+		this.controlador.cadastrarPL("Aaaaa", 2019, "Bbbbb", "Ccccc", "Ddddd", true);
+		this.controlador.cadastrarPLP("Aaaaa", 2017, "Bbbbb", "Ccccc", "Ddddd", "Eeeee");
+		this.controlador.cadastrarPEC("Kkkkk", 2017, "Lllll", "Mmmmm", "Nnnnn", "Ooooo");
 
-	}
-
-	@Test
-	void testAdicionaTramitacao() {
-
+		assertEquals(this.controlador.getAutor("PL 1/2019"), "Aaaaa");
+		assertEquals(this.controlador.getAutor("PLP 1/2017"), "Aaaaa");
+		assertEquals(this.controlador.getAutor("PEC 1/2017"), "Kkkkk");
 	}
 
 	@Test
 	void testExibeTramitacao() {
+		this.controlador.cadastrarPL("Aaaaa", 2019, "Bbbbb", "Ccccc", "Ddddd", true);
+		this.controlador.cadastrarPLP("Aaaaa", 2017, "Bbbbb", "Ccccc", "Ddddd", "Eeeee");
+		this.controlador.cadastrarPEC("Kkkkk", 2017, "Lllll", "Mmmmm", "Nnnnn", "Ooooo");
 
+		assertEquals(this.controlador.exibeTramitacao("PL 1/2019"), "EM VOTACAO (CCJC)");
+		assertEquals(this.controlador.exibeTramitacao("PLP 1/2017"), "EM VOTACAO (CCJC)");
+		assertEquals(this.controlador.exibeTramitacao("PEC 1/2017"), "EM VOTACAO (CCJC)");
+		assertThrows(IllegalArgumentException.class, () -> this.controlador.exibeTramitacao("PL 2/2019"));
 	}
 }
