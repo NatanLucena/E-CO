@@ -1,12 +1,19 @@
 package entidades;
 
+import java.io.Serializable;
+
 /**
  * Responsavel por representar um Deputado
  * 
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *
  */
-public class Deputado implements Exibir {
+public class Deputado extends Pessoa implements Serializable {
+
+	/**
+	 * Armazena indentificador de versao de serializacao da classe Deputado.
+	 */
+	private static final long serialVersionUID = -1040910723373503836L;
 
 	/**
 	 * Data de inicio que a pessoa exerceu a funcao de deputado
@@ -23,10 +30,12 @@ public class Deputado implements Exibir {
 	 * 
 	 * @param dataDeInicio que a pessoa exerceu a funcao de deputado
 	 */
-	public Deputado(String dataDeInicio) {
-		this.dataDeInicio = dataDeInicio;
+	public Deputado(String nome, String dni, String estado, String interesses, String partido,String dataDeInicio) {
+		super(nome, dni, estado, interesses, partido);
+		this.dataDeInicio=dataDeInicio;
 		this.leisAprovadas = 0;
-	}
+
+}
 
 	/**
 	 * Retorna as quantidade de leis aprovadas pelo deputado
@@ -69,8 +78,8 @@ public class Deputado implements Exibir {
 	 * @return Uma String contendo todas as informacoes disponiveis do deputado
 	 */
 	@Override
-	public String exibir(String nome, String dni, String estado, String partido, String interesses) {
-		return "POL: " + nome + " - " + dni + " (" + estado + ")" + partido + interesses + " - "
+	public String exibir() {
+		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + super.getPartido() + super.getInteresses() + " - "
 				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " Leis";
-	}
+}
 }

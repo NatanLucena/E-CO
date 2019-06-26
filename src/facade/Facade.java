@@ -2,14 +2,17 @@ package facade;
 
 import controladores.ControladorGeral;
 import easyaccept.EasyAccept;
+import gerenciadordearquivos.SistemaController;
 
 public class Facade {
 	ControladorGeral controlador;
 
 	public static void main(String[] args) {
-		args = new String[] { "facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
-				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
-				"acceptance_tests/use_case_6.txt", "acceptance_tests/use_case_7.txt"};
+//		args = new String[] { "facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
+//				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
+//				"acceptance_tests/use_case_6.txt"};
+
+		args = new String[] { "facade.Facade","acceptance_tests/use_case_7.txt"};
 		EasyAccept.main(args);
 	}
 
@@ -37,20 +40,8 @@ public class Facade {
 		return this.controlador.exibirBase();
 	}
 
-	public void limparSistema() {
-
-	}
-
 	public String exibirPessoa(String dni) {
 		return this.controlador.exibirPessoa(dni);
-	}
-
-	public void carregarSistema() {
-
-	}
-
-	public void salvarSistema() {
-
 	}
 	
 	public void cadastrarComissao(String tema, String politicos) {
@@ -79,6 +70,23 @@ public class Facade {
 	
 	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
 		return this.controlador.votarPlenario(codigo, statusGovernista, presentes);
+	}
+	
+	public String exibirTramitacao(String codigo) {
+		return this.controlador.exibirTramitacao(codigo);
+	}
+	
+	public void carregarSistema() {
+//		controlador = SistemaController.carregaSistema();
+	}
+	
+	public void limparSistema() {
+//		this.controlador = new ControladorGeral();
+//		SistemaController.limpaSistema();
+	}
+	
+	public void salvarSistema() {
+//		SistemaController.salvaSistema(controlador);
 	}
 
 }
