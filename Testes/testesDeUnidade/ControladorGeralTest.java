@@ -1,6 +1,7 @@
 package testesDeUnidade;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
@@ -241,6 +242,23 @@ public class ControladorGeralTest {
 		assertThrows(IllegalArgumentException.class, () -> controlador.exibirTramitacao(""));
 		assertThrows(IllegalArgumentException.class, () -> controlador.exibirTramitacao(null));
 
+	}
+	
+	@Test
+	void testVotarComissao() {
+		this.controlador.cadastrarPessoaComPartido("Cayo", "111111111-1", "PE", "saude", "PPP");
+		this.controlador.cadastrarPessoaComPartido("Jackson", "222222222-2", "PB", "saude", "PJ");
+		this.controlador.cadastrarPessoaComPartido("Leal", "333333333-3", "PB", "saude", "PO");
+		this.controlador.cadastrarDeputado("111111111-1", "01012018");
+		this.controlador.cadastrarDeputado("222222222-2", "01012018");
+		this.controlador.cadastrarDeputado("333333333-3", "01012018");
+		this.controlador.cadastraComissao("CCJC", "111111111-1,222222222-2,333333333-3");
+		this.controlador.cadastrarPL("333333333-3", 2019, "Ementa", "saude", "aaa.com", true);
+		
+		assertTrue(this.controlador.votarComissao("PL 1/2019", "GOVERNISTA", "CCJC"));
+		
+		
+		
 	}
 
 }
