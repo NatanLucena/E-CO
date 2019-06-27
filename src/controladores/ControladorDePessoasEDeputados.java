@@ -154,7 +154,7 @@ public class ControladorDePessoasEDeputados implements Serializable {
 		validadorGeral.validaDataDeInicio(dataDeInicio);
 		validadorGeral.verificaDataFutura(dataDeInicio);
 
-		if (pessoa.getPartido2().equals("")) {
+		if (pessoa.getPartido().equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 		}
 		if (this.deputados.containsKey(dni)) {
@@ -162,7 +162,7 @@ public class ControladorDePessoasEDeputados implements Serializable {
 		}
 
 		Deputado novoDeputado = new Deputado(pessoa.getNome(), pessoa.getDni(), pessoa.getEstado(),
-				pessoa.getInteresses2(), pessoa.getPartido2(), dataDeInicio);
+				pessoa.getInteresses(), pessoa.getPartido(), dataDeInicio);
 		this.deputados.put(dni, novoDeputado);
 	}
 
@@ -198,7 +198,7 @@ public class ControladorDePessoasEDeputados implements Serializable {
 	public String getPartido(String dni) {
 		validadorGeral.validaNullOuVazio(dni, "Erro ao recuperar partido: dni nao pode ser vazia ou nula");
 		validadorGeral.validaDni(dni, "Erro ao recuperar partido: dni invalida");
-		return this.deputados.get(dni).getPartido2();
+		return this.deputados.get(dni).getPartido();
 	}
 
 	/**

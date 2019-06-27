@@ -7,6 +7,8 @@ import java.util.Date;
 public class ValidadorGeral {
 
 	public void validaNullOuVazio(String entrada, String mensagem) {
+
+		
 		if (entrada == null || entrada.trim().equals("")) {
 			
 			throw new IllegalArgumentException(mensagem);

@@ -95,7 +95,7 @@ public class Deputado extends Pessoa implements Serializable {
 	 */
 	@Override
 	public String exibir() {
-		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + super.getPartido() + super.getInteresses() + " - "
+		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + super.getPartidoToString() + super.getInteressesToString() + " - "
 				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " Leis";
 	}
 

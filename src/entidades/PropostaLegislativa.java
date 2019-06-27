@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import metodosAuxiliares.ValidadorGeral;
 /**
  * Responsavel por representar uma proposta legislativa.
  *  
@@ -62,6 +64,8 @@ public class PropostaLegislativa implements Serializable {
 	 */
 	private List<String> tramitacao;
 	
+	private ValidadorGeral validador;
+	
 	
 	/**
 	 * Inicia a proposta legislativa a partir do autor do projeto de lei, ano, codigo, ementa, interesses e URL da proposta conclusiva.
@@ -74,6 +78,14 @@ public class PropostaLegislativa implements Serializable {
 	 * @param URL da proposta legislativa
 	 */
 	public PropostaLegislativa(String autor,int ano, String codigo, String ementa, String interesses, String URL) {
+		validador = new ValidadorGeral();
+		
+		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
+		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
+		validador.validaNullOuVazio(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+		validador.validaNullOuVazio(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+		validador.validaNullOuVazio(URL, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+
 		this.autor = autor;
 		this.ano = ano;
 		this.codigo = codigo;

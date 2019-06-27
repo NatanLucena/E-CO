@@ -32,11 +32,7 @@ class PessoaTest {
 		
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", null, "seguranca"));
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "", "seguranca"));
-		
-		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", null));
-		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", ""));
-		
-		
+
 		
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa(null, "123456789-0", "PE", "seguranca", "PPP"));
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("", "123456789-0", "PE", "seguranca", "PPP"));
@@ -46,9 +42,6 @@ class PessoaTest {
 		
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", null, "seguranca", "PPP"));
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "", "seguranca", "PPP"));
-		
-		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", null, "PPP"));
-		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", "", "PPP"));
 		
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", "seguranca", null));
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", "seguranca", ""));		
@@ -65,13 +58,13 @@ class PessoaTest {
 	void getTest() {
 		assertEquals(pessoa.getDni(), "123456789-9");
 		assertEquals(pessoa.getEstado(), "PB");
-		assertEquals(pessoa.getInteresses(), " - Interesses: saneamento");
-		assertEquals(pessoa.getInteresses2(), "saneamento");
+		assertEquals(pessoa.getInteressesToString(), " - Interesses: saneamento");
+		assertEquals(pessoa.getInteresses(), "saneamento");
 		assertEquals(pessoa.getNome(), "Lucas");
-		assertEquals(pessoa.getPartido(), "");
+		assertEquals(pessoa.getPartidoToString(), "");
 
-		assertEquals(pessoa1.getPartido(), " - PPP");
-		assertEquals(pessoa1.getPartido2(), "PPP");
+		assertEquals(pessoa1.getPartidoToString(), " - PPP");
+		assertEquals(pessoa1.getPartido(), "PPP");
 		
 		List<String> interesses = new ArrayList<>();
 		interesses.add("saneamento");

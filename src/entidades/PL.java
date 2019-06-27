@@ -29,7 +29,7 @@ public class PL extends PropostaLegislativa {
 	 * @param conclusiva booleano que diz se o projeto é conclusiva ou nao
 	 */
 	public PL(String autor, int ano, String codigo, String ementa, String interesses, String URL, boolean conclusiva) {
-		super(autor, ano, codigo, ementa, interesses, URL);
+		super(autor, ano, codigo, ementa, interesses, URL);	
 		this.conclusiva = conclusiva;
 	}
 	

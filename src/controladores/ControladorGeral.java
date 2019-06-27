@@ -181,6 +181,9 @@ public class ControladorGeral implements Serializable {
 	public String cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
+		validador.validaNullOuVazio(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+		validador.validaNullOuVazio(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+		validador.validaNullOuVazio(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
 
 		if (!controladorDePessoasEDeputados.containsPessoa(autor)) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa inexistente");
@@ -188,10 +191,7 @@ public class ControladorGeral implements Serializable {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
 		}
 
-		validador.validaNullOuVazio(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
-		validador.validaNullOuVazio(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
-		validador.validaNullOuVazio(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
-
+		
 		if (ano < 1988) {
 			throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
 		} else if (ano > 2019) {

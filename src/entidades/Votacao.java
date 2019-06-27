@@ -54,11 +54,11 @@ public class Votacao implements Serializable{
 
 		for (int i = 0; i < comissao.getIntegrantes().size(); i++) {
 			if (statusGovernista.equals("GOVERNISTA")) {
-				if (this.baseGovernista.contains(comissao.getIntegrantes().get(i).getPartido2())) {
+				if (this.baseGovernista.contains(comissao.getIntegrantes().get(i).getPartido())) {
 					votos += 1;
 				}
 			} else if (statusGovernista.equals("OPOSICAO")) {
-				if (!this.baseGovernista.contains(comissao.getIntegrantes().get(i).getPartido2())) {
+				if (!this.baseGovernista.contains(comissao.getIntegrantes().get(i).getPartido())) {
 					votos += 1;
 				}
 			} else {
@@ -150,11 +150,11 @@ public class Votacao implements Serializable{
 		List<String> interessesDaProposta = proposta.getListaDeInteresses();
 		for (int i = 0; i < presentes.size(); i++) {
 			if (statusGovernista.equals("GOVERNISTA")) {
-				if (this.baseGovernista.contains(presentes.get(i).getPartido2())) {
+				if (this.baseGovernista.contains(presentes.get(i).getPartido())) {
 					votos += 1;
 				}
 			} else if (statusGovernista.equals("OPOSICAO")) {
-				if (!this.baseGovernista.contains(presentes.get(i).getPartido2())) {
+				if (!this.baseGovernista.contains(presentes.get(i).getPartido())) {
 					votos += 1;
 				}
 			} else {

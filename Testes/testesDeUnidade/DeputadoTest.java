@@ -9,7 +9,7 @@ import entidades.Deputado;
 
 class DeputadoTest {
 	Deputado deputado;
-
+ 
 	@BeforeEach
 	void iniciaDeputado() {
 		deputado = new Deputado("Lucas", "123456789-9", "PB", "saneamento", "PPP", "30112010");

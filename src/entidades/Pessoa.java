@@ -65,9 +65,7 @@ public class Pessoa implements Serializable {
 		validadorGeral.validaNullOuVazio(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
 		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
 		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
-		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
-		validadorGeral.validaNullOuVazio(interesses, "Erro ao cadastrar pessoa: interesse nao pode ser vazio ou nulo");
-		
+		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");		
 
 		this.nome = nome;
 		this.dni = dni;
@@ -129,7 +127,7 @@ public class Pessoa implements Serializable {
 	 * 
 	 * @return uma String que representa os interesses da pessoa
 	 */
-	public String getInteresses() {
+	public String getInteressesToString() {
 		if (this.interesses == null || this.interesses.equals("")) {
 			return "";
 		} else {
@@ -142,7 +140,7 @@ public class Pessoa implements Serializable {
 	 * 
 	 * @return uma String que representa os interesses da pessoa
 	 */
-	public String getInteresses2() {
+	public String getInteresses() {
 		return this.interesses;
 	}
 	
@@ -161,7 +159,7 @@ public class Pessoa implements Serializable {
 	 * 
 	 * @return uma String que representa o estado da pessoa
 	 */
-	public String getPartido() {
+	public String getPartidoToString() {
 		if (partido == null || partido.equals("")) {
 			return "";
 		} else {
@@ -174,7 +172,7 @@ public class Pessoa implements Serializable {
 	 * 
 	 * @return uma String que representa o estado da pessoa
 	 */
-	public String getPartido2() {
+	public String getPartido() {
 		return this.partido;
 	}
 
@@ -185,7 +183,7 @@ public class Pessoa implements Serializable {
 	 * @return uma String contendo todas as informacoes disponiveis da pessoa
 	 */
 	public String exibir() {
-		return this.getNome() + " - " + this.getDni() + " (" + this.getEstado() + ")" + this.getPartido() + this.getInteresses();
+		return this.getNome() + " - " + this.getDni() + " (" + this.getEstado() + ")" + this.getPartidoToString() + this.getInteressesToString();
 	}
 	
 }
