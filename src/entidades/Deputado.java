@@ -2,6 +2,8 @@ package entidades;
 
 import java.io.Serializable;
 
+import metodosAuxiliares.ValidadorGeral;
+
 /**
  * Responsavel por representar um Deputado
  * 
@@ -30,13 +32,22 @@ public class Deputado extends Pessoa implements Serializable {
 	 */
 	private String estrategia;
 
+	private ValidadorGeral validadorGeral;
+	
 	/**
 	 * Inicia o deputado a partir da data de inicio da pessoa na funcao de deputado
 	 * 
 	 * @param dataDeInicio que a pessoa exerceu a funcao de deputado
 	 */
-	public Deputado(String nome, String dni, String estado, String interesses, String partido,String dataDeInicio) {
+	public Deputado(String nome, String dni, String estado, String interesses, String partido, String dataDeInicio) {
 		super(nome, dni, estado, interesses, partido);
+		
+		this.validadorGeral = new ValidadorGeral();
+		
+		validadorGeral.validaNullOuVazio(dataDeInicio, "Erro ao cadastrar deputado: data de inicio nao pode ser vazia ou nula");
+		validadorGeral.validaDataDeInicio(dataDeInicio);
+		validadorGeral.verificaDataFutura(dataDeInicio);
+		
 		this.dataDeInicio=dataDeInicio;
 		this.leisAprovadas = 0;
 		this.estrategia = null;
@@ -93,6 +104,9 @@ public class Deputado extends Pessoa implements Serializable {
 	 * @param estrategia
 	 */
 	public void setEstrategia(String estrategia) {
+		validadorGeral.validaNullOuVazio(estrategia, "Erro ao mudar estrategia: estrategia nao pode ser vazia ou nula");
+		validadorGeral.validaEstrategia(estrategia);
+		
 		this.estrategia = estrategia;
 	}
 	

@@ -12,40 +12,66 @@ class DeputadoTest {
 
 	@BeforeEach
 	void iniciaDeputado() {
-		this.deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
+		deputado = new Deputado("Lucas", "123456789-9", "PB", "saneamento", "PPP", "30112010");
 
 	}
 
 	@Test
-	void testDeputado() {
-		Deputado deputado2 = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
-		assertEquals(deputado.getDataDeInicio(), deputado2.getDataDeInicio());
-		assertEquals(deputado.getDni(), deputado2.getDni());
-		assertEquals(deputado.getEstado(), deputado2.getEstado());
-		assertEquals(deputado.getInteresses(), deputado2.getInteresses());
-		assertEquals(deputado.getNome(), deputado2.getNome());
-		assertEquals(deputado.getPartido2(), deputado2.getPartido2());
-		assertEquals(deputado.getLeisAprovadas(), deputado2.getLeisAprovadas());
+	void construtorTest() {
+		assertThrows(IllegalArgumentException.class, () -> new Deputado(null, "123456789-0", "PE", "seguranca", "PPP", "30112010"));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("", "123456789-0", "PE", "seguranca", "PPP", "30112010"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", null, "PE", "seguranca", "PPP", "30112010"));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "", "PE", "seguranca", "PPP", "30112010"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "0123456789-0", "PE", "seguranca", "PPP", "30112010"));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "A23456789-0", "PE", "seguranca", "PPP", "30112010"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", null, "seguranca", "PPP", "30112010"));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "", "seguranca", "PPP", "30112010"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", null, "PPP", "30112010"));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "", "PPP", "30112010"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", null, "30112010"));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", "", "30112010"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", "PPP", null));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", "PPP", ""));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", "PPP", "40112010"));
+		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", "PPP", "30132010"));
+		
 	}
 
 	@Test
-	void testSetLeisAprovadas() {
+	void getESetLeisAprovadasTest() {
+		assertEquals(0, deputado.getLeisAprovadas());
 		deputado.setLeisAprovadas();
-		deputado.setLeisAprovadas();
-		assertEquals(2, deputado.getLeisAprovadas());
+		assertEquals(1, deputado.getLeisAprovadas());
+		
+		assertEquals("30/11/2010", deputado.getDataDeInicio());
 	}
 
 	@Test
-	void testGetDataInicio() {
-		Deputado deputado2 = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
-		assertEquals(deputado2.getDataDeInicio(), this.deputado.getDataDeInicio());
+	void exibirTest() {
+		assertEquals("POL: Lucas - 123456789-9 (PB) - PPP - Interesses: saneamento - 30/11/2010 - 0 Leis", deputado.exibir());
 	}
-
+	
 	@Test
-	void testExibir() {
-		assertEquals("POL: Jackson - 011111111-0 (PB) - DEM - Interesses: saude, educacao - 29/02/2016 - 0 Leis",
-				this.deputado.exibir());
-
+	void getESetEstrategiaTest() {
+		assertEquals(null, deputado.getEstrategia());
+		
+		assertThrows(IllegalArgumentException.class, () -> deputado.setEstrategia(""));
+		assertThrows(IllegalArgumentException.class, () -> deputado.setEstrategia("nova"));
+		
+		deputado.setEstrategia("CONSTITUCIONAL");
+		assertEquals("CONSTITUCIONAL", deputado.getEstrategia());
+		deputado.setEstrategia("CONCLUSAO");
+		assertEquals("CONCLUSAO", deputado.getEstrategia());
+		deputado.setEstrategia("APROVACAO");
+		assertEquals("APROVACAO", deputado.getEstrategia());
+		
 	}
 
 }

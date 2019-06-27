@@ -63,8 +63,11 @@ public class Pessoa implements Serializable {
 		this.validadorGeral = new ValidadorGeral();
 
 		validadorGeral.validaNullOuVazio(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
 		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
-		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+		validadorGeral.validaNullOuVazio(interesses, "Erro ao cadastrar pessoa: interesse nao pode ser vazio ou nulo");
+		
 
 		this.nome = nome;
 		this.dni = dni;
@@ -88,6 +91,8 @@ public class Pessoa implements Serializable {
 	public Pessoa(String nome, String dni, String estado, String interesses, String partido) {
 		this(nome, dni, estado, interesses);
 
+		validadorGeral.validaNullOuVazio(partido, "Erro ao cadastrar pessoa: partido nao pode ser vazio");
+		
 		this.partido = partido;
 	}
 
@@ -120,7 +125,7 @@ public class Pessoa implements Serializable {
 	}
 
 	/**
-	 * Retorna os interesses da pessoa;
+	 * Retorna os interesses da pessoa para o metodo exibir();
 	 * 
 	 * @return uma String que representa os interesses da pessoa
 	 */
@@ -132,17 +137,27 @@ public class Pessoa implements Serializable {
 		}
 	}
 	
+	/**
+	 * Retorna os interesses da pessoa;
+	 * 
+	 * @return uma String que representa os interesses da pessoa
+	 */
 	public String getInteresses2() {
 		return this.interesses;
 	}
 	
+	/**
+	 * Retorna uma lista com os interesses de uma pessoa;
+	 * 
+	 * @return uma lista contendo interesses
+	 */
 	public List<String> getListaDeInteresses() {
 		List<String> interesses = Arrays.asList(this.interesses.split(","));
 		return interesses;
 	}
 
 	/**
-	 * Retorna o partido da pessoa;
+	 * Retorna o partido da pessoa para o metodo exibir();
 	 * 
 	 * @return uma String que representa o estado da pessoa
 	 */
@@ -154,6 +169,11 @@ public class Pessoa implements Serializable {
 		}
 	}
 	
+	/**
+	 * Retorna somente o partido da pessoa;
+	 * 
+	 * @return uma String que representa o estado da pessoa
+	 */
 	public String getPartido2() {
 		return this.partido;
 	}
@@ -166,6 +186,6 @@ public class Pessoa implements Serializable {
 	 */
 	public String exibir() {
 		return this.getNome() + " - " + this.getDni() + " (" + this.getEstado() + ")" + this.getPartido() + this.getInteresses();
-}
+	}
 	
 }
