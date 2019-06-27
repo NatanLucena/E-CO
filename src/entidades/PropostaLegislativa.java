@@ -82,6 +82,7 @@ public class PropostaLegislativa implements Serializable {
 		
 		validador.validaNullOuVazio(autor, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
 		validador.validaDni(autor, "Erro ao cadastrar projeto: dni invalido");
+		validador.validaNullOuVazio(codigo, "Erro ao cadastrar projeto: codigo nao pode ser vazio ou nulo");
 		validador.validaNullOuVazio(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
 		validador.validaNullOuVazio(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
 		validador.validaNullOuVazio(URL, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");

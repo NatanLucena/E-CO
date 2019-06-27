@@ -1,5 +1,7 @@
 package entidades;
 
+import metodosAuxiliares.ValidadorGeral;
+
 /**
  * Representa um projeto de lei complementar no sistema
  * @author JacksonMateus
@@ -17,6 +19,11 @@ public class PEC extends PropostaLegislativa {
 	private String artigosAlterados;
 	
 	/**
+	 * 
+	 */
+	private ValidadorGeral validador;
+	
+	/**
 	 * Inicia a PEC a partir do autor do projeto de lei, ano de inicio do projeto, codigo, ementa, interesses, URL e artigos desse 
 	 * projeto de lei
 	 * @param autor da PEC
@@ -29,6 +36,10 @@ public class PEC extends PropostaLegislativa {
 	 */
 	public PEC(String autor, int ano, String codigo, String ementa, String interesses, String URL, String artigos) {
 		super(autor, ano, codigo, ementa, interesses, URL);
+		
+		this.validador = new ValidadorGeral();
+		validador.validaNullOuVazio(artigos, "Erro ao cadastrar Projeto: artigos nao podem ser vazios ou nulos");
+		
 		this.artigosAlterados = artigos;
 	}
 	
