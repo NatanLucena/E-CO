@@ -13,7 +13,7 @@ class PECTest {
 	@BeforeEach
 	void iniciandoPEC() {
 		pec = new PEC("123456789-9", 2018, "codigo", "1234", "educacao", "url", "artigos");
-	}
+	}	
 	
 
 	@Test
