@@ -19,6 +19,7 @@ class PessoaTest {
 		
 		pessoa = new Pessoa("Lucas", "123456789-9", "PB", "saneamento");
 		pessoa1= new Pessoa("Lucas", "123456789-9", "PB", "saneamento", "PPP");
+		pessoa2= new Pessoa("Cayo",  "444444444-4", "PE", "");
 		
 	}
 
@@ -60,6 +61,7 @@ class PessoaTest {
 		assertEquals(pessoa.getEstado(), "PB");
 		assertEquals(pessoa.getInteressesToString(), " - Interesses: saneamento");
 		assertEquals(pessoa.getInteresses(), "saneamento");
+		assertEquals(pessoa2.getInteressesToString(), "");
 		assertEquals(pessoa.getNome(), "Lucas");
 		assertEquals(pessoa.getPartidoToString(), "");
 

@@ -114,6 +114,8 @@ public class PropostaLegislativa implements Serializable {
 	 * @param situacao que sera atualizado como situacao da proposta legislativa
 	 */
 	public void setSituacao(String situacao) {
+		validador.validaNullOuVazio(situacao, "Erro ao modificar Situacao: Situacao nao pode ser vazia ou nula");
+		
 		this.situacao = situacao;
 	}
 	
@@ -125,6 +127,8 @@ public class PropostaLegislativa implements Serializable {
 	 * @param tramitacao que sera adicionada na lista de tramitacoes da proposta legislativa
 	 */
 	public void setTramitacao(String tramitacao) {
+		validador.validaNullOuVazio(tramitacao, "Erro ao modificar Tramitacao: Tramitacao nao pode ser vazia ou nula");
+		
 		this.tramitacao.remove(this.tramitacao.size() -1);
 		this.tramitacao.add(tramitacao);
 	}
@@ -135,6 +139,8 @@ public class PropostaLegislativa implements Serializable {
 	 * @param tramitacao que sera adicionada na lista de tramitacoes da proposta legislativa
 	 */
 	public void adicionaTramitacao(String tramitacao) {
+		validador.validaNullOuVazio(tramitacao, "Erro ao adicionar Tramitacao: Tramitacao nao pode ser vazia ou nula");
+		
 		this.tramitacao.add(tramitacao);
 	}
 
@@ -233,6 +239,8 @@ public class PropostaLegislativa implements Serializable {
 	 * @param local novo local da proposta legislativa 
 	 */
 	public void setLocal(String local) {
+		validador.validaNullOuVazio(local, "Erro ao modificar Local: Local nao pode ser vazia ou nula");
+		
 		this.local = local;
 	}
 	

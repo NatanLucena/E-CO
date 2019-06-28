@@ -44,7 +44,7 @@ class PropostaLegislativaTest {
 	}
 	
 	@Test
-	void getESetTest() {
+	void getTest() {
 		assertEquals(proposta.getAutor(), "123456789-0");
 		assertEquals(proposta.getAno(), 2010);
 		assertEquals(proposta.getCodigo(), "codigo");
@@ -63,94 +63,36 @@ class PropostaLegislativaTest {
 		assertEquals(proposta.getLocal(), "CCJC");
 		assertEquals(proposta.getSituacao(), "EM VOTACAO (CCJC)");
 		assertEquals(proposta.getTramitacao(), "EM VOTACAO (CCJC)");
-		
-		
-		
 	}
 	
+	@Test
+	void setTest() {
+		assertThrows(IllegalArgumentException.class, () -> proposta.setLocal(null));
+		assertThrows(IllegalArgumentException.class, () -> proposta.setLocal(""));
+		
+		assertThrows(IllegalArgumentException.class, () -> proposta.setSituacao(null));
+		assertThrows(IllegalArgumentException.class, () -> proposta.setSituacao(""));
+		
+		assertThrows(IllegalArgumentException.class, () -> proposta.setTramitacao(null));
+		assertThrows(IllegalArgumentException.class, () -> proposta.setTramitacao(""));
+		
+		proposta.setLocal("LCC");
+		proposta.setSituacao("EM VOTACAO (LCC)");
+		proposta.setTramitacao("EM VOTACAO (LCC)");
+		
+		assertEquals(proposta.getLocal(), "LCC");
+		assertEquals(proposta.getSituacao(), "EM VOTACAO (LCC)");
+		assertEquals(proposta.getTramitacao(), "EM VOTACAO (LCC)");
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-
-//	@Test
-//	void testPropostaLegislativa() {
-//		PropostaLegislativa proposta1 = new PropostaLegislativa("Aaaaa", 2019, "Bbbbb", "Ccccc", "Ddddd", "Eeeee");
-//		PropostaLegislativa proposta2 = new PropostaLegislativa("Fffff", 2018, "Ggggg", "Hhhhh", "Iiiii", "Jjjjj");
-//		PropostaLegislativa proposta3 = new PropostaLegislativa("Kkkkk", 2017, "Lllll", "Mmmmm", "Nnnnn", "Ooooo");
-//
-//		assertEquals(proposta1.getAutor(), "Aaaaa");
-//		assertEquals(proposta1.getAno(), 2019);
-//		assertEquals(proposta1.getCodigo(), "Bbbbb");
-//		assertEquals(proposta1.getEmenta(), "Ccccc");
-//		assertEquals(proposta1.getInteresses(), "Ddddd");
-//		assertEquals(proposta1.getURL(), "Eeeee");
-//		assertEquals(proposta2.getAutor(), "Fffff");
-//		assertEquals(proposta2.getAno(), 2018);
-//		assertEquals(proposta2.getCodigo(), "Ggggg");
-//		assertEquals(proposta2.getEmenta(), "Hhhhh");
-//		assertEquals(proposta2.getInteresses(), "Iiiii");
-//		assertEquals(proposta2.getURL(), "Jjjjj");
-//		assertEquals(proposta3.getAutor(), "Kkkkk");
-//		assertEquals(proposta3.getAno(), 2017);
-//		assertEquals(proposta3.getCodigo(), "Lllll");
-//		assertEquals(proposta3.getEmenta(), "Mmmmm");
-//		assertEquals(proposta3.getInteresses(), "Nnnnn");
-//		assertEquals(proposta3.getURL(), "Ooooo");
-//	}
-//
-//	@Test
-//	void testGetSituacao() {
-//		PropostaLegislativa proposta1 = new PropostaLegislativa("Aaaaa", 2019, "Bbbbb", "Ccccc", "Ddddd", "Eeeee");
-//		PropostaLegislativa proposta2 = new PropostaLegislativa("Fffff", 2018, "Ggggg", "Hhhhh", "Iiiii", "Jjjjj");
-//		PropostaLegislativa proposta3 = new PropostaLegislativa("Kkkkk", 2017, "Lllll", "Mmmmm", "Nnnnn", "Ooooo");
-//
-//		assertEquals(proposta1.getSituacao(), "EM VOTACAO (CCJC)");
-//		assertEquals(proposta2.getSituacao(), "EM VOTACAO (CCJC)");
-//		assertEquals(proposta3.getSituacao(), "EM VOTACAO (CCJC)");
-//	}
-//
-//	@Test
-//	void testSetSituacao() {
-//		PropostaLegislativa proposta1 = new PropostaLegislativa("Aaaaa", 2019, "Bbbbb", "Ccccc", "Ddddd", "Eeeee");
-//		PropostaLegislativa proposta2 = new PropostaLegislativa("Fffff", 2018, "Ggggg", "Hhhhh", "Iiiii", "Jjjjj");
-//		PropostaLegislativa proposta3 = new PropostaLegislativa("Kkkkk", 2017, "Lllll", "Mmmmm", "Nnnnn", "Ooooo");
-//		proposta1.setSituacao("ARQUIVADO");
-//		proposta2.setSituacao("ARQUIVADO");
-//		proposta3.setSituacao("ARQUIVADO");
-//
-//		assertEquals(proposta1.getSituacao(), "ARQUIVADO");
-//		assertEquals(proposta2.getSituacao(), "ARQUIVADO");
-//		assertEquals(proposta3.getSituacao(), "ARQUIVADO");
-//	}
-//
-//	@Test
-//	void testGetLocal() {
-//		PropostaLegislativa proposta1 = new PropostaLegislativa("Aaaaa", 2019, "Bbbbb", "Ccccc", "Ddddd", "Eeeee");
-//		PropostaLegislativa proposta2 = new PropostaLegislativa("Fffff", 2018, "Ggggg", "Hhhhh", "Iiiii", "Jjjjj");
-//		PropostaLegislativa proposta3 = new PropostaLegislativa("Kkkkk", 2017, "Lllll", "Mmmmm", "Nnnnn", "Ooooo");
-//
-//		assertEquals(proposta1.getLocal(), "CCJC");
-//		assertEquals(proposta2.getLocal(), "CCJC");
-//		assertEquals(proposta3.getLocal(), "CCJC");
-//	}
-//
-//	@Test
-//	void testSetLocal() {
-//		PropostaLegislativa proposta1 = new PropostaLegislativa("Aaaaa", 2019, "Bbbbb", "Ccccc", "Ddddd", "Eeeee");
-//		PropostaLegislativa proposta2 = new PropostaLegislativa("Fffff", 2018, "Ggggg", "Hhhhh", "Iiiii", "Jjjjj");
-//		PropostaLegislativa proposta3 = new PropostaLegislativa("Kkkkk", 2017, "Lllll", "Mmmmm", "Nnnnn", "Ooooo");
-//		proposta1.setLocal("Aaaaa");
-//		proposta2.setLocal("Aaaaa");
-//		proposta3.setLocal("Aaaaa");
-//
-//		assertEquals(proposta1.getLocal(), "Aaaaa");
-//		assertEquals(proposta2.getLocal(), "Aaaaa");
-//		assertEquals(proposta3.getLocal(), "Aaaaa");
-//	}
+	@Test
+	void adicionaTramitacaoTest() {
+		assertThrows(IllegalArgumentException.class, () -> proposta.adicionaTramitacao(null));
+		assertThrows(IllegalArgumentException.class, () -> proposta.adicionaTramitacao(""));
+		
+		assertEquals(proposta.getTramitacao(), "EM VOTACAO (CCJC)");
+		proposta.adicionaTramitacao("EM VOTACAO (LCC)");
+		assertEquals(proposta.getTramitacao(), "EM VOTACAO (CCJC), EM VOTACAO (LCC)");
+	}
 
 }
