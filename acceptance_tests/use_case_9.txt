@@ -35,15 +35,15 @@ configurarEstrategiaPropostaRelacionada dni="091999999-0" estrategia="CONCLUSAO"
 expect ${plcsaude9_old} pegarPropostaRelacionada dni="091999999-0"
 expect ${plcnutri9} pegarPropostaRelacionada dni="091000000-0"
 
-# plp avanÁa
+# plp avan√ßa
 expect true votarComissao codigo=${plpnutri9} statusGovernista="GOVERNISTA" proximoLocal="CGOV"
 expect ${plpnutri9} pegarPropostaRelacionada dni="091000000-0"
 
-# pec avanÁa. ainda nenhuma no plenario, mas plp cadastrada primeiro
+# pec avan√ßa. ainda nenhuma no plenario, mas plp cadastrada primeiro
 expect true votarComissao codigo=${pecnutri9} statusGovernista="GOVERNISTA" proximoLocal="CGOV"
 expect ${plpnutri9} pegarPropostaRelacionada dni="091000000-0"
 
-# pec avanÁa. 1 comiss„o a mais das demais
+# pec avan√ßa. 1 comiss√£o a mais das demais
 expect true votarComissao codigo=${pecnutri9} statusGovernista="GOVERNISTA" proximoLocal="COPO"
 expect ${pecnutri9} pegarPropostaRelacionada dni="091000000-0"
 
@@ -51,7 +51,7 @@ expect ${pecnutri9} pegarPropostaRelacionada dni="091000000-0"
 expect true votarComissao codigo=${plpnutri9} statusGovernista="GOVERNISTA" proximoLocal="plenario"
 expect ${plpnutri9} pegarPropostaRelacionada dni="091000000-0"
 
-# pl no plenario. mais prÛxima do fim
+# pl no plenario. mais pr√≥xima do fim
 expect true votarComissao codigo=${plcnutri9} statusGovernista="GOVERNISTA" proximoLocal="plenario"
 expect ${plcnutri9} pegarPropostaRelacionada dni="091000000-0"
 
@@ -68,7 +68,7 @@ expect ${pecsaude9} pegarPropostaRelacionada dni="091999999-0"
 configurarEstrategiaPropostaRelacionada dni="091000000-0" estrategia="APROVACAO"
 configurarEstrategiaPropostaRelacionada dni="091999999-0" estrategia="APROVACAO"
 
-# plp e pec nutriÁ„o com 2 aprovacoes ambas. plp mais antiga
+# plp e pec nutri√ß√£o com 2 aprovacoes ambas. plp mais antiga
 expect ${plpnutri9} pegarPropostaRelacionada dni="091000000-0"
 
 # pec saude com mais aprovacoes (2)

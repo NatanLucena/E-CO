@@ -98,5 +98,23 @@ public class Deputado extends Pessoa implements Serializable {
 		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + super.getPartidoToString() + super.getInteressesToString() + " - "
 				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " Leis";
 	}
+
+	/**
+	 * 
+	 * @param estrategia
+	 */
+	public void setEstrategia(String estrategia) {
+		validadorGeral.validaNullOuVazio(estrategia, "Erro ao mudar estrategia: estrategia nao pode ser vazia ou nula");
+		validadorGeral.validaEstrategia(estrategia);
+		
+		this.estrategia = estrategia;
+	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getEstrategia() {
+		return this.estrategia;
+	}
 }

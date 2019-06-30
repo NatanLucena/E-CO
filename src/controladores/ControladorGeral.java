@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import entidades.PropostaLegislativa;
 import entidades.Votacao;
 import metodosAuxiliares.ValidadorGeral;
 
@@ -320,12 +319,12 @@ public class ControladorGeral implements Serializable {
 		if (!this.controladorDeComissoes.containsComissao(this.controladorDePropostasLegislativas.getLocal(codigo))) {
 			throw new IllegalArgumentException("Erro ao votar proposta: "
 					+ this.controladorDePropostasLegislativas.getLocal(codigo) + " nao cadastrada");
-		};
-		boolean resultado = this.votacao.votaComissao(this.controladorDePropostasLegislativas.getProposta(codigo), this.controladorDeComissoes.getComissao(this.controladorDePropostasLegislativas.getLocal(codigo)), statusGovernista, proximoLocal);
-		if(this.controladorDePropostasLegislativas.propostaEmComissao(codigo, resultado, proximoLocal)) {
-			this.controladorDePessoasEDeputados.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)).setLeisAprovadas();
 		}
-		return resultado;
+
+		return this.votacao.votaComissao(this.controladorDePropostasLegislativas.getProposta(codigo),
+				this.controladorDeComissoes.getComissao(this.controladorDePropostasLegislativas.getLocal(codigo)),
+				statusGovernista, proximoLocal, this.controladorDePessoasEDeputados
+						.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)));
 
 	}
 
@@ -423,50 +422,39 @@ public class ControladorGeral implements Serializable {
 	}
 	
 	/**
-	 * Metodo que altera o tipo de estrategia de desempate que uma pessoa possui.
 	 * 
-	 * @param dni dni da pessoa que tera sua estrategia modificada
+	 * @param dni
 	 * 
-	 * @param estrategia novo tipo de estrategia de desempate de propostas relacionadas
+	 * @param estrategia
 	 * 
-	 * @throws IllegalArgumentException caso algum parametro passado seja invalido
+	 * @throws 
 	 */
 	public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
-		validador.validaNullOuVazio(dni, "Erro ao configurar estrategia: pessoa nao pode ser vazia ou nula");
-		validador.validaDni(dni, "Erro ao configurar estrategia: dni invalido");
-		validador.validaNullOuVazio(estrategia, "Erro ao configurar estrategia: estrategia vazia");
-		this.validaDniPessoa(dni, "Erro ao configurar estrategia: dni nao cadastrado");
-		if(estrategia.equals("CONSTITUCIONAL") || (estrategia.equals("CONCLUSAO")) || (estrategia.equals("APROVACAO"))) {
-			this.controladorDePessoasEDeputados.setEstrategia(dni, estrategia);
-		}else {
-			throw new IllegalArgumentException("Erro ao configurar estrategia: estrategia invalida");
-		}	
+		validador.validaNullOuVazio(dni, "");
+		validador.validaDni(dni, "");
+		validador.validaNullOuVazio(estrategia, "");
 		
+		if(controladorDePessoasEDeputados.containsDeputado(dni)) {
+			this.controladorDePessoasEDeputados.cadastrarEstrategia(dni, estrategia);
+		}	
 	}
 
 	
 	/**
-	 * Retorna a proposta que possui mais interesses em comum com a pessoa ou a que mais atendeu aos parametros desempate.
 	 * 
-	 * @param dni dni da pessoa
 	 * 
-	 * @throws IllegalArgumentException caso o dni passado seja invalido
+	 * @param dni
 	 * 
-	 * @return a prposta mais relacionada a pessoa passada como parametro
+	 * @return
 	 * 
 	 */
 	public String pegarPropostaRelacionada(String dni) {
-		validador.validaNullOuVazio(dni, "Erro ao pegar proposta relacionada: pessoa nao pode ser vazia ou nula");
-		validador.validaDni(dni, "Erro ao pegar proposta relacionada: dni invalido");
-		List<PropostaLegislativa> relacionados = this.controladorDePropostasLegislativas.getPropostasRelacionadas(this.controladorDePessoasEDeputados.getListaDeInteresses(dni));
-		if(relacionados.size() == 0) {
-			return "";
-		}else if(relacionados.size() == 1) {
-			return relacionados.get(0).getCodigo();
-		}else {
-			return this.controladorDePessoasEDeputados.desempate(dni, relacionados);
-		}
+		validador.validaNullOuVazio(dni, "");
+		validador.validaDni(dni, "");
 		
+		controladorDePessoasEDeputados.recuperaEstrategia(dni);
+		
+		return null;
 	}
 
 	

@@ -8,11 +8,6 @@ import java.util.Map;
 
 import entidades.Deputado;
 import entidades.Pessoa;
-import entidades.PropostaLegislativa;
-import estrategias.Estrategia;
-import estrategias.EstrategiaAprovacao;
-import estrategias.EstrategiaConclusao;
-import estrategias.EstrategiaConstitucional;
 import metodosAuxiliares.ValidadorGeral;
 
 /**
@@ -231,7 +226,7 @@ public class ControladorDePessoasEDeputados implements Serializable {
 	public List<String> getListaDeInteresses(String dni) {
 		validadorGeral.validaNullOuVazio(dni, "Erro ao recuperar lista de interesses de um deputado: dni nao pode ser vazio ou nulo.");
 		validadorGeral.validaDni(dni, "Erro ao recuperar lista de interesses de um deputado: dni inavlido.");
-		return pessoas.get(dni).getListaDeInteresses();
+		return deputados.get(dni).getListaDeInteresses();
 	}
 
 	/**
@@ -244,34 +239,30 @@ public class ControladorDePessoasEDeputados implements Serializable {
 	}
 
 	/**
-	 * Metodo que altera o tipo de estrategia de desempate para a pessoa passada como parametro.
 	 * 
-	 * @param dni dni da pessoa que tera sua estategia alterada
+	 * @param dni
 	 * 
-	 * @param estrategia o novo tipo de estrategia que sera implementado
+	 * @param estrategia
 	 * 
 	 */
-	public void setEstrategia(String dni, String estrategia) {
-		Estrategia novaEstrategia;
-		if(estrategia.equalsIgnoreCase("CONCLUSAO")) {
-			novaEstrategia = new EstrategiaConclusao();
-		}else if(estrategia.equalsIgnoreCase("APROVACAO")) {
-			novaEstrategia = new EstrategiaAprovacao();
-		}else {
-			novaEstrategia = new EstrategiaConstitucional();
-		}
-		pessoas.get(dni).setEstrategia(novaEstrategia);
+	public void cadastrarEstrategia(String dni, String estrategia) {
+		validadorGeral.validaNullOuVazio(dni, "");
+		validadorGeral.validaDni(dni, "");
+		validadorGeral.validaNullOuVazio(estrategia, "");
+		deputados.get(dni).setEstrategia(estrategia);
 	}
 	
 	/**
-	 * Retorna a proposta mais adequada, para a pessoa passada, dentre as propostas da lista.
 	 * 
-	 * @param dni dni da pessoa que ira executar o desempate
+	 * @param dni
 	 * 
-	 * @return a proposta mais adequada a pessoa que foi passada como parametro
+	 * @return
 	 * 
 	 */
-	public String desempate(String dni, List<PropostaLegislativa> propostas) {
-		return pessoas.get(dni).desempate(propostas);
+	public String recuperaEstrategia(String dni) {
+		validadorGeral.validaNullOuVazio(dni, "");
+		validadorGeral.validaDni(dni, "");
+		
+		return deputados.get(dni).getEstrategia();
 	}
 }

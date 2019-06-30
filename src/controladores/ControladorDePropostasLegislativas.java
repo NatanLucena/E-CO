@@ -1,7 +1,6 @@
 package controladores;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,40 +161,6 @@ public class ControladorDePropostasLegislativas implements Serializable {
 	 */
 	public List<String> getListaDeInteresses(String codigo) {
 		return propostas.get(codigo).getListaDeInteresses();
-	}
-	
-	/**
-	 * Retorna uma lista de propostas legislativas que possuem interesses em comun com a lista passada.
-	 * 
-	 * @param interesses lista de interesses de uma pessoa
-	 * 
-	 * @return uma lista de propostas legislativas que possuem interesses em comun com a lista passada.
-	 */
-	public List<PropostaLegislativa> getPropostasRelacionadas(List<String> interesses) {
-		List<PropostaLegislativa> propostasRelacionadas = new ArrayList<>();
-		List<PropostaLegislativa> propostasNaoVerificadas = new ArrayList<>();
-		propostasNaoVerificadas.addAll(this.propostas.values());
-		for(int i = propostasNaoVerificadas.size()-1; i > -1; i--) {
-			if(!propostasNaoVerificadas.get(i).getSituacao().contains("EM VOTACAO")) {
-				propostasNaoVerificadas.remove(i);
-			}
-		}
-		boolean relacionado = false;
-		for(int i = 0; i < propostasNaoVerificadas.size(); i++) {
-			for(int j = 0; j < propostasNaoVerificadas.get(i).getListaDeInteresses().size(); j++) {
-				if(interesses.contains(propostasNaoVerificadas.get(i).getListaDeInteresses().get(j))) {
-					relacionado = true;
-				}
-			}
-			if(relacionado) {
-				propostasRelacionadas.add(propostasNaoVerificadas.get(i));
-			}
-		}
-		return propostasRelacionadas;
-	}
-	
-	public boolean propostaEmComissao(String codigo ,boolean aprovado, String proximoLocal) {
-		return this.propostas.get(codigo).propostaEmComissao(aprovado, proximoLocal);
 	}
 
 	/**
