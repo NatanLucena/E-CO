@@ -49,7 +49,7 @@ public class Votacao implements Serializable{
 	 * @return um boolean referente a aprovacao ou rejeicao do projeto
 	 */
 	public boolean votaComissao(PropostaLegislativa proposta, Comissao comissao, String statusGovernista,
-			String proximoLocal, Deputado autor) {
+			String proximoLocal) {
 		int votos = 0;
 
 		for (int i = 0; i < comissao.getIntegrantes().size(); i++) {
@@ -73,59 +73,8 @@ public class Votacao implements Serializable{
 		}
 
 		if (votos >= ((comissao.getIntegrantes().size() / 2) + 1)) {
-			if (proposta.getCodigo().contains("PL ") 
-					&& proposta.toString().contains("Conclusiva")
-					&& !proposta.getLocal().equals("CCJC")) {
-				autor.setLeisAprovadas();
-				proposta.setTramitacao("APROVADO (" + proposta.getLocal() + ")");
-				proposta.setLocal("-");
-				proposta.setSituacao("APROVADO");
-			} else {
-				proposta.setTramitacao("APROVADO (" + proposta.getLocal() + ")");
-				if (proximoLocal.equals("plenario")) {
-					if (proposta.getCodigo().contains("PL ")) {
-						proposta.setLocal(proximoLocal);
-						proposta.adicionaTramitacao("EM VOTACAO (Plenario)");
-						proposta.setSituacao("EM VOTACAO (Plenario)");
-					} else {
-						proposta.setLocal(proximoLocal);
-						proposta.adicionaTramitacao("EM VOTACAO (Plenario - 1o turno)");
-						proposta.setSituacao("EM VOTACAO (Plenario - 1o turno)");
-					}
-				} else {
-					proposta.adicionaTramitacao("EM VOTACAO (" + proximoLocal + ")");
-					proposta.setLocal(proximoLocal);
-					proposta.setSituacao("EM VOTACAO (" + proximoLocal + ")");
-				}
-			}
 			return true;
 		} else {
-			if (proposta.getLocal().equals("CCJC")) {
-				proposta.setTramitacao("REJEITADO (CCJC)");
-				proposta.setLocal("-");
-				proposta.setSituacao("ARQUIVADO");
-			} else if (proposta.getCodigo().contains("PL ") && proposta.toString().contains("Conclusiva")) {
-				proposta.setTramitacao("REJEITADO (" + proposta.getLocal() + ")");
-				proposta.setLocal("-");
-				proposta.setSituacao("ARQUIVADO");
-			} else {
-				proposta.setTramitacao("REJEITADO (" + proposta.getLocal() + ")");
-				if (proximoLocal.equals("plenario")) {
-					if (proposta.getCodigo().contains("PL ")) {
-						proposta.setLocal("Plenario");
-						proposta.adicionaTramitacao("EM VOTACAO (Plenario)");
-						proposta.setSituacao("EM VOTACAO (Plenario)");
-					} else {
-						proposta.setLocal("Plenario - 1o turno");
-						proposta.adicionaTramitacao("EM VOTACAO (Plenario - 1o turno)");
-						proposta.setSituacao("EM VOTACAO (Plenario - 1o turno)");
-					}
-				} else {
-					proposta.adicionaTramitacao("EM VOTACAO (" + proximoLocal + ")");
-					proposta.setLocal(proximoLocal);
-					proposta.setSituacao("EM VOTACAO (" + proximoLocal + ")");
-				}
-			}
 			return false;
 		}
 		

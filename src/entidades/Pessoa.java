@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import estrategias.Estrategia;
+import estrategias.EstrategiaConstitucional;
+import estrategias.EstrategiaAprovacao;
+import estrategias.EstrategiaConclusao;
 import metodosAuxiliares.ValidadorGeral;
 
 /**
@@ -48,6 +52,11 @@ public class Pessoa implements Serializable {
 	 * Validador de parametros, que lanca excecoes, caso necessario
 	 */
 	private ValidadorGeral validadorGeral;
+	
+	/**
+	 * Armazena o tipo de estrategia de desempate para propostas os quais a pessoa possui interesses em comun.
+	 */
+	private Estrategia estrategia;
 
 	/**
 	 * Inicia uma pessoa a partir do nome, dni, estado e interesses, alem de
@@ -72,6 +81,7 @@ public class Pessoa implements Serializable {
 		this.estado = estado;
 		this.interesses = interesses;
 		this.partido = "";
+		this.estrategia = new EstrategiaConstitucional();
 	}
 
 	/**
@@ -174,6 +184,26 @@ public class Pessoa implements Serializable {
 	 */
 	public String getPartido() {
 		return this.partido;
+	}
+	
+	/**
+	 * Altera o tipo de estrategia de desempate.
+	 * 
+	 * @param novaEstrategia nova estrategia que sera implementada por essa pessoa
+	 */
+	public void setEstrategia(Estrategia novaEstrategia) {
+		this.estrategia = novaEstrategia;
+	}
+	
+	/**
+	 * Retorna o codigo da proposta mais adequada de acordo com o tipo da estrategia.
+	 * 
+	 * @param propostas propostas que serao verificadas
+	 * 
+	 * @return o codigo da proposta mais adequada de acordo com o tipo da estrategia
+	 */
+	public String desempate(List<PropostaLegislativa> propostas) {
+		return this.estrategia.desempate(propostas);
 	}
 
 
