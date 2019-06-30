@@ -34,7 +34,6 @@ class PessoaTest {
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", null, "seguranca"));
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "", "seguranca"));
 
-		
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa(null, "123456789-0", "PE", "seguranca", "PPP"));
 		assertThrows(IllegalArgumentException.class, () -> new Pessoa("", "123456789-0", "PE", "seguranca", "PPP"));
 		
