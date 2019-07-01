@@ -20,7 +20,6 @@ class PropostaLegislativaTest {
 	
 	@Test
 	void construtorTest() {
-//		assertThrows(IllegalArgumentException.class, () -> new PropostaLegislativa("123456789-0", 2010, "codigo", "ementa", "educacao", "url"));
 		
 		assertThrows(IllegalArgumentException.class, () -> new PropostaLegislativa("A23456789-0", 2010, "codigo", "ementa", "educacao", "url"));
 		assertThrows(IllegalArgumentException.class, () -> new PropostaLegislativa("123456789-A", 2010, "codigo", "ementa", "educacao", "url"));

@@ -106,10 +106,10 @@ class ControladorDePessoasEDeputadosTest {
 				() -> controladorPessoaDeputado.cadastrarDeputado("011111124-0", null));
 		assertThrows(IllegalArgumentException.class,
 				() -> controladorPessoaDeputado.cadastrarDeputado("1111111111-A", "29022016"));
-		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111112-0", "PB", "saude, educacao", "");
+		controladorPessoaDeputado.cadastrarPessoa("Maria", "011111112-0", "PB", "saude, educacao");
 		assertThrows(IllegalArgumentException.class,
 				() -> controladorPessoaDeputado.cadastrarDeputado("011111112-0", "01012001"));
-
+		
 		controladorPessoaDeputado.cadastrarPessoaComPartido("Marina", "011111111-0", "PB",
 				"educacao,seguranca publica,saude", "PMD");
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "29022016");
@@ -203,5 +203,14 @@ class ControladorDePessoasEDeputadosTest {
 		controladorPessoaDeputado.cadastrarDeputado("011111111-0", "30012012");
 
 		assertEquals(1, controladorPessoaDeputado.totalDeDeputados());
+	}
+	
+	@Test
+	void setEstrategiaTest() {
+		controladorPessoaDeputado.cadastrarPessoaComPartido("Maria", "011111111-0", "PB", "saude, educacao", "PPP");
+		controladorPessoaDeputado.setEstrategia("011111111-0", "CONCLUSAO");
+		controladorPessoaDeputado.setEstrategia("011111111-0", "APROVACAO");
+		controladorPessoaDeputado.setEstrategia("011111111-0", "CONSTITUCIONAL");
+		
 	}
 }

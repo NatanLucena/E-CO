@@ -159,9 +159,6 @@ public class ControladorDePessoasEDeputados implements Serializable {
 		validadorGeral.validaDataDeInicio(dataDeInicio);
 		validadorGeral.verificaDataFutura(dataDeInicio);
 
-		if (pessoa.getPartido().equals("")) {
-			throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
-		}
 		if (this.deputados.containsKey(dni)) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: deputado ja cadastrado");
 		}
