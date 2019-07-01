@@ -92,11 +92,9 @@ public class Votacao implements Serializable{
 	 * 
 	 * @return um boolean referente a aprovacao ou rejeicao da proposta
 	 */
-	public boolean votaPlenario(PropostaLegislativa proposta, List<Deputado> presentes, int totalDeputados,
-			String statusGovernista, Deputado autor) {
+	public int votaPlenario(List<String> interessesDaProposta, List<Deputado> presentes, String statusGovernista) {
 		int votos = 0;
 
-		List<String> interessesDaProposta = proposta.getListaDeInteresses();
 		for (int i = 0; i < presentes.size(); i++) {
 			if (statusGovernista.equals("GOVERNISTA")) {
 				if (this.baseGovernista.contains(presentes.get(i).getPartido())) {
@@ -116,69 +114,69 @@ public class Votacao implements Serializable{
 				}
 			}
 		}
-
-		if (proposta.getCodigo().contains("PL ")) {
-			if (votos >= ((presentes.size() / 2) + 1)) {
-				autor.setLeisAprovadas();
-				proposta.setTramitacao("APROVADO (Plenario)");
-				proposta.setLocal("-");
-				proposta.setSituacao("APROVADO");
-				return true;
-			} else {
-				proposta.setTramitacao("REJEITADO (Plenario)");
-				proposta.setLocal("-");
-				proposta.setSituacao("ARQUIVADO");
-				return false;
-			}
-		} else if (proposta.getCodigo().contains("PLP ")) {
-			if (votos >= ((totalDeputados / 2) + 1)) {
-				if (proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
-					proposta.setTramitacao("APROVADO (Plenario - 1o turno)");
-					proposta.setLocal("Plenario - 2o turno");
-					proposta.adicionaTramitacao("EM VOTACAO (Plenario - 2o turno)");
-					proposta.setSituacao("EM VOTACAO (Plenario - 2o turno)");
-				} else {
-					autor.setLeisAprovadas();
-					proposta.setTramitacao("APROVADO (Plenario - 2o turno)");
-					proposta.setLocal("-");
-					proposta.setSituacao("APROVADO");
-				}
-				return true;
-			} else {
-				if(proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
-					proposta.setTramitacao("REJEITADO (Plenario - 1o turno)");
-				}else {
-					proposta.setTramitacao("REJEITADO (Plenario - 2o turno)");
-				}
-				proposta.setLocal("-");
-				proposta.setSituacao("ARQUIVADO");
-				return false;
-			}
-		} else {
-			if (votos >= (((totalDeputados * 3) / 5) + 1)) {
-				if (proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
-					proposta.setTramitacao("APROVADO (Plenario - 1o turno)");
-					proposta.setLocal("Plenario - 2o turno");
-					proposta.adicionaTramitacao("EM VOTACAO (Plenario - 2o turno)");
-					proposta.setSituacao("EM VOTACAO (Plenario - 2o turno)");
-				} else {
-					autor.setLeisAprovadas();
-					proposta.setTramitacao("APROVADO (Plenario - 2o turno)");
-					proposta.setLocal("-");
-					proposta.setSituacao("APROVADO");
-				}
-				return true;
-			} else {
-				if(proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
-					proposta.setTramitacao("REJEITADO (Plenario - 1o turno)");
-				}else {
-					proposta.setTramitacao("REJEITADO (Plenario - 2o turno)");
-				}
-				proposta.setLocal("-");
-				proposta.setSituacao("ARQUIVADO");
-				return false;
-			}
-		}
+		return votos;
+//		if (proposta.getCodigo().contains("PL ")) {
+//			if (votos >= ((presentes.size() / 2) + 1)) {
+//				autor.setLeisAprovadas();
+//				proposta.setTramitacao("APROVADO (Plenario)");
+//				proposta.setLocal("-");
+//				proposta.setSituacao("APROVADO");
+//				return true;
+//			} else {
+//				proposta.setTramitacao("REJEITADO (Plenario)");
+//				proposta.setLocal("-");
+//				proposta.setSituacao("ARQUIVADO");
+//				return false;
+//			}
+//		} else if (proposta.getCodigo().contains("PLP ")) {
+//			if (votos >= ((totalDeputados / 2) + 1)) {
+//				if (proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
+//					proposta.setTramitacao("APROVADO (Plenario - 1o turno)");
+//					proposta.setLocal("Plenario - 2o turno");
+//					proposta.adicionaTramitacao("EM VOTACAO (Plenario - 2o turno)");
+//					proposta.setSituacao("EM VOTACAO (Plenario - 2o turno)");
+//				} else {
+//					autor.setLeisAprovadas();
+//					proposta.setTramitacao("APROVADO (Plenario - 2o turno)");
+//					proposta.setLocal("-");
+//					proposta.setSituacao("APROVADO");
+//				}
+//				return true;
+//			} else {
+//				if(proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
+//					proposta.setTramitacao("REJEITADO (Plenario - 1o turno)");
+//				}else {
+//					proposta.setTramitacao("REJEITADO (Plenario - 2o turno)");
+//				}
+//				proposta.setLocal("-");
+//				proposta.setSituacao("ARQUIVADO");
+//				return false;
+//			}
+//		} else {
+//			if (votos >= (((totalDeputados * 3) / 5) + 1)) {
+//				if (proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
+//					proposta.setTramitacao("APROVADO (Plenario - 1o turno)");
+//					proposta.setLocal("Plenario - 2o turno");
+//					proposta.adicionaTramitacao("EM VOTACAO (Plenario - 2o turno)");
+//					proposta.setSituacao("EM VOTACAO (Plenario - 2o turno)");
+//				} else {
+//					autor.setLeisAprovadas();
+//					proposta.setTramitacao("APROVADO (Plenario - 2o turno)");
+//					proposta.setLocal("-");
+//					proposta.setSituacao("APROVADO");
+//				}
+//				return true;
+//			} else {
+//				if(proposta.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
+//					proposta.setTramitacao("REJEITADO (Plenario - 1o turno)");
+//				}else {
+//					proposta.setTramitacao("REJEITADO (Plenario - 2o turno)");
+//				}
+//				proposta.setLocal("-");
+//				proposta.setSituacao("ARQUIVADO");
+//				return false;
+//			}
+//		}
 	}
 
 }

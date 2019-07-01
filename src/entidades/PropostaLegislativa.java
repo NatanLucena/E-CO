@@ -33,7 +33,7 @@ public class PropostaLegislativa implements Serializable {
 	 * Armazena o codigo da proposta legislativa
 	 */
 	protected String codigo;
-
+	
 	/**
 	 * Armazena a ementa da proposta legislativa
 	 */
@@ -244,6 +244,15 @@ public class PropostaLegislativa implements Serializable {
 		this.local = local;
 	}
 	
+	/**
+	 * Metodo que recebe um boolean referente a aprovacao de uma proposta em uma comissao e a partir disso realiza as alteracoes na proposta.
+	 * 
+	 * @param aprovado o boolean referente a aprovacao da lei em comissao
+	 * 
+	 * @param proximoLocal proximo local de votacao da proposta
+	 * 
+	 * @return um boolean referente a aprovacao definitiva da proposta
+	 */
 	public boolean propostaEmComissao(boolean aprovado, String proximoLocal) {
 		boolean leiAprovada = false;
 		if(aprovado) {
@@ -302,6 +311,15 @@ public class PropostaLegislativa implements Serializable {
 		}
 		return leiAprovada;
 	}
-	
+	/**
+	 * Metodo que recebe um boolean representando a aprovacao desse projeto no plenario e executa as modificacoes no projeto a partir disso.
+	 * 
+	 * @param aprovado valor booleano representando a aprovacao do projeto em plenario
+	 * 
+	 * @return um valor boolean representando a aprovacao definitava da proposta de lei
+	 */
+	public boolean propostaEmPlenario(boolean aprovado) {
+		return aprovado;
+	}
 
 }

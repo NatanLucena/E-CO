@@ -197,6 +197,10 @@ public class ControladorDePropostasLegislativas implements Serializable {
 	public boolean propostaEmComissao(String codigo ,boolean aprovado, String proximoLocal) {
 		return this.propostas.get(codigo).propostaEmComissao(aprovado, proximoLocal);
 	}
+	
+	public boolean propostaEmPlenario(String codigo, boolean aprovado) {
+		return this.propostas.get(codigo).propostaEmPlenario(aprovado);
+	}
 
 	/**
 	 * Retorna uma string que exibe toda a tramitacao de uma proposta no sistema

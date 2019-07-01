@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import entidades.Deputado;
+import estrategias.EstrategiaConstitucional;
 
 class DeputadoTest {
 	Deputado deputado;

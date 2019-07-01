@@ -61,4 +61,19 @@ public class PL extends PropostaLegislativa {
 		return "Projeto de Lei - " + super.codigo + " - " + super.autor + " - " + super.ementa + this.getConclusiva() + " - " + super.situacao;
 	}
 
+	@Override
+	public boolean propostaEmPlenario(boolean aprovado) {
+		if (aprovado) {
+			this.setTramitacao("APROVADO (Plenario)");
+			this.setLocal("-");
+			this.setSituacao("APROVADO");
+			return true;
+		} else {
+			this.setTramitacao("REJEITADO (Plenario)");
+			this.setLocal("-");
+			this.setSituacao("ARQUIVADO");
+			return false;
+		}
+	}
+
 }
