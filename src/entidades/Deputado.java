@@ -1,12 +1,21 @@
 package entidades;
 
+import java.io.Serializable;
+
+import metodosAuxiliares.ValidadorGeral;
+
 /**
  * Responsavel por representar um Deputado
  * 
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *
  */
-public class Deputado implements Exibir {
+public class Deputado extends Pessoa implements Serializable {
+
+	/**
+	 * Armazena indentificador de versao de serializacao da classe Deputado.
+	 */
+	private static final long serialVersionUID = -1040910723373503836L;
 
 	/**
 	 * Data de inicio que a pessoa exerceu a funcao de deputado
@@ -17,16 +26,32 @@ public class Deputado implements Exibir {
 	 * Quantidade de leis que o deputado aprovou
 	 */
 	private int leisAprovadas;
+	
+	/**
+	 * Estratégia para o deputado pegar a proposta mais relacionada.
+	 */
+	private String estrategia;
 
+	private ValidadorGeral validadorGeral;
+	
 	/**
 	 * Inicia o deputado a partir da data de inicio da pessoa na funcao de deputado
 	 * 
 	 * @param dataDeInicio que a pessoa exerceu a funcao de deputado
 	 */
-	public Deputado(String dataDeInicio) {
-		this.dataDeInicio = dataDeInicio;
+	public Deputado(String nome, String dni, String estado, String interesses, String partido, String dataDeInicio) {
+		super(nome, dni, estado, interesses, partido);
+		
+		this.validadorGeral = new ValidadorGeral();
+		
+		validadorGeral.validaNullOuVazio(dataDeInicio, "Erro ao cadastrar deputado: data de inicio nao pode ser vazia ou nula");
+		validadorGeral.validaDataDeInicio(dataDeInicio);
+		validadorGeral.verificaDataFutura(dataDeInicio);
+		
+		this.dataDeInicio=dataDeInicio;
 		this.leisAprovadas = 0;
-	}
+		this.estrategia = null;
+}
 
 	/**
 	 * Retorna as quantidade de leis aprovadas pelo deputado
@@ -69,8 +94,9 @@ public class Deputado implements Exibir {
 	 * @return Uma String contendo todas as informacoes disponiveis do deputado
 	 */
 	@Override
-	public String exibir(String nome, String dni, String estado, String partido, String interesses) {
-		return "POL: " + nome + " - " + dni + " (" + estado + ")" + partido + interesses + " - "
+	public String exibir() {
+		return "POL: " + super.getNome() + " - " + super.getDni() + " (" + super.getEstado() + ")" + super.getPartidoToString() + super.getInteressesToString() + " - "
 				+ this.getDataDeInicio() + " - " + this.getLeisAprovadas() + " Leis";
 	}
+	
 }

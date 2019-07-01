@@ -1,18 +1,27 @@
 package entidades;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import estrategias.Estrategia;
+import estrategias.EstrategiaConstitucional;
+import estrategias.EstrategiaAprovacao;
+import estrategias.EstrategiaConclusao;
 import metodosAuxiliares.ValidadorGeral;
 
 /**
- * É responsavel por representar uma pessoa
+ * Responsavel por representar uma pessoa
  * 
  * @author NatanLucena, CayoViegas, lucas-lucena, JacksonMateus
  *
  */
-public class Pessoa {
+public class Pessoa implements Serializable {
+
+	/**
+	 * Armazena indentificador de versao de serializacao da classe Pessoa.
+	 */
+	private static final long serialVersionUID = 4930726363577103229L;
 
 	/**
 	 * Armazena nome da pessoa
@@ -40,14 +49,14 @@ public class Pessoa {
 	private String partido;
 
 	/**
-	 * Muda a forma de exibicao entre Pessoa ou Deputado
-	 */
-	private Exibir exibir;
-
-	/**
 	 * Validador de parametros, que lanca excecoes, caso necessario
 	 */
 	private ValidadorGeral validadorGeral;
+	
+	/**
+	 * Armazena o tipo de estrategia de desempate para propostas os quais a pessoa possui interesses em comun.
+	 */
+	private Estrategia estrategia;
 
 	/**
 	 * Inicia uma pessoa a partir do nome, dni, estado e interesses, alem de
@@ -63,15 +72,16 @@ public class Pessoa {
 		this.validadorGeral = new ValidadorGeral();
 
 		validadorGeral.validaNullOuVazio(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
-		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
-		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+		validadorGeral.validaNullOuVazio(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+		validadorGeral.validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
+		validadorGeral.validaNullOuVazio(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");		
 
 		this.nome = nome;
 		this.dni = dni;
 		this.estado = estado;
 		this.interesses = interesses;
 		this.partido = "";
-		this.exibir = new PessoaComum();
+		this.estrategia = new EstrategiaConstitucional();
 	}
 
 	/**
@@ -89,6 +99,8 @@ public class Pessoa {
 	public Pessoa(String nome, String dni, String estado, String interesses, String partido) {
 		this(nome, dni, estado, interesses);
 
+		validadorGeral.validaNullOuVazio(partido, "Erro ao cadastrar pessoa: partido nao pode ser vazio");
+		
 		this.partido = partido;
 	}
 
@@ -121,11 +133,11 @@ public class Pessoa {
 	}
 
 	/**
-	 * Retorna os interesses da pessoa;
+	 * Retorna os interesses da pessoa para o metodo exibir();
 	 * 
 	 * @return uma String que representa os interesses da pessoa
 	 */
-	public String getInteresses() {
+	public String getInteressesToString() {
 		if (this.interesses == null || this.interesses.equals("")) {
 			return "";
 		} else {
@@ -133,17 +145,31 @@ public class Pessoa {
 		}
 	}
 	
+	/**
+	 * Retorna os interesses da pessoa;
+	 * 
+	 * @return uma String que representa os interesses da pessoa
+	 */
+	public String getInteresses() {
+		return this.interesses;
+	}
+	
+	/**
+	 * Retorna uma lista com os interesses de uma pessoa;
+	 * 
+	 * @return uma lista contendo interesses
+	 */
 	public List<String> getListaDeInteresses() {
 		List<String> interesses = Arrays.asList(this.interesses.split(","));
 		return interesses;
 	}
 
 	/**
-	 * Retorna o partido da pessoa;
+	 * Retorna o partido da pessoa para o metodo exibir();
 	 * 
 	 * @return uma String que representa o estado da pessoa
 	 */
-	public String getPartido() {
+	public String getPartidoToString() {
 		if (partido == null || partido.equals("")) {
 			return "";
 		} else {
@@ -151,33 +177,35 @@ public class Pessoa {
 		}
 	}
 	
-	public String getPartido2() {
+	/**
+	 * Retorna somente o partido da pessoa;
+	 * 
+	 * @return uma String que representa o estado da pessoa
+	 */
+	public String getPartido() {
 		return this.partido;
 	}
-
+	
 	/**
-	 * Altera a funcao de uma pessoa
+	 * Altera o tipo de estrategia de desempate.
 	 * 
-	 * @param dataDeInicio uma String que representa a data de inicio da pessoa na
-	 *                     nova funcao
+	 * @param novaEstrategia nova estrategia que sera implementada por essa pessoa
 	 */
-	public void assumeFuncao(String dataDeInicio) {
-		this.exibir = new Deputado(dataDeInicio);
-	}
-
-	/**
-	 * Verifica se a pessoa exerce a funcao de deputado
-	 * 
-	 * @return Um booleano,se a pessoa exerce a funcao de deputado retorna true,
-	 *         caso contrario retorna falso
-	 */
-	public boolean isDeputado() {
-		return exibir.getClass().equals(Deputado.class);
+	public void setEstrategia(Estrategia novaEstrategia) {
+		this.estrategia = novaEstrategia;
 	}
 	
-	public void setLeisAprovadas() {
-		this.
+	/**
+	 * Retorna o codigo da proposta mais adequada de acordo com o tipo da estrategia.
+	 * 
+	 * @param propostas propostas que serao verificadas
+	 * 
+	 * @return o codigo da proposta mais adequada de acordo com o tipo da estrategia
+	 */
+	public String desempate(List<PropostaLegislativa> propostas) {
+		return this.estrategia.desempate(propostas);
 	}
+
 
 	/**
 	 * Este metodo retorna a representacao textual da pessoa
@@ -185,6 +213,7 @@ public class Pessoa {
 	 * @return uma String contendo todas as informacoes disponiveis da pessoa
 	 */
 	public String exibir() {
-		return exibir.exibir(nome, dni, estado, this.getPartido(), this.getInteresses());
+		return this.getNome() + " - " + this.getDni() + " (" + this.getEstado() + ")" + this.getPartidoToString() + this.getInteressesToString();
 	}
+	
 }
