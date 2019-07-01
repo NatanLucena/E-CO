@@ -7,7 +7,10 @@ import java.util.Date;
 public class ValidadorGeral {
 
 	public void validaNullOuVazio(String entrada, String mensagem) {
+
+		
 		if (entrada == null || entrada.trim().equals("")) {
+			
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
@@ -68,6 +71,12 @@ public class ValidadorGeral {
 
 		catch (ParseException e) {
 			throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
+		}
+	}
+	
+	public void validaEstrategia(String estrategia) {
+		if (estrategia != "CONSTITUCIONAL" && estrategia != "CONCLUSAO" && estrategia != "APROVACAO") {
+			throw new IllegalArgumentException("Erro ao mudar estrategia: estrategia invalida");
 		}
 	}
 }

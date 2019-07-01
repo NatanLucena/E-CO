@@ -2,14 +2,17 @@ package facade;
 
 import controladores.ControladorGeral;
 import easyaccept.EasyAccept;
+import gerenciadordearquivos.SistemaController;
 
 public class Facade {
 	ControladorGeral controlador;
 
 	public static void main(String[] args) {
-		args = new String[] { "facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
+		args = new String[] {
+				"facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
 				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
-				"acceptance_tests/use_case_6.txt", "acceptance_tests/use_case_7.txt"};
+				"acceptance_tests/use_case_6.txt", "acceptance_tests/use_case_7.txt", "acceptance_tests/use_case_8.txt", "acceptance_tests/use_case_9.txt"};
+		
 		EasyAccept.main(args);
 	}
 
@@ -37,48 +40,61 @@ public class Facade {
 		return this.controlador.exibirBase();
 	}
 
-	public void limparSistema() {
-
-	}
-
 	public String exibirPessoa(String dni) {
 		return this.controlador.exibirPessoa(dni);
 	}
 
-	public void carregarSistema() {
-
-	}
-
-	public void salvarSistema() {
-
-	}
-	
 	public void cadastrarComissao(String tema, String politicos) {
 		this.controlador.cadastraComissao(tema, politicos);
 	}
-	
-	public String cadastrarPL (String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+
+	public String cadastrarPL(String autor, int ano, String ementa, String interesses, String url, boolean conclusivo) {
 		return this.controlador.cadastrarPL(autor, ano, ementa, interesses, url, conclusivo);
 	}
-	
-	public String cadastrarPLP (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
+
+	public String cadastrarPLP(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		return this.controlador.cadastrarPLP(autor, ano, ementa, interesses, url, artigos);
 	}
-	
-	public String cadastrarPEC (String autor, int ano, String ementa, String interesses, String url,  String artigos) {
+
+	public String cadastrarPEC(String autor, int ano, String ementa, String interesses, String url, String artigos) {
 		return this.controlador.cadastrarPEC(autor, ano, ementa, interesses, url, artigos);
 	}
-	
-	public String exibirProjeto (String codigo) {
+
+	public String exibirProjeto(String codigo) {
 		return this.controlador.exibirProjeto(codigo);
 	}
-	
+
 	public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) {
 		return this.controlador.votarComissao(codigo, statusGovernista, proximoLocal);
 	}
-	
+
 	public boolean votarPlenario(String codigo, String statusGovernista, String presentes) {
 		return this.controlador.votarPlenario(codigo, statusGovernista, presentes);
+	}
+
+	public String exibirTramitacao(String codigo) {
+		return this.controlador.exibirTramitacao(codigo);
+	}
+
+	public void carregarSistema() {
+//		controlador = SistemaController.carregaSistema();
+	}
+
+	public void limparSistema() {
+		this.controlador = new ControladorGeral();
+		SistemaController.limpaSistema();
+	}
+
+	public void salvarSistema() {
+		SistemaController.salvaSistema(controlador);
+	}
+
+	public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
+		this.controlador.configurarEstrategiaPropostaRelacionada(dni, estrategia);
+	}
+
+	public String pegarPropostaRelacionada(String dni) {
+		return this.controlador.pegarPropostaRelacionada(dni);
 	}
 
 }

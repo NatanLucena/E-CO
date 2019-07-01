@@ -2,43 +2,74 @@ package testesDeUnidade;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import entidades.Deputado;
 import entidades.Pessoa;
 
 class PessoaTest {
-	Pessoa pessoa, pessoa2;
+	Pessoa pessoa, pessoa1, pessoa2;
 
 	@BeforeEach
-	void IniciaPessoa() {
-		pessoa = new Pessoa("Nome", "011111111-0", "PB", "educacao,seguranca publica,saude");
-		pessoa2 = new Pessoa("Jay", "011111111-0", "MG", "interesses", "ABC");
+	void iniciaPessoa() {
+		
+		pessoa = new Pessoa("Lucas", "123456789-9", "PB", "saneamento");
+		pessoa1= new Pessoa("Lucas", "123456789-9", "PB", "saneamento", "PPP");
+		pessoa2= new Pessoa("Cayo",  "444444444-4", "PE", "");
+		
 	}
 
 	@Test
-	void testPessoaStringStringStringString() {
-		Pessoa pessoa2 = new Pessoa("Nome", "011111111-0", "PB", "educacao,seguranca publica,saude");
-		assertEquals(this.pessoa.getNome(), pessoa2.getNome());
-		assertEquals(this.pessoa.getDni(), pessoa2.getDni());
-		assertEquals(this.pessoa.getEstado(), pessoa2.getEstado());
-		assertEquals(this.pessoa.getInteresses(), pessoa2.getInteresses());
+	void construtirTest() {
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa(null, "123456789-0", "PE", "seguranca"));
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("", "123456789-0", "PE", "seguranca"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", null, "PE", "seguranca"));
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "", "PE", "seguranca"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", null, "seguranca"));
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "", "seguranca"));
+
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa(null, "123456789-0", "PE", "seguranca", "PPP"));
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("", "123456789-0", "PE", "seguranca", "PPP"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", null, "PE", "seguranca", "PPP"));
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "", "PE", "seguranca", "PPP"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", null, "seguranca", "PPP"));
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "", "seguranca", "PPP"));
+		
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", "seguranca", null));
+		assertThrows(IllegalArgumentException.class, () -> new Pessoa("Cayo", "123456789-0", "PE", "seguranca", ""));		
+
 	}
 
 	@Test
-	void testPessoaStringStringStringStringString() {
-		Pessoa pessoa3 = new Pessoa("Jay", "011111111-0", "MG", "interesses", "ABC");
-		assertEquals(this.pessoa2.getNome(), pessoa3.getNome());
-		assertEquals(this.pessoa2.getDni(), pessoa3.getDni());
-		assertEquals(this.pessoa2.getEstado(), pessoa3.getEstado());
-		assertEquals(this.pessoa2.getInteresses(), pessoa3.getInteresses());
-		assertEquals(this.pessoa2.getPartido(), pessoa3.getPartido());
+	void exibirTest() {
+		assertEquals("Lucas - 123456789-9 (PB) - Interesses: saneamento", pessoa.exibir());
+
 	}
-
+	
 	@Test
-	void testToString() {
-		assertEquals("Jay - 011111111-0 (MG) - ABC - Interesses: interesses", pessoa2.toString());
+	void getTest() {
+		assertEquals(pessoa.getDni(), "123456789-9");
+		assertEquals(pessoa.getEstado(), "PB");
+		assertEquals(pessoa.getInteressesToString(), " - Interesses: saneamento");
+		assertEquals(pessoa.getInteresses(), "saneamento");
+		assertEquals(pessoa2.getInteressesToString(), "");
+		assertEquals(pessoa.getNome(), "Lucas");
+		assertEquals(pessoa.getPartidoToString(), "");
 
+		assertEquals(pessoa1.getPartidoToString(), " - PPP");
+		assertEquals(pessoa1.getPartido(), "PPP");
+		
+		List<String> interesses = new ArrayList<>();
+		interesses.add("saneamento");
+		assertEquals(pessoa.getListaDeInteresses(), interesses);
 	}
 
 }

@@ -9,42 +9,47 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import entidades.Comissao;
+import entidades.Deputado;
 
 class ComissaoTest {
 	private Comissao comissao;
-	private List<String> integrantes;
-	
+
 	@BeforeEach
 	void iniciaComissao() {
-		this.integrantes = new ArrayList<>();
-		this.integrantes.add("Aaaaa");
-		this.integrantes.add("Bbbbb");
-		this.integrantes.add("Ccccc");
-		this.integrantes.add("Ddddd");
-		this.comissao = new Comissao("Tema", this.integrantes);
+		this.comissao = new Comissao("Tema");
 	}
 
 	@Test
 	void testComissao() {
-		List<String> integrantes1 = new ArrayList<>();
-		integrantes1.add("Aaaaa");
-		integrantes1.add("Bbbbb");
-		integrantes1.add("Ccccc");
-		integrantes1.add("Ddddd");
-		Comissao comissao1 = new Comissao("Tema", integrantes1);
-		
-		assertEquals(comissao1.getTema(), "Tema");
-		assertEquals(comissao1.getIntegrantes());
+		Comissao comissao2 = new Comissao("Tema");
+		assertEquals(comissao2.getTema(), "Tema");
 	}
 
 	@Test
 	void testGetTema() {
-		fail("Not yet implemented");
+		assertEquals(comissao.getTema(), "Tema");
+
+	}
+
+	@Test
+	void testCadastraIntegrante() {
+		List<Deputado> integrantes = new ArrayList<>();
+		Deputado deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
+		integrantes.add(deputado);
+		this.comissao.cadastraIntegrante(deputado);
+
+		assertEquals(integrantes, this.comissao.getIntegrantes());
+
 	}
 
 	@Test
 	void testGetIntegrantes() {
-		fail("Not yet implemented");
-	}
+		List<Deputado> integrantes = new ArrayList<>();
+		Deputado deputado = new Deputado("Jackson", "011111111-0", "PB", "saude, educacao", "DEM", "29022016");
+		integrantes.add(deputado);
+		this.comissao.cadastraIntegrante(deputado);
 
+		assertEquals(integrantes, this.comissao.getIntegrantes());
+
+	}
 }
