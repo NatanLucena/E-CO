@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import entidades.Deputado;
+import estrategias.EstrategiaConstitucional;
 
 class DeputadoTest {
 	Deputado deputado;
@@ -29,9 +30,6 @@ class DeputadoTest {
 		
 		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", null, "seguranca", "PPP", "30112010"));
 		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "", "seguranca", "PPP", "30112010"));
-		
-		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", null, "PPP", "30112010"));
-		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "", "PPP", "30112010"));
 		
 		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", null, "30112010"));
 		assertThrows(IllegalArgumentException.class, () -> new Deputado("Cayo", "123456789-0", "PE", "seguranca", "", "30112010"));
@@ -58,20 +56,5 @@ class DeputadoTest {
 		assertEquals("POL: Lucas - 123456789-9 (PB) - PPP - Interesses: saneamento - 30/11/2010 - 0 Leis", deputado.exibir());
 	}
 	
-	@Test
-	void getESetEstrategiaTest() {
-		assertEquals(null, deputado.getEstrategia());
-		
-		assertThrows(IllegalArgumentException.class, () -> deputado.setEstrategia(""));
-		assertThrows(IllegalArgumentException.class, () -> deputado.setEstrategia("nova"));
-		
-		deputado.setEstrategia("CONSTITUCIONAL");
-		assertEquals("CONSTITUCIONAL", deputado.getEstrategia());
-		deputado.setEstrategia("CONCLUSAO");
-		assertEquals("CONCLUSAO", deputado.getEstrategia());
-		deputado.setEstrategia("APROVACAO");
-		assertEquals("APROVACAO", deputado.getEstrategia());
-		
-	}
 
 }

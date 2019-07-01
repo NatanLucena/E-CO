@@ -371,11 +371,32 @@ public class ControladorGeral implements Serializable {
 		deputados.stream()
 				.forEach(dni -> this.validaDniDeputado(dni, "Erro ao votar proposta: pessoa nao eh deputado"));
 
-		return this.votacao.votaPlenario(this.controladorDePropostasLegislativas.getProposta(codigo),
-				this.controladorDePessoasEDeputados.getPresentes(deputados),
-				this.controladorDePessoasEDeputados.totalDeDeputados(), statusGovernista,
-				this.controladorDePessoasEDeputados
-						.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)));
+		int votacao = this.votacao.votaPlenario(this.controladorDePropostasLegislativas.getListaDeInteresses(codigo),
+				this.controladorDePessoasEDeputados.getPresentes(deputados), statusGovernista);
+		boolean aprovado = false;
+		if(codigo.contains("PL ")) {
+			if(votacao >= ((deputados.size() / 2) + 1)) {
+				aprovado = true;
+			}
+			if(this.controladorDePropostasLegislativas.propostaEmPlenario(codigo, aprovado)) {
+				this.controladorDePessoasEDeputados.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)).setLeisAprovadas();
+			}
+		}else if(codigo.contains("PLP ")) {
+			if(votacao >= ((deputados.size() / 2) + 1)) {
+				aprovado = true;
+			}
+			if(this.controladorDePropostasLegislativas.propostaEmPlenario(codigo, aprovado)) {
+				this.controladorDePessoasEDeputados.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)).setLeisAprovadas();
+			}
+		}else {
+			if(votacao >= (((deputados.size() * 3) / 5) + 1)) {
+				aprovado = true;
+			}
+			if(this.controladorDePropostasLegislativas.propostaEmPlenario(codigo, aprovado)) {
+				this.controladorDePessoasEDeputados.getDeputado(this.controladorDePropostasLegislativas.getAutor(codigo)).setLeisAprovadas();
+			}
+		}
+		return aprovado;
 	}
 
 	/**

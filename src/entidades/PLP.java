@@ -59,4 +59,31 @@ public class PLP extends PropostaLegislativa {
 		return "Projeto de Lei Complementar - " + super.codigo +  " - " + super.autor + " - " + super.ementa + " - " + this.artigosAlterados + " - " + super.situacao;
 	}
 
+	@Override
+	public boolean propostaEmPlenario(boolean aprovado) {
+		boolean leiAprovada = false;
+		if (aprovado) {
+			if (this.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
+				this.setTramitacao("APROVADO (Plenario - 1o turno)");
+				this.setLocal("Plenario - 2o turno");
+				this.adicionaTramitacao("EM VOTACAO (Plenario - 2o turno)");
+				this.setSituacao("EM VOTACAO (Plenario - 2o turno)");
+			} else {
+				leiAprovada = true;
+				this.setTramitacao("APROVADO (Plenario - 2o turno)");
+				this.setLocal("-");
+				this.setSituacao("APROVADO");
+			}
+		} else {
+			if(this.getSituacao().equals("EM VOTACAO (Plenario - 1o turno)")) {
+				this.setTramitacao("REJEITADO (Plenario - 1o turno)");
+			}else {
+				this.setTramitacao("REJEITADO (Plenario - 2o turno)");
+			}
+			this.setLocal("-");
+			this.setSituacao("ARQUIVADO");
+		}
+		return leiAprovada;
+	}
+
 }

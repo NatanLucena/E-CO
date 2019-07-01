@@ -8,11 +8,11 @@ public class Facade {
 	ControladorGeral controlador;
 
 	public static void main(String[] args) {
-//		args = new String[] {
-//				"facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
-//				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
-//				"acceptance_tests/use_case_6.txt"};
-		args = new String[] {"facade.Facade", "acceptance_tests/use_case_7.txt", "acceptance_tests/use_case_8.txt", "acceptance_tests/use_case_9.txt"};
+		args = new String[] {
+				"facade.Facade", "acceptance_tests/use_case_1.txt", "acceptance_tests/use_case_2.txt",
+				"acceptance_tests/use_case_3.txt", "acceptance_tests/use_case_4.txt", "acceptance_tests/use_case_5.txt",
+				"acceptance_tests/use_case_6.txt", "acceptance_tests/use_case_7.txt", "acceptance_tests/use_case_8.txt", "acceptance_tests/use_case_9.txt"};
+		
 		EasyAccept.main(args);
 	}
 
@@ -81,12 +81,12 @@ public class Facade {
 	}
 
 	public void limparSistema() {
-//		this.controlador = new ControladorGeral();
-//		SistemaController.limpaSistema();
+		this.controlador = new ControladorGeral();
+		SistemaController.limpaSistema();
 	}
 
 	public void salvarSistema() {
-//		SistemaController.salvaSistema(controlador);
+		SistemaController.salvaSistema(controlador);
 	}
 
 	public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {

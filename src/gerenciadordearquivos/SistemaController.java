@@ -34,7 +34,7 @@ public class SistemaController {
 		} catch (FileNotFoundException fnf) {
 			System.out.println("Arquivo nao encontrado!");
 		} catch (IOException e) {
-			System.out.println("Erro ao inicializar stream");
+			System.out.println("");
 		} finally {
 			if (fos != null) {
 				try {
@@ -69,7 +69,7 @@ public class SistemaController {
 		} catch (FileNotFoundException e) {
 			System.out.println("Arquivo nao encontrado!");
 		} catch (IOException e) {
-			System.out.println("Erro ao inicializar stream");
+			System.out.println("");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
@@ -104,7 +104,7 @@ public class SistemaController {
 		} catch (FileNotFoundException fnf) {
 			System.out.println("Arquivo nao encontrado!");
 		} catch (IOException e) {
-			System.out.println("Erro ao inicializar stream");
+			System.out.println("");
 		}
 
 	}
